@@ -1,19 +1,19 @@
 export const set = (state, { response }) => {
-    state.project = response;
+    state.blog = response;
 };
 
 export const setAll = (state, { response }) => {
-    state.projects = response;
+    state.blogs = response;
 };
 
 export const add = (state, { response }) => {
-    state.projects.push(response);
+    state.blogs.push(response);
 };
 
 export const update = (state, { response }) => {
     Vue.set(
-        state.projects,
-        parseInt(_.findKey(state.projects, { id: response.id })),
+        state.blogs,
+        parseInt(_.findKey(state.blogs, { id: response.id })),
         response
     );
 };
@@ -21,7 +21,7 @@ export const update = (state, { response }) => {
 export const remove = (state, { requestData }) => {
     Vue.set(
         state,
-        "projects",
-        _.reject(state.projects, { id: requestData.project })
+        "blogs",
+        _.reject(state.blogs, { id: requestData.blog })
     );
 };

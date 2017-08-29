@@ -5338,11 +5338,23 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.request = function (data) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__projects__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tags__ = __webpack_require__(255);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__blogs__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__projects__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__timelines__ = __webpack_require__(263);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__technologies__ = __webpack_require__(259);
+
+
+
+
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    projects: __WEBPACK_IMPORTED_MODULE_0__projects__["a" /* default */]
+    tags: __WEBPACK_IMPORTED_MODULE_0__tags__["a" /* default */],
+    blogs: __WEBPACK_IMPORTED_MODULE_1__blogs__["a" /* default */],
+    projects: __WEBPACK_IMPORTED_MODULE_2__projects__["a" /* default */],
+    timelines: __WEBPACK_IMPORTED_MODULE_3__timelines__["a" /* default */],
+    technologies: __WEBPACK_IMPORTED_MODULE_4__technologies__["a" /* default */]
 });
 
 /***/ }),
@@ -5352,8 +5364,45 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.request = function (data) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get", function() { return get; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "show", function() { return show; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroy", function() { return destroy; });
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
 var get = function get() {
-    Vue.request().get('/api/projects');
+    Vue.request().get('/api/projects', 'projects/setAll');
+};
+
+var store = function store() {
+    Vue.request().post('/api/projects', 'projects/add').then(function () {
+        app.showSuccess('You have created a new project');
+        app.$router.push({ name: 'admin-projects' });
+    });
+};
+
+var show = function show(_ref, project) {
+    _objectDestructuringEmpty(_ref);
+
+    Vue.request().get('/api/projects/' + project, 'projects/set');
+};
+
+var update = function update(_ref2, form) {
+    _objectDestructuringEmpty(_ref2);
+
+    Vue.request().put('/api/projects/' + form.project, 'projects/update').then(function () {
+        app.showSuccess('You have updated the project');
+        app.$router.push({ name: 'admin-projects' });
+    });
+};
+
+var destroy = function destroy(_ref3, project) {
+    _objectDestructuringEmpty(_ref3);
+
+    Vue.request().delete('/api/projects/' + project, 'projects/remove').then(function () {
+        app.showSuccess('You have deleted the project');
+        app.$router.push({ name: 'admin-projects' });
+    });
 };
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
@@ -5365,7 +5414,6 @@ var get = function get() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__state__ = __webpack_require__(183);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions__ = __webpack_require__(180);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mutations__ = __webpack_require__(182);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mutations___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__mutations__);
 
 
 
@@ -5379,9 +5427,45 @@ var get = function get() {
 
 /***/ }),
 /* 182 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Vue, _) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAll", function() { return setAll; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "remove", function() { return remove; });
+var set = function set(state, _ref) {
+    var response = _ref.response;
 
+    state.project = response;
+};
+
+var setAll = function setAll(state, _ref2) {
+    var response = _ref2.response;
+
+    state.projects = response;
+};
+
+var add = function add(state, _ref3) {
+    var response = _ref3.response;
+
+    state.projects.push(response);
+};
+
+var update = function update(state, _ref4) {
+    var response = _ref4.response;
+
+    Vue.set(state.projects, parseInt(_.findKey(state.projects, { id: response.id })), response);
+};
+
+var remove = function remove(state, _ref5) {
+    var requestData = _ref5.requestData;
+
+    Vue.set(state, "projects", _.reject(state.projects, { id: requestData.project }));
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2), __webpack_require__(4)))
 
 /***/ }),
 /* 183 */
@@ -5389,7 +5473,8 @@ var get = function get() {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-    projects: {}
+    projects: {},
+    project: null
 });
 
 /***/ }),
@@ -7792,6 +7877,486 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 250 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get", function() { return get; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "show", function() { return show; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroy", function() { return destroy; });
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+var get = function get() {
+    Vue.request().get('/api/blogs', 'blogs/setAll');
+};
+
+var store = function store() {
+    Vue.request().post('/api/blogs', 'blogs/add').then(function () {
+        app.showSuccess('You have created a new blog');
+        app.$router.push({ name: 'admin-blogs' });
+    });
+};
+
+var show = function show(_ref, blog) {
+    _objectDestructuringEmpty(_ref);
+
+    Vue.request().get('/api/blogs/' + blog, 'blogs/set');
+};
+
+var update = function update(_ref2, form) {
+    _objectDestructuringEmpty(_ref2);
+
+    Vue.request().put('/api/blogs/' + form.blog, 'blogs/update').then(function () {
+        app.showSuccess('You have updated the blog');
+        app.$router.push({ name: 'admin-blogs' });
+    });
+};
+
+var destroy = function destroy(_ref3, blog) {
+    _objectDestructuringEmpty(_ref3);
+
+    Vue.request().delete('/api/blogs/' + blog, 'blogs/remove').then(function () {
+        app.showSuccess('You have deleted the blog');
+        app.$router.push({ name: 'admin-blogs' });
+    });
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+
+/***/ }),
+/* 251 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__state__ = __webpack_require__(253);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions__ = __webpack_require__(250);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mutations__ = __webpack_require__(252);
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    namespaced: true,
+    state: __WEBPACK_IMPORTED_MODULE_0__state__["a" /* default */],
+    mutations: __WEBPACK_IMPORTED_MODULE_2__mutations__,
+    actions: __WEBPACK_IMPORTED_MODULE_1__actions__
+});
+
+/***/ }),
+/* 252 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Vue, _) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAll", function() { return setAll; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "remove", function() { return remove; });
+var set = function set(state, _ref) {
+    var response = _ref.response;
+
+    state.blog = response;
+};
+
+var setAll = function setAll(state, _ref2) {
+    var response = _ref2.response;
+
+    state.blogs = response;
+};
+
+var add = function add(state, _ref3) {
+    var response = _ref3.response;
+
+    state.blogs.push(response);
+};
+
+var update = function update(state, _ref4) {
+    var response = _ref4.response;
+
+    Vue.set(state.blogs, parseInt(_.findKey(state.blogs, { id: response.id })), response);
+};
+
+var remove = function remove(state, _ref5) {
+    var requestData = _ref5.requestData;
+
+    Vue.set(state, "blogs", _.reject(state.blogs, { id: requestData.blog }));
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2), __webpack_require__(4)))
+
+/***/ }),
+/* 253 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    blogs: {},
+    blog: null
+});
+
+/***/ }),
+/* 254 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get", function() { return get; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "show", function() { return show; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroy", function() { return destroy; });
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+var get = function get() {
+    Vue.request().get('/api/tags', 'tags/setAll');
+};
+
+var store = function store() {
+    Vue.request().post('/api/tags', 'tags/add').then(function () {
+        app.showSuccess('You have created a new tag');
+        app.$router.push({ name: 'admin-tags' });
+    });
+};
+
+var show = function show(_ref, tag) {
+    _objectDestructuringEmpty(_ref);
+
+    Vue.request().get('/api/tags/' + tag, 'tags/set');
+};
+
+var update = function update(_ref2, form) {
+    _objectDestructuringEmpty(_ref2);
+
+    Vue.request().put('/api/tags/' + form.tag, 'tags/update').then(function () {
+        app.showSuccess('You have updated the tag');
+        app.$router.push({ name: 'admin-tags' });
+    });
+};
+
+var destroy = function destroy(_ref3, tag) {
+    _objectDestructuringEmpty(_ref3);
+
+    Vue.request().delete('/api/tags/' + tag, 'tags/remove').then(function () {
+        app.showSuccess('You have deleted the tag');
+        app.$router.push({ name: 'admin-tags' });
+    });
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+
+/***/ }),
+/* 255 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__state__ = __webpack_require__(257);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions__ = __webpack_require__(254);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mutations__ = __webpack_require__(256);
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    namespaced: true,
+    state: __WEBPACK_IMPORTED_MODULE_0__state__["a" /* default */],
+    mutations: __WEBPACK_IMPORTED_MODULE_2__mutations__,
+    actions: __WEBPACK_IMPORTED_MODULE_1__actions__
+});
+
+/***/ }),
+/* 256 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Vue, _) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAll", function() { return setAll; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "remove", function() { return remove; });
+var set = function set(state, _ref) {
+    var response = _ref.response;
+
+    state.tag = response;
+};
+
+var setAll = function setAll(state, _ref2) {
+    var response = _ref2.response;
+
+    state.tags = response;
+};
+
+var add = function add(state, _ref3) {
+    var response = _ref3.response;
+
+    state.tags.push(response);
+};
+
+var update = function update(state, _ref4) {
+    var response = _ref4.response;
+
+    Vue.set(state.tags, parseInt(_.findKey(state.tags, { id: response.id })), response);
+};
+
+var remove = function remove(state, _ref5) {
+    var requestData = _ref5.requestData;
+
+    Vue.set(state, "tags", _.reject(state.tags, { id: requestData.tag }));
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2), __webpack_require__(4)))
+
+/***/ }),
+/* 257 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    tags: {},
+    tag: null
+});
+
+/***/ }),
+/* 258 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get", function() { return get; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "show", function() { return show; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroy", function() { return destroy; });
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+var get = function get() {
+    Vue.request().get('/api/technologies', 'technologies/setAll');
+};
+
+var store = function store() {
+    Vue.request().post('/api/technologies', 'technologies/add').then(function () {
+        app.showSuccess('You have created a new technologies');
+        app.$router.push({ name: 'admin-technologies' });
+    });
+};
+
+var show = function show(_ref, technology) {
+    _objectDestructuringEmpty(_ref);
+
+    Vue.request().get('/api/technologies/' + technology, 'technologies/set');
+};
+
+var update = function update(_ref2, form) {
+    _objectDestructuringEmpty(_ref2);
+
+    Vue.request().put('/api/technologies/' + form.technology, 'technologies/update').then(function () {
+        app.showSuccess('You have updated the technologies');
+        app.$router.push({ name: 'admin-technologies' });
+    });
+};
+
+var destroy = function destroy(_ref3, technologies) {
+    _objectDestructuringEmpty(_ref3);
+
+    Vue.request().delete('/api/technologies/' + technologies, 'technologies/remove').then(function () {
+        app.showSuccess('You have deleted the technologies');
+        app.$router.push({ name: 'admin-technologies' });
+    });
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+
+/***/ }),
+/* 259 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__state__ = __webpack_require__(261);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions__ = __webpack_require__(258);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mutations__ = __webpack_require__(260);
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    namespaced: true,
+    state: __WEBPACK_IMPORTED_MODULE_0__state__["a" /* default */],
+    mutations: __WEBPACK_IMPORTED_MODULE_2__mutations__,
+    actions: __WEBPACK_IMPORTED_MODULE_1__actions__
+});
+
+/***/ }),
+/* 260 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Vue, _) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAll", function() { return setAll; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "remove", function() { return remove; });
+var set = function set(state, _ref) {
+    var response = _ref.response;
+
+    state.technologies = response;
+};
+
+var setAll = function setAll(state, _ref2) {
+    var response = _ref2.response;
+
+    state.technologiess = response;
+};
+
+var add = function add(state, _ref3) {
+    var response = _ref3.response;
+
+    state.technologiess.push(response);
+};
+
+var update = function update(state, _ref4) {
+    var response = _ref4.response;
+
+    Vue.set(state.technologiess, parseInt(_.findKey(state.technologiess, { id: response.id })), response);
+};
+
+var remove = function remove(state, _ref5) {
+    var requestData = _ref5.requestData;
+
+    Vue.set(state, "technologiess", _.reject(state.technologiess, { id: requestData.technologies }));
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2), __webpack_require__(4)))
+
+/***/ }),
+/* 261 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    technology: null,
+    technologies: {}
+});
+
+/***/ }),
+/* 262 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get", function() { return get; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "show", function() { return show; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroy", function() { return destroy; });
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+var get = function get() {
+    Vue.request().get('/api/timelines', 'timelines/setAll');
+};
+
+var store = function store() {
+    Vue.request().post('/api/timelines', 'timelines/add').then(function () {
+        app.showSuccess('You have created a new timeline');
+        app.$router.push({ name: 'admin-timelines' });
+    });
+};
+
+var show = function show(_ref, timeline) {
+    _objectDestructuringEmpty(_ref);
+
+    Vue.request().get('/api/timelines/' + timeline, 'timelines/set');
+};
+
+var update = function update(_ref2, form) {
+    _objectDestructuringEmpty(_ref2);
+
+    Vue.request().put('/api/timelines/' + form.timeline, 'timelines/update').then(function () {
+        app.showSuccess('You have updated the timeline');
+        app.$router.push({ name: 'admin-timelines' });
+    });
+};
+
+var destroy = function destroy(_ref3, timeline) {
+    _objectDestructuringEmpty(_ref3);
+
+    Vue.request().delete('/api/timelines/' + timeline, 'timelines/remove').then(function () {
+        app.showSuccess('You have deleted the timeline');
+        app.$router.push({ name: 'admin-timelines' });
+    });
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+
+/***/ }),
+/* 263 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__state__ = __webpack_require__(265);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions__ = __webpack_require__(262);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mutations__ = __webpack_require__(264);
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    namespaced: true,
+    state: __WEBPACK_IMPORTED_MODULE_0__state__["a" /* default */],
+    mutations: __WEBPACK_IMPORTED_MODULE_2__mutations__,
+    actions: __WEBPACK_IMPORTED_MODULE_1__actions__
+});
+
+/***/ }),
+/* 264 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Vue, _) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAll", function() { return setAll; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "remove", function() { return remove; });
+var set = function set(state, _ref) {
+    var response = _ref.response;
+
+    state.timeline = response;
+};
+
+var setAll = function setAll(state, _ref2) {
+    var response = _ref2.response;
+
+    state.timelines = response;
+};
+
+var add = function add(state, _ref3) {
+    var response = _ref3.response;
+
+    state.timelines.push(response);
+};
+
+var update = function update(state, _ref4) {
+    var response = _ref4.response;
+
+    Vue.set(state.timelines, parseInt(_.findKey(state.timelines, { id: response.id })), response);
+};
+
+var remove = function remove(state, _ref5) {
+    var requestData = _ref5.requestData;
+
+    Vue.set(state, "timelines", _.reject(state.timelines, { id: requestData.timeline }));
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2), __webpack_require__(4)))
+
+/***/ }),
+/* 265 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    timelines: {},
+    timeline: null
+});
 
 /***/ })
 ],[199]);
