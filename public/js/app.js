@@ -5126,6 +5126,55 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5133,15 +5182,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             form: {
                 url: null,
                 name: null,
-                html: null
+                html: null,
+                timeline: null,
+                end_date: null,
+                start_date: null
             }
         };
+    },
+    created: function created() {
+        this.$store.dispatch('timelines/get');
+    },
+
+    computed: {
+        timelines: function timelines() {
+            return this.$store.state.timelines.timelines;
+        }
     }
 });
 
@@ -5250,7 +5313,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(_) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5261,10 +5354,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            form: {}
+            form: this.createForm({
+                url: null,
+                color: null,
+                name: null
+            })
         };
+    },
+    created: function created() {
+        this.fetchData();
+    },
+
+    watch: {
+        '$route': 'fetchData',
+        'technology': function technology() {
+            this.form.fill(this.technology);
+        }
+    },
+    methods: {
+        submit: function submit() {
+            if (this.technology) {
+                return this.update();
+            }
+            this.create();
+        },
+        create: function create() {
+            this.$store.dispatch('technologies/store', this.form);
+        },
+        update: function update() {
+            this.$store.dispatch('technologies/update', _.merge(this.form, { technology: this.technology.id }));
+        },
+        fetchData: function fetchData() {
+            var technology = this.$route.params.technology;
+
+            if (technology) {
+                this.$store.dispatch('technologies/show', technology);
+            }
+        }
+    },
+    computed: {
+        technology: function technology() {
+            return this.$store.state.technologies.technology;
+        }
     }
 });
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
 /* 174 */
@@ -5278,8 +5412,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    created: function created() {
+        this.$store.dispatch('technologies/get');
+    },
+
+    methods: {
+        deleteTechnology: function deleteTechnology(technology) {
+            this.$store.dispatch('technologies/destroy', technology.id);
+        }
+    },
+    computed: {
+        technologies: function technologies() {
+            return this.$store.state.technologies.technologies;
+        }
+    }
+});
 
 /***/ }),
 /* 175 */
@@ -5889,11 +6063,17 @@ __webpack_require__(183);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-    path: '/admin/technologies', component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a, name: 'admin-technologies'
+    component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a,
+    name: 'admin-technologies',
+    path: '/admin/technologies'
 }, {
-    path: '/admin/technologies/create', component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a, name: 'admin-technologies-create'
+    component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
+    name: 'admin-technologies-create',
+    path: '/admin/technologies/create'
 }, {
-    path: '/admin/technologies/edit', component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a, name: 'admin-technologies-edit'
+    component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
+    name: 'admin-technologies-edit',
+    path: '/admin/technologies/edit/:technology'
 }]);
 
 /***/ }),
@@ -6424,32 +6604,34 @@ var get = function get() {
     Vue.request().get('/api/technologies', 'technologies/setAll');
 };
 
-var store = function store() {
-    Vue.request().post('/api/technologies', 'technologies/add').then(function () {
+var store = function store(_ref, form) {
+    _objectDestructuringEmpty(_ref);
+
+    Vue.request(form).post('/api/technologies', 'technologies/add').then(function () {
         app.showSuccess('You have created a new technologies');
         app.$router.push({ name: 'admin-technologies' });
     });
 };
 
-var show = function show(_ref, technology) {
-    _objectDestructuringEmpty(_ref);
+var show = function show(_ref2, technology) {
+    _objectDestructuringEmpty(_ref2);
 
     Vue.request().get('/api/technologies/' + technology, 'technologies/set');
 };
 
-var update = function update(_ref2, form) {
-    _objectDestructuringEmpty(_ref2);
+var update = function update(_ref3, form) {
+    _objectDestructuringEmpty(_ref3);
 
-    Vue.request().put('/api/technologies/' + form.technology, 'technologies/update').then(function () {
+    Vue.request(form).put('/api/technologies/' + form.technology, 'technologies/update').then(function () {
         app.showSuccess('You have updated the technologies');
         app.$router.push({ name: 'admin-technologies' });
     });
 };
 
-var destroy = function destroy(_ref3, technologies) {
-    _objectDestructuringEmpty(_ref3);
+var destroy = function destroy(_ref4, technologies) {
+    _objectDestructuringEmpty(_ref4);
 
-    Vue.request().delete('/api/technologies/' + technologies, 'technologies/remove').then(function () {
+    Vue.request(technologies).delete('/api/technologies/' + technologies, 'technologies/remove').then(function () {
         app.showSuccess('You have deleted the technologies');
         app.$router.push({ name: 'admin-technologies' });
     });
@@ -6489,31 +6671,31 @@ var destroy = function destroy(_ref3, technologies) {
 var set = function set(state, _ref) {
     var response = _ref.response;
 
-    state.technologies = response;
+    state.technology = response;
 };
 
 var setAll = function setAll(state, _ref2) {
     var response = _ref2.response;
 
-    state.technologiess = response;
+    state.technologies = response;
 };
 
 var add = function add(state, _ref3) {
     var response = _ref3.response;
 
-    state.technologiess.push(response);
+    state.technologies.push(response);
 };
 
 var update = function update(state, _ref4) {
     var response = _ref4.response;
 
-    Vue.set(state.technologiess, parseInt(_.findKey(state.technologiess, { id: response.id })), response);
+    Vue.set(state.technologies, parseInt(_.findKey(state.technologies, { id: response.id })), response);
 };
 
 var remove = function remove(state, _ref5) {
     var requestData = _ref5.requestData;
 
-    Vue.set(state, "technologiess", _.reject(state.technologiess, { id: requestData.technologies }));
+    Vue.set(state, "technologies", _.reject(state.technologies, { id: requestData.value }));
 };
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2), __webpack_require__(4)))
 
@@ -8751,7 +8933,75 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section')
+  return _c('section', [_c('div', {
+    staticClass: "col-md-3"
+  }, [_c('h3', [_vm._v("Create Technology")]), _vm._v(" "), _c('form', {
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.submit($event)
+      }
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Name")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.name),
+      expression: "form.name"
+    }],
+    staticClass: "form-control",
+    domProps: {
+      "value": (_vm.form.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.name = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("URL")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.url),
+      expression: "form.url"
+    }],
+    staticClass: "form-control",
+    domProps: {
+      "value": (_vm.form.url)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.url = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Color")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.color),
+      expression: "form.color"
+    }],
+    staticClass: "form-control",
+    domProps: {
+      "value": (_vm.form.color)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.color = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary"
+  }, [(_vm.technology) ? [_vm._v("\n                    Update\n                ")] : [_vm._v("\n                    Create\n                ")]], 2)])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -9064,8 +9314,154 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', [_vm._v("\n    create timline\n")])
-},staticRenderFns: []}
+  return _c('section', [_c('div', {
+    staticClass: "col-md-9"
+  }, [_c('froala', {
+    model: {
+      value: (_vm.form.html),
+      callback: function($$v) {
+        _vm.form.html = $$v
+      },
+      expression: "form.html"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Name")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.name),
+      expression: "form.name"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "url"
+    },
+    domProps: {
+      "value": (_vm.form.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.name = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("URL")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.url),
+      expression: "form.url"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "url"
+    },
+    domProps: {
+      "value": (_vm.form.url)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.url = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Start Date")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.start_date),
+      expression: "form.start_date"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "date"
+    },
+    domProps: {
+      "value": (_vm.form.start_date)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.start_date = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("End Date")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.end_date),
+      expression: "form.end_date"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "date"
+    },
+    domProps: {
+      "value": (_vm.form.end_date)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.end_date = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Timeline")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.timeline),
+      expression: "form.timeline"
+    }],
+    staticClass: "form-control",
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.form.timeline = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option'), _vm._v(" "), _vm._l((_vm.timelines), function(timeline) {
+    return _c('option', {
+      domProps: {
+        "value": timeline.id
+      }
+    }, [_vm._v("\n                    " + _vm._s(timeline.name) + "\n                ")])
+  })], 2)]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('br'), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary"
+  }, [_vm._v("Create")])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Project Image")]), _vm._v(" "), _c('div', {
+    staticClass: "dropzone"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Technologies")]), _vm._v(" "), _c('select', {
+    staticClass: "form-control",
+    attrs: {
+      "multiple": ""
+    }
+  }, [_c('option')])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -9210,8 +9606,37 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', [_vm._v("\n    technologies\n")])
-},staticRenderFns: []}
+  return _c('section', [_c('h3', [_vm._v("Technologies")]), _vm._v(" "), (_vm.technologies.length) ? [_c('table', {
+    staticClass: "table table-striped"
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.technologies), function(technology) {
+    return _c('tr', [_c('td', [_c('router-link', {
+      attrs: {
+        "to": {
+          name: 'admin-technologies-edit',
+          params: {
+            technology: technology.id
+          }
+        }
+      }
+    }, [_vm._v("\n                        " + _vm._s(technology.name) + "\n                    ")])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(technology.url))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(technology.color))]), _vm._v(" "), _c('td', [_c('div', {
+      staticClass: "btn-link confirm",
+      on: {
+        "click": function($event) {
+          _vm.deleteTechnology(technology)
+        }
+      }
+    }, [_vm._v("Delete")])])])
+  }))])] : _vm._e(), _vm._v(" "), _c('router-link', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "to": {
+        name: 'admin-technologies-create'
+      }
+    }
+  }, [_vm._v("Create")])], 2)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("URL")]), _vm._v(" "), _c('th', [_vm._v("Color")]), _vm._v(" "), _c('th')])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
