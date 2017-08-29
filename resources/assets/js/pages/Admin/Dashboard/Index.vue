@@ -1,6 +1,5 @@
 <template>
     <section>
-        woo
         <div class="col-md-6 admin-comments">
             <div class="panel panel-default">
                 <div class="panel-heading">

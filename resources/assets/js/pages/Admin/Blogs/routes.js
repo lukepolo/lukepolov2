@@ -3,12 +3,12 @@ import Index from './Index.vue'
 
 export default [
     {
-        path: '/admin/projects', component: Index, name : 'admin-projects',
+        path: '/admin/blogs', component: Index, name : 'admin-blogs',
     },
     {
-        path: '/admin/projects/create', component: Form, name : 'admin-projects-create',
+        path: '/admin/blogs/create', component: Form, name : 'admin-blogs-create',
     },
     {
-        path: '/admin/projects/edit', component: Form, name : 'admin-projects-edit',
+        path: '/admin/blogs/edit', component: Form, name : 'admin-blogs-edit',
     }
 ]

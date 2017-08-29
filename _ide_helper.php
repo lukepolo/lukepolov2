@@ -12126,114 +12126,6 @@ namespace Illuminate\Support\Facades {
  
 }
 
-namespace Intervention\Image\Facades { 
-
-    class Image {
-        
-        /**
-         * Overrides configuration settings
-         *
-         * @param array $config
-         * @static 
-         */ 
-        public static function configure($config = array())
-        {
-            return \Intervention\Image\ImageManager::configure($config);
-        }
-        
-        /**
-         * Initiates an Image instance from different input types
-         *
-         * @param mixed $data
-         * @return \Intervention\Image\Image 
-         * @static 
-         */ 
-        public static function make($data)
-        {
-            return \Intervention\Image\ImageManager::make($data);
-        }
-        
-        /**
-         * Creates an empty image canvas
-         *
-         * @param integer $width
-         * @param integer $height
-         * @param mixed $background
-         * @return \Intervention\Image\Image 
-         * @static 
-         */ 
-        public static function canvas($width, $height, $background = null)
-        {
-            return \Intervention\Image\ImageManager::canvas($width, $height, $background);
-        }
-        
-        /**
-         * Create new cached image and run callback
-         * (requires additional package intervention/imagecache)
-         *
-         * @param \Closure $callback
-         * @param integer $lifetime
-         * @param boolean $returnObj
-         * @return \Image 
-         * @static 
-         */ 
-        public static function cache($callback, $lifetime = null, $returnObj = false)
-        {
-            return \Intervention\Image\ImageManager::cache($callback, $lifetime, $returnObj);
-        }
-         
-    }
- 
-}
-
-namespace Spatie\Glide { 
-
-    class GlideImageFacade {
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function create($sourceFile)
-        {
-            return \Spatie\Glide\GlideImage::create($sourceFile);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function setSourceFile($sourceFile)
-        {
-            return \Spatie\Glide\GlideImage::setSourceFile($sourceFile);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function modify($modificationParameters)
-        {
-            return \Spatie\Glide\GlideImage::modify($modificationParameters);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function save($outputFile)
-        {
-            return \Spatie\Glide\GlideImage::save($outputFile);
-        }
-         
-    }
- 
-}
-
 namespace Barryvdh\Debugbar { 
 
     class Facade {
@@ -12782,6 +12674,66 @@ namespace Barryvdh\Debugbar {
  
 }
 
+namespace Intervention\Image\Facades { 
+
+    class Image {
+        
+        /**
+         * Overrides configuration settings
+         *
+         * @param array $config
+         * @static 
+         */ 
+        public static function configure($config = array())
+        {
+            return \Intervention\Image\ImageManager::configure($config);
+        }
+        
+        /**
+         * Initiates an Image instance from different input types
+         *
+         * @param mixed $data
+         * @return \Intervention\Image\Image 
+         * @static 
+         */ 
+        public static function make($data)
+        {
+            return \Intervention\Image\ImageManager::make($data);
+        }
+        
+        /**
+         * Creates an empty image canvas
+         *
+         * @param integer $width
+         * @param integer $height
+         * @param mixed $background
+         * @return \Intervention\Image\Image 
+         * @static 
+         */ 
+        public static function canvas($width, $height, $background = null)
+        {
+            return \Intervention\Image\ImageManager::canvas($width, $height, $background);
+        }
+        
+        /**
+         * Create new cached image and run callback
+         * (requires additional package intervention/imagecache)
+         *
+         * @param \Closure $callback
+         * @param integer $lifetime
+         * @param boolean $returnObj
+         * @return \Image 
+         * @static 
+         */ 
+        public static function cache($callback, $lifetime = null, $returnObj = false)
+        {
+            return \Intervention\Image\ImageManager::cache($callback, $lifetime, $returnObj);
+        }
+         
+    }
+ 
+}
+
 namespace Laravel\Socialite\Facades { 
 
     class Socialite {
@@ -12872,6 +12824,54 @@ namespace Laravel\Socialite\Facades {
         {
             //Method inherited from \Illuminate\Support\Manager            
             return \Laravel\Socialite\SocialiteManager::getDrivers();
+        }
+         
+    }
+ 
+}
+
+namespace Spatie\Glide { 
+
+    class GlideImageFacade {
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function create($sourceFile)
+        {
+            return \Spatie\Glide\GlideImage::create($sourceFile);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function setSourceFile($sourceFile)
+        {
+            return \Spatie\Glide\GlideImage::setSourceFile($sourceFile);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function modify($modificationParameters)
+        {
+            return \Spatie\Glide\GlideImage::modify($modificationParameters);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function save($outputFile)
+        {
+            return \Spatie\Glide\GlideImage::save($outputFile);
         }
          
     }
@@ -12974,6 +12974,18 @@ namespace  {
             public static function whereKey($id)
             {    
                 return \Illuminate\Database\Eloquent\Builder::whereKey($id);
+            }
+         
+            /**
+             * Add a where clause on the primary key to the query.
+             *
+             * @param mixed $id
+             * @return $this 
+             * @static 
+             */ 
+            public static function whereKeyNot($id)
+            {    
+                return \Illuminate\Database\Eloquent\Builder::whereKeyNot($id);
             }
          
             /**
@@ -14981,13 +14993,13 @@ namespace  {
 
     class View extends \Illuminate\Support\Facades\View {}
 
-    class Image extends \Intervention\Image\Facades\Image {}
-
-    class GlideImage extends \Spatie\Glide\GlideImageFacade {}
-
     class Debugbar extends \Barryvdh\Debugbar\Facade {}
 
+    class Image extends \Intervention\Image\Facades\Image {}
+
     class Socialite extends \Laravel\Socialite\Facades\Socialite {}
+
+    class GlideImage extends \Spatie\Glide\GlideImageFacade {}
  
 }
 
