@@ -1,23 +1,4 @@
-
-window._ = require('lodash');
-
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
-
-window.$ = window.jQuery = require('jquery');
-
-require('bootstrap-sass');
-
-/**
- * Vue is a modern JavaScript library for building interactive web interfaces
- * using reactive data binding and reusable components. Vue's API is clean
- * and simple, leaving you to focus on building your next great project.
- */
-
-window.Vue = require('vue');
+window.moment = require('moment-timezone')
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -25,10 +6,30 @@ window.Vue = require('vue');
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+window.axios = require('axios')
 
-window.axios.defaults.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+
+axios.interceptors.request.use((config) => {
+    NProgress.configure({
+        easing: 'ease',
+        speed: 500,
+        showSpinner: false,
+    })
+    NProgress.start()
+    NProgress.inc(0.3)
+    return config
+}, function (error) {
+    return Promise.reject(error)
+})
+
+axios.interceptors.response.use((response) => {
+    NProgress.done()
+    return response
+}, function (error) {
+    return Promise.reject(error)
+})
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -38,7 +39,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 import Echo from 'laravel-echo'
 
-window.Pusher = require('pusher-js');
+window.Pusher = require('pusher-js')
 
 window.Echo = new Echo({
     broadcaster: 'pusher',

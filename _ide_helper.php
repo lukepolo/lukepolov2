@@ -11485,6 +11485,53 @@ namespace Illuminate\Support\Facades {
     }         
 }
     
+namespace Spatie\Glide {
+
+    class GlideImageFacade {
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function create($sourceFile)
+        {
+            return \Spatie\Glide\GlideImage::create($sourceFile);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function setSourceFile($sourceFile)
+        {
+            return \Spatie\Glide\GlideImage::setSourceFile($sourceFile);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function modify($modificationParameters)
+        {
+            return \Spatie\Glide\GlideImage::modify($modificationParameters);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function save($outputFile)
+        {
+            return \Spatie\Glide\GlideImage::save($outputFile);
+        }
+        
+    }         
+}
+    
 namespace Laravel\Socialite\Facades {
 
     class Socialite {
@@ -13619,6 +13666,8 @@ namespace {
             return \Illuminate\Database\Query\Builder::macroCall($method, $parameters);
         }
         }
+    
+    class GlideImage extends \Spatie\Glide\GlideImageFacade {}
     
     class Socialite extends \Laravel\Socialite\Facades\Socialite {}
     

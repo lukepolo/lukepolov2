@@ -1,0 +1,62 @@
+#main-nav {
+  &.navbar {
+    margin-bottom: 0px;
+    border: none;
+    background-color: rgb(54, 134, 190);
+  }
+  &.navbar-default,
+  .navbar-nav > li > a {
+    color: #FFFFFF !important;
+    font-size: 17px;
+    border-radius: 0;
+  }
+
+  .navbar-brand {
+    color: #FFFFFF !important;
+    font-size: 25px;
+  }
+
+  .navbar-nav > li > a {
+    border-bottom: 1px solid transparent;
+  }
+  .navbar-header a:hover,
+  .navbar-nav > li > a:hover {
+    border-bottom: 1px dotted #FFFFFF;
+  }
+
+  // TODO - need to fix
+  //@media (max-width: $grid-float-breakpoint-max) {
+  //  .open .dropdown-menu {
+  //    > li > a {
+  //      color: #ffffff !important;
+  //      border-bottom: 1px solid transparent !important;
+  //      &:hover {
+  //        border-bottom: 1px dotted #FFFFFF !important;
+  //      }
+  //    }
+  //  }
+  //}
+
+  .navbar-nav > .open > a,
+  .navbar-nav > .open > a:hover,
+  .navbar-nav > .open > a:focus {
+    background-color: rgb(43, 116, 167);
+    color: #FFFFFF;
+  }
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #FFFFFF;
+}
+
+.navbar-default .navbar-toggle {
+
+  background-color: transparent;
+  border-color: transparent;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    border-color: transparent;
+  }
+}

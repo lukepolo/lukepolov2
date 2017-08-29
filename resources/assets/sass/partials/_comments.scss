@@ -1,0 +1,91 @@
+.comment-area {
+  .navbar {
+    border-radius: 0;
+    border: none;
+    border-bottom: 3px solid #F1F1F1;
+  }
+
+  .navbar-nav {
+    > li {
+      float: left;
+      &.dropdown a {
+        top: 8px;
+      }
+      > a {
+        position: relative;
+        top: 6px;
+        border-bottom: 3px solid transparent;
+      }
+    }
+  }
+
+  .navbar-nav > li > .dropdown-menu {
+    margin-top: 7px;
+  }
+
+  .navbar-header a:hover,
+  .navbar-nav > li > a:hover {
+    border-bottom: 3px solid #F9AA8B;
+    background: none;
+  }
+  .nav .open > a,
+  .nav .open > a:hover,
+  .nav .open > a:focus {
+    background: none;
+  }
+
+  input {
+    height: 48px;
+  }
+  .comments {
+    margin-top: 15px;
+    font-size: 15px;
+
+    .comment-row {
+      clear: both;
+    }
+    .user-name {
+      font-weight: bolder;
+    }
+    .comment {
+      margin-top: 5px;
+    }
+  }
+  .comment-footer {
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+  .comment-footer,
+  .timestamp {
+    color: #828282;
+  }
+
+  .timestamp:before {
+    content: '\2022 \00a0';
+  }
+
+  .comment-post {
+    height: initial;
+  }
+  hr {
+    margin: 10px;
+  }
+  .up-vote {
+    cursor: pointer;
+    &.up-selected {
+      color: $swb-green;
+    }
+  }
+  .down-vote {
+    cursor: pointer;
+    &.down-selected {
+      color: $swb-red;
+    }
+  }
+  .voting {
+    margin-left: 5px;
+  }
+  .cancel {
+    margin-right: 5px;
+  }
+}

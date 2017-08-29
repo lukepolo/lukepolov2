@@ -182,6 +182,7 @@ return [
         /*
         * Third Party Service Providers...
         */
+        Lord\Laroute\LarouteServiceProvider::class,
         Spatie\Analytics\AnalyticsServiceProvider::class,
         Spatie\Glide\GlideServiceProvider::class,
 

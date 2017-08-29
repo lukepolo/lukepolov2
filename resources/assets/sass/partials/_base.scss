@@ -1,0 +1,129 @@
+$swb-orange: rgb(249, 170, 139);
+$swb-yellow: rgb(249, 202, 139);
+$swb-blue: rgb(94, 131, 160);
+$swb-green: rgb(95, 171, 138);
+$swb-red: rgb(196, 114, 81);
+$swb-lightBlue: rgb(207, 226, 241);
+$swb-lightGrey: rgb(119, 119, 119);
+
+html, body {
+  font-family: 'Josefin Slab', serif;
+  font-size: 20px;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 135px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  /* Set the fixed height of the footer here */
+  height: 100px;
+  background-color: rgb(46, 50, 52);
+  text-align: center;
+  padding-top: 35px;
+  color: #FFFFFF;
+  font-size: 15px;
+}
+
+body.admin,
+html.admin {
+  font-size: 12px;
+}
+
+.select2-container {
+  width: 100% !important;
+  max-width: 150px;
+}
+
+.panel {
+  border-radius: 0;
+  .panel-color {
+    padding-top: 7px;
+    background-color: #777777;
+  }
+}
+
+.panel-body {
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.select-title {
+  h1 {
+    margin-bottom: -5px;
+  }
+}
+
+.no-border {
+  border: none;
+}
+
+.checkbox {
+  font-size: 15px;
+}
+
+.error-page {
+  .title {
+    font-size: 42px;
+    text-align: center;
+    margin-top: 100px;
+  }
+}
+
+.mini-bar {
+  color: #FFFFFF;
+  min-height: 12px;
+  background-color: rgb(43, 116, 167);
+  margin-bottom: 15px
+}
+
+.big-bottom-padding {
+  padding-bottom: 50px;
+}
+
+.btn {
+  border-radius: 1px;
+}
+
+.login-buttons {
+  font-size: 100px;
+  text-align: center;
+}
+
+.btn-link {
+  cursor: pointer;
+}
+
+.user-image {
+  border-radius: 4px;
+}
+
+@media (max-width: 767px) {
+  .youtubeWrapper {
+    position: relative;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 56.25%;
+  }
+
+  .youtubeWrapper iframe,
+  .youtubeWrapper object,
+  .youtubeWrapper embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

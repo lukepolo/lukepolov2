@@ -13,6 +13,32 @@ const { mix } = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
-    .browserSync({
-        proxy: 'lukepolo.dev'
-    });
+    .extract([
+        'vue',
+        'vuex',
+        'axios',
+        'lodash',
+        'jquery',
+        'chartjs',
+        'select2',
+        'tinycolor',
+        'vue-router',
+        'snapsvg-cjs',
+        'bootstrap-sass',
+        'moment-timezone',
+    ])
+    .autoload({
+        vue : 'Vue',
+        lodash : '_',
+        select2 : 'select2',
+        chartjs : 'chartjs',
+        'pusher-js' : 'Pusher',
+        'snap' : 'snapsvg-cjs',
+        tinycolor : 'tinycolor',
+        jquery: ['$', 'jQuery'],
+    })
+mix.browserSync({
+    open: 'external',
+    host : 'lukepolo.dev',
+    proxy : 'lukepolo.dev'
+})

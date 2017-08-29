@@ -1,9 +1,13 @@
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~font-awesome/scss/font-awesome";
 
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import "partials/base";
 
-// Variables
-@import "variables";
+@import "partials/nav";
+@import "partials/homeheader";
+@import "partials/projects";
+@import "partials/blog";
+@import "partials/comments";
+@import "partials/dropzone";
 
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "partials/admin";
