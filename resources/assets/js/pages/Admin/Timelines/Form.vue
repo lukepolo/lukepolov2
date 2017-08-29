@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="col-md-3">
-            <h3>Create Timeline</h3>
+            <h3>{{ actionStatus }} Timeline</h3>
 
             <form @submit.prevent="submit">
                 <div class="form-group">
@@ -18,12 +18,7 @@
                 </div>
 
                 <button class="btn btn-primary">
-                    <template v-if="timeline">
-                        Update
-                    </template>
-                    <template v-else>
-                        Create
-                    </template>
+                    {{ actionStatus }}
                 </button>
             </form>
 
@@ -75,6 +70,9 @@
         computed : {
             timeline() {
                 return this.$store.state.timelines.timeline
+            },
+            actionStatus() {
+                return this.timeline ? 'Updating' : 'Creating'
             }
         }
     }

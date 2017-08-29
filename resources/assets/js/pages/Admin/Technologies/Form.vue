@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="col-md-3">
-            <h3>Create Technology</h3>
+            <h3>{{ actionStatus }} Technology</h3>
 
             <form @submit.prevent="submit">
                 <div class="form-group">
@@ -21,12 +21,7 @@
                 </div>
 
                 <button class="btn btn-primary">
-                    <template v-if="technology">
-                        Update
-                    </template>
-                    <template v-else>
-                        Create
-                    </template>
+                    {{ actionStatus }}
                 </button>
             </form>
 
@@ -78,6 +73,9 @@
         computed : {
             technology() {
                 return this.$store.state.technologies.technology
+            },
+            actionStatus() {
+                return this.technology ? 'Updating' : 'Creating'
             }
         }
     }

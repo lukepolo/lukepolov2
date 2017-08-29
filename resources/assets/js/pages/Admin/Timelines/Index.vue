@@ -1,13 +1,13 @@
 <template>
     <section>
-        <h3>Timelines</h3>
         <template v-if="timelines.length">
+            <h3>Timelines</h3>
             <table class="table table-striped">
                 <thead>
-                <th>Name</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th></th>
+                    <th>Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th></th>
                 </thead>
                 <tbody>
                     <tr v-for="timeline in timelines">
@@ -24,8 +24,16 @@
                     </tr>
                 </tbody>
             </table>
+
+            <router-link class="btn btn-primary" :to="{ name : 'admin-timelines-create' }">Create</router-link>
+
         </template>
-        <router-link class="btn btn-primary" :to="{ name : 'admin-timelines-create' }">Create</router-link>
+        <template v-else>
+            <h3 class="text-center">
+                Lets create your first <router-link class="text-center" :to="{ name : 'admin-timelines-create' }"> Timeline</router-link>!
+            </h3>
+        </template>
+
     </section>
 </template>
 
@@ -42,7 +50,7 @@
         computed : {
             timelines() {
                 return this.$store.state.timelines.timelines
-            }
+            },
         }
     }
 </script>

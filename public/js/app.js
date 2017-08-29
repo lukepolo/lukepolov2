@@ -5151,6 +5151,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
@@ -5444,6 +5451,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
@@ -5468,11 +5482,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(_) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
 //
 //
 //
@@ -5541,6 +5550,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         tag: function tag() {
             return this.$store.state.tags.tag;
+        },
+        actionStatus: function actionStatus() {
+            return this.tag ? 'Updating' : 'Creating';
         }
     }
 });
@@ -5552,6 +5564,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5636,11 +5657,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -5686,6 +5702,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         technology: function technology() {
             return this.$store.state.technologies.technology;
+        },
+        actionStatus: function actionStatus() {
+            return this.technology ? 'Updating' : 'Creating';
         }
     }
 });
@@ -5697,6 +5716,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5780,11 +5807,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -5830,6 +5852,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         timeline: function timeline() {
             return this.$store.state.timelines.timeline;
+        },
+        actionStatus: function actionStatus() {
+            return this.timeline ? 'Updating' : 'Creating';
         }
     }
 });
@@ -5841,6 +5866,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9257,7 +9290,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('section', [_c('div', {
     staticClass: "col-md-3"
-  }, [_c('h3', [_vm._v("Create Technology")]), _vm._v(" "), _c('form', {
+  }, [_c('h3', [_vm._v(_vm._s(_vm.actionStatus) + " Technology")]), _vm._v(" "), _c('form', {
     on: {
       "submit": function($event) {
         $event.preventDefault();
@@ -9323,7 +9356,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary"
-  }, [(_vm.technology) ? [_vm._v("\n                    Update\n                ")] : [_vm._v("\n                    Create\n                ")]], 2)])])])
+  }, [_vm._v("\n                " + _vm._s(_vm.actionStatus) + "\n            ")])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -9338,7 +9371,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', [_c('h3', [_vm._v("tags")]), _vm._v(" "), (_vm.tags.length) ? [_c('table', {
+  return _c('section', [(_vm.tags.length) ? [_c('h3', [_vm._v("Tags")]), _vm._v(" "), _c('table', {
     staticClass: "table table-striped"
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.tags), function(tag) {
     return _c('tr', [_c('td', [_c('router-link', {
@@ -9358,14 +9391,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v("Delete")])])])
-  }))])] : _vm._e(), _vm._v(" "), _c('router-link', {
+  }))]), _vm._v(" "), _c('router-link', {
     staticClass: "btn btn-primary",
     attrs: {
       "to": {
         name: 'admin-tags-create'
       }
     }
-  }, [_vm._v("Create")])], 2)
+  }, [_vm._v("Create")])] : [_c('h3', {
+    staticClass: "text-center"
+  }, [_vm._v("\n            Lets create your first "), _c('router-link', {
+    staticClass: "text-center",
+    attrs: {
+      "to": {
+        name: 'admin-tags-create'
+      }
+    }
+  }, [_vm._v(" Tag")]), _vm._v("!\n        ")], 1)]], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("Color")]), _vm._v(" "), _c('th')])
 }]}
@@ -9509,7 +9551,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('section', [_c('div', {
     staticClass: "col-md-3"
-  }, [_c('h3', [_vm._v("Create tag")]), _vm._v(" "), _c('form', {
+  }, [_c('h3', [_vm._v(_vm._s(_vm.actionStatus) + " Tag")]), _vm._v(" "), _c('form', {
     on: {
       "submit": function($event) {
         $event.preventDefault();
@@ -9559,7 +9601,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary"
-  }, [(_vm.tag) ? [_vm._v("\n                    Update\n                ")] : [_vm._v("\n                    Create\n                ")]], 2)])])])
+  }, [_vm._v("\n                " + _vm._s(_vm.actionStatus) + "\n            ")])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -9658,7 +9700,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', [_c('h3', [_vm._v("Blogs")]), _vm._v(" "), (_vm.blogs.length) ? [_c('table', {
+  return _c('section', [(_vm.blogs.length) ? [_c('h3', [_vm._v("Blogs")]), _vm._v(" "), _c('table', {
     staticClass: "table table-striped"
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.blogs), function(blog) {
     return _c('tr', [_c('td', [_c('router-link', {
@@ -9678,14 +9720,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v("Delete")])])])
-  }))])] : _vm._e(), _vm._v(" "), _c('router-link', {
+  }))]), _vm._v(" "), _c('router-link', {
     staticClass: "btn btn-primary",
     attrs: {
       "to": {
         name: 'admin-blogs-create'
       }
     }
-  }, [_vm._v("Create")])], 2)
+  }, [_vm._v("Create")])] : [_c('h3', {
+    staticClass: "text-center"
+  }, [_vm._v("\n            Lets create your first "), _c('router-link', {
+    staticClass: "text-center",
+    attrs: {
+      "to": {
+        name: 'admin-blogs-create'
+      }
+    }
+  }, [_vm._v(" Blog")]), _vm._v("!\n        ")], 1)]], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("Draft")]), _vm._v(" "), _c('th', [_vm._v("Created At")]), _vm._v(" "), _c('th', [_vm._v("Updated At")]), _vm._v(" "), _c('th', [_vm._v("Preview")]), _vm._v(" "), _c('th')])
 }]}
@@ -10005,7 +10056,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', [_c('h3', [_vm._v("Timelines")]), _vm._v(" "), (_vm.timelines.length) ? [_c('table', {
+  return _c('section', [(_vm.timelines.length) ? [_c('h3', [_vm._v("Timelines")]), _vm._v(" "), _c('table', {
     staticClass: "table table-striped"
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.timelines), function(timeline) {
     return _c('tr', [_c('td', [_c('router-link', {
@@ -10025,14 +10076,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v("Delete")])])])
-  }))])] : _vm._e(), _vm._v(" "), _c('router-link', {
+  }))]), _vm._v(" "), _c('router-link', {
     staticClass: "btn btn-primary",
     attrs: {
       "to": {
         name: 'admin-timelines-create'
       }
     }
-  }, [_vm._v("Create")])], 2)
+  }, [_vm._v("Create")])] : [_c('h3', {
+    staticClass: "text-center"
+  }, [_vm._v("\n            Lets create your first "), _c('router-link', {
+    staticClass: "text-center",
+    attrs: {
+      "to": {
+        name: 'admin-timelines-create'
+      }
+    }
+  }, [_vm._v(" Timeline")]), _vm._v("!\n        ")], 1)]], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("Start Date")]), _vm._v(" "), _c('th', [_vm._v("End Date")]), _vm._v(" "), _c('th')])
 }]}
@@ -10049,7 +10109,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', [_c('h3', [_vm._v("Technologies")]), _vm._v(" "), (_vm.technologies.length) ? [_c('table', {
+  return _c('section', [(_vm.technologies.length) ? [_c('h3', [_vm._v("Technologies")]), _vm._v(" "), _c('table', {
     staticClass: "table table-striped"
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.technologies), function(technology) {
     return _c('tr', [_c('td', [_c('router-link', {
@@ -10069,14 +10129,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v("Delete")])])])
-  }))])] : _vm._e(), _vm._v(" "), _c('router-link', {
+  }))]), _vm._v(" "), _c('router-link', {
     staticClass: "btn btn-primary",
     attrs: {
       "to": {
         name: 'admin-technologies-create'
       }
     }
-  }, [_vm._v("Create")])], 2)
+  }, [_vm._v("Create")])] : [_c('h3', {
+    staticClass: "text-center"
+  }, [_vm._v("\n            Lets create your first "), _c('router-link', {
+    staticClass: "text-center",
+    attrs: {
+      "to": {
+        name: 'admin-technologies-create'
+      }
+    }
+  }, [_vm._v(" Techonlogy")]), _vm._v("!\n        ")], 1)]], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("URL")]), _vm._v(" "), _c('th', [_vm._v("Color")]), _vm._v(" "), _c('th')])
 }]}
@@ -10093,7 +10162,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', [(_vm.projects.length) ? [_c('table', {
+  return _c('section', [(_vm.projects.length) ? [_c('h3', [_vm._v("Projects")]), _vm._v(" "), _c('table', {
     staticClass: "table table-striped"
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.projects), function(project) {
     return _c('tr', [_c('td', [_c('router-link', {
@@ -10118,14 +10187,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v("Delete")])])])
-  }))])] : _vm._e(), _vm._v(" "), _c('router-link', {
+  }))]), _vm._v(" "), _c('router-link', {
     staticClass: "btn btn-primary",
     attrs: {
       "to": {
         name: 'admin-projects-create'
       }
     }
-  }, [_vm._v("Create")])], 2)
+  }, [_vm._v("Create")])] : [_c('h3', {
+    staticClass: "text-center"
+  }, [_vm._v("\n            Lets create your first "), _c('router-link', {
+    staticClass: "text-center",
+    attrs: {
+      "to": {
+        name: 'admin-projects-create'
+      }
+    }
+  }, [_vm._v(" Project")]), _vm._v("!\n        ")], 1)]], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("URL")]), _vm._v(" "), _c('th', [_vm._v("Timeline")]), _vm._v(" "), _c('th', [_vm._v("Start Date")]), _vm._v(" "), _c('th', [_vm._v("End Date")]), _vm._v(" "), _c('th')])
 }]}
@@ -10305,7 +10383,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('section', [_c('div', {
     staticClass: "col-md-3"
-  }, [_c('h3', [_vm._v("Create Timeline")]), _vm._v(" "), _c('form', {
+  }, [_c('h3', [_vm._v(_vm._s(_vm.actionStatus) + " Timeline")]), _vm._v(" "), _c('form', {
     on: {
       "submit": function($event) {
         $event.preventDefault();
@@ -10377,7 +10455,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary"
-  }, [(_vm.timeline) ? [_vm._v("\n                    Update\n                ")] : [_vm._v("\n                    Create\n                ")]], 2)])])])
+  }, [_vm._v("\n                " + _vm._s(_vm.actionStatus) + "\n            ")])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

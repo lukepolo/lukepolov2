@@ -1,6 +1,7 @@
 <template>
     <section>
         <template v-if="projects.length">
+            <h3>Projects</h3>
             <table class="table table-striped">
                 <thead>
                     <th>Name</th>
@@ -31,9 +32,15 @@
                     </tr>
                 </tbody>
             </table>
-        </template>
 
-        <router-link class="btn btn-primary" :to="{ name : 'admin-projects-create' }">Create</router-link>
+            <router-link class="btn btn-primary" :to="{ name : 'admin-projects-create' }">Create</router-link>
+
+        </template>
+        <template v-else>
+            <h3 class="text-center">
+                Lets create your first <router-link class="text-center" :to="{ name : 'admin-projects-create' }"> Project</router-link>!
+            </h3>
+        </template>
 
     </section>
 </template>

@@ -1,7 +1,7 @@
 <template>
     <section>
-        <h3>Blogs</h3>
         <template v-if="blogs.length">
+            <h3>Blogs</h3>
             <table class="table table-striped">
                 <thead>
                     <th>Name</th>
@@ -28,8 +28,15 @@
                 </tr>
                 </tbody>
             </table>
+
+            <router-link class="btn btn-primary" :to="{ name : 'admin-blogs-create' }">Create</router-link>
+
         </template>
-        <router-link class="btn btn-primary" :to="{ name : 'admin-blogs-create' }">Create</router-link>
+        <template v-else>
+            <h3 class="text-center">
+                Lets create your first <router-link class="text-center" :to="{ name : 'admin-blogs-create' }"> Blog</router-link>!
+            </h3>
+        </template>
     </section>
 </template>
 
