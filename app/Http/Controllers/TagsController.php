@@ -55,14 +55,14 @@ class TagsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $Tag = Tag::findOrFail($id);
+        $tag = Tag::findOrFail($id);
 
-        $Tag->update([
+        $tag->update([
             'name' => $request->get('name'),
             'color' => $request->get('color')
         ]);
 
-        return response()->json($Tag);
+        return response()->json($tag);
     }
 
     /**

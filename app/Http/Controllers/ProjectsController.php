@@ -25,7 +25,21 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $project = Project::create([
+            'url' => $request->get('url'),
+            'html' => $request->get('html'),
+            'name' => $request->get('name'),
+            'end_date' => $request->get('end_date'),
+            'start_date' => $request->get('start_date'),
+        ]);
+
+        // TODO - has many timelines
+        // TODO - has many technologies
+
+        //todo - update image to model as well
+
+//        'project_image' => $request->get('project_image'),
+        return response()->json($project);
     }
 
     /**
@@ -36,7 +50,9 @@ class ProjectsController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json(
+            Project::findOrFail($id)
+        );
     }
 
     /**
@@ -48,7 +64,17 @@ class ProjectsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $project = Project::findOrFail($id);
+
+        $project->update([
+            'url' => $request->get('url'),
+            'html' => $request->get('html'),
+            'name' => $request->get('name'),
+            'end_date' => $request->get('end_date'),
+            'start_date' => $request->get('start_date'),
+        ]);
+
+        return response()->json($project);
     }
 
     /**
@@ -59,6 +85,6 @@ class ProjectsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return response()->json(Project::destroy($id));
     }
 }

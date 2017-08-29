@@ -56,15 +56,15 @@ class TechnologiesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $Technology = Technology::findOrFail($id);
+        $technology = Technology::findOrFail($id);
 
-        $Technology->update([
+        $technology->update([
             'url' => $request->get('url'),
             'name' => $request->get('name'),
             'color' => $request->get('color'),
         ]);
 
-        return response()->json($Technology);
+        return response()->json($technology);
     }
 
     /**

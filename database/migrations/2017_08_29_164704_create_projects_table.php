@@ -21,7 +21,6 @@ class CreateProjectsTable extends Migration
             $table->date('end_date')->nullable();
             $table->longText('html');
             $table->string('project_image')->nullable();
-            $table->integer('timeline_id');
             $table->timestamps();
         });
     }
