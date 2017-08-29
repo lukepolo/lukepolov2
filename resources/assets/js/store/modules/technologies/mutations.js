@@ -11,11 +11,14 @@ export const add = (state, { response }) => {
 };
 
 export const update = (state, { response }) => {
-    Vue.set(
-        state.technologies,
-        parseInt(_.findKey(state.technologies, { id: response.id })),
-        response
-    );
+    let key = parseInt(_.findKey(state.technologies, { id: response.id }));
+    if(key) {
+        Vue.set(
+            state.technologies,
+            key,
+            response
+        );
+    }
 };
 
 export const remove = (state, { requestData }) => {

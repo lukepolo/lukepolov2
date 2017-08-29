@@ -11,11 +11,14 @@ export const add = (state, { response }) => {
 };
 
 export const update = (state, { response }) => {
-    Vue.set(
-        state.tags,
-        parseInt(_.findKey(state.tags, { id: response.id })),
-        response
-    );
+    let key = parseInt(_.findKey(state.tags, { id: response.id }));
+    if(key) {
+        Vue.set(
+            state.tags,
+            key,
+            response
+        );
+    }
 };
 
 export const remove = (state, { requestData }) => {

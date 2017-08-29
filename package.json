@@ -31,6 +31,7 @@
   "dependencies": {
     "froala-editor": "^2.6.5",
     "nprogress": "^0.2.0",
+    "vue-flatpickr-component": "^3.0.0",
     "vue-froala-wysiwyg": "^2.0.0"
   }
 }

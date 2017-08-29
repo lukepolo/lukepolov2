@@ -25,11 +25,11 @@
                 </div>
                 <div class="form-group">
                     <label>Start Date</label>
-                    <input type="date" class="form-control" v-model="form.start_date">
+                    <flat-pickr v-model="form.start_date"></flat-pickr>
                 </div>
                 <div class="form-group">
                     <label>End Date</label>
-                    <input type="date" class="form-control" v-model="form.end_date">
+                    <flat-pickr v-model="form.end_date"></flat-pickr>
                 </div>
                 <div class="form-group">
                     <label>Timeline</label>

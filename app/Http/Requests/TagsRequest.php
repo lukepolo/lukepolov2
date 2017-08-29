@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TimelineRequest extends FormRequest
+class TagsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class TimelineRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->isAdmin();
+        return false;
     }
 
     /**
@@ -24,9 +24,7 @@ class TimelineRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'start_date' => 'required|date',
-            'end_date' => 'date|nullable|after:start_date',
+            //
         ];
     }
 }

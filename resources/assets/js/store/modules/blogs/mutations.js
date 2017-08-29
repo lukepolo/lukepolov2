@@ -11,11 +11,11 @@ export const add = (state, { response }) => {
 };
 
 export const update = (state, { response }) => {
-    let blogKey = parseInt(_.findKey(state.blogs, { id: response.id }));
-    if(blogKey) {
+    let key = parseInt(_.findKey(state.blogs, { id: response.id }));
+    if(key) {
         Vue.set(
             state.blogs,
-            blogKey,
+            key,
             response
         );
     }
