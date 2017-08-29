@@ -124,43 +124,25 @@ class Request {
             axios
                 [requestType](url, data, config)
                 .then(response => {
-                    if (response.config.responseType === "arraybuffer") {
-                        const a = document.createElement("a");
-                        document.body.appendChild(a);
 
-                        const blob = new Blob([response.data], {
-                            type: response.headers["content-type"]
-                        });
+                    window.URL.revokeObjectURL(url);
+                    this.onSuccess(response.data);
 
-                        url = window.URL.createObjectURL(blob);
+                    if (!this.resetData) {
+                        this.setOriginalData();
+                    }
 
-                        a.style = "display: none";
-                        a.href = url;
-                        a.download = response.headers["content-disposition"].match(
-                            /"(.*?)"/
-                        )[1];
-                        a.click();
+                    if (_.isString(mutations)) {
+                        mutations = [mutations];
+                    }
 
-                        window.URL.revokeObjectURL(url);
-                    } else {
-                        this.onSuccess(response.data);
-
-                        if (!this.resetData) {
-                            this.setOriginalData();
-                        }
-
-                        if (_.isString(mutations)) {
-                            mutations = [mutations];
-                        }
-
-                        if (mutations && mutations.length) {
-                            _.each(mutations, mutation => {
-                                app.$store.commit(mutation, {
-                                    response: response.data,
-                                    requestData: this.data()
-                                });
+                    if (mutations && mutations.length) {
+                        _.each(mutations, mutation => {
+                            app.$store.commit(mutation, {
+                                response: response.data,
+                                requestData: this.data()
                             });
-                        }
+                        });
                     }
 
                     resolve(response.data);
@@ -207,7 +189,7 @@ class Request {
      * Generates a query string for the data given
      */
     dataQueryString() {
-        var str = [];
+        let str = [];
         let data = this.data();
         for (let datum in data)
             if (data.hasOwnProperty(datum)) {

@@ -1,4 +1,4 @@
 export default {
-    blogs : {},
+    blogs : [],
     blog : null,
 }

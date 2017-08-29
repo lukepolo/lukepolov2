@@ -1,4 +1,4 @@
 export default {
-    timelines : {},
+    timelines : [],
     timeline : null,
 }

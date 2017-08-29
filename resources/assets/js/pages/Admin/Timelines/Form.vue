@@ -1,6 +1,33 @@
 <template>
     <section>
+        <div class="col-md-3">
+            <h3>Create Timeline</h3>
 
+            <form @submit.prevent="submit">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input class="form-control" v-model="form.name">
+                </div>
+                <div class="form-group">
+                    <label>Start Date</label>
+                    <input type="date" class="form-control" v-model="form.start_date">
+                </div>
+                <div class="form-group">
+                    <label>End Date</label>
+                    <input type="date" class="form-control" v-model="form.end_date">
+                </div>
+
+                <button class="btn btn-primary">
+                    <template v-if="timeline">
+                        Update
+                    </template>
+                    <template v-else>
+                        Create
+                    </template>
+                </button>
+            </form>
+
+        </div>
     </section>
 </template>
 
@@ -8,9 +35,46 @@
     export default {
         data() {
             return {
-                form : {
-
+                form : this.createForm({
+                    name : null,
+                    end_date : null,
+                    start_date : null,
+                })
+            }
+        },
+        created() {
+            this.fetchData()
+        },
+        watch : {
+            '$route' : 'fetchData',
+            'timeline' : function() {
+                this.form.fill(this.timeline)
+            }
+        } ,
+        methods : {
+            submit() {
+                if(this.timeline) {
+                    return this.update()
                 }
+                this.create()
+            },
+            create() {
+                this.$store.dispatch('timelines/store', this.form)
+            },
+            update() {
+                this.$store.dispatch('timelines/update', _.merge(this.form, { timeline : this.timeline.id }))
+            },
+            fetchData() {
+                let timeline = this.$route.params.timeline
+
+                if(timeline) {
+                    this.$store.dispatch('timelines/show', timeline)
+                }
+            },
+        },
+        computed : {
+            timeline() {
+                return this.$store.state.timelines.timeline
             }
         }
     }

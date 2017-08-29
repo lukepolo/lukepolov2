@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TimelineRequest;
 use App\Models\Timeline;
-use Illuminate\Http\Request;
 
 class TimelinesController extends Controller
 {
@@ -20,15 +20,16 @@ class TimelinesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  TimelineRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TimelineRequest $request)
     {
         return response()->json(
             Timeline::create([
                 'name' => $request->get('name'),
-                'color' => $request->get('color')
+                'end_date' => $request->get('end_date'),
+                'start_date' => $request->get('start_date'),
             ])
         );
     }
@@ -49,17 +50,18 @@ class TimelinesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  TimelineRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TimelineRequest $request, $id)
     {
         $timeline = Timeline::findOrFail($id);
 
         $timeline->update([
             'name' => $request->get('name'),
-            'color' => $request->get('color')
+            'end_date' => $request->get('end_date'),
+            'start_date' => $request->get('start_date'),
         ]);
 
         return response()->json($timeline);

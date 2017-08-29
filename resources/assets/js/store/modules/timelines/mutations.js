@@ -22,6 +22,6 @@ export const remove = (state, { requestData }) => {
     Vue.set(
         state,
         "timelines",
-        _.reject(state.timelines, { id: requestData.timeline })
+        _.reject(state.timelines, { id: requestData.value })
     );
 };

@@ -11,4 +11,12 @@
 |
 */
 
-Route::apiResource('projects', 'ProjectsController');
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResource('tags', 'TagsController');
+    Route::apiResource('blogs', 'BlogsController');
+    Route::apiResource('projects', 'ProjectsController');
+    Route::apiResource('timelines', 'TimelinesController');
+    Route::apiResource('technologies', 'TechnologiesController');
+});
+
+

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "92f79bb5e939e5ed24ed3729b7307dbd",
+    "content-hash": "1e45bc1eb37a40a629926b87eedf1b46",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1084,16 +1084,16 @@
         },
         {
             "name": "laravel/passport",
-            "version": "v4.0.1",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/passport.git",
-                "reference": "9d7bb2a830fd4adbd46d44b8174b674894e15efd"
+                "reference": "d19a6b60503cb416fe55507684699de35239681f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/passport/zipball/9d7bb2a830fd4adbd46d44b8174b674894e15efd",
-                "reference": "9d7bb2a830fd4adbd46d44b8174b674894e15efd",
+                "url": "https://api.github.com/repos/laravel/passport/zipball/d19a6b60503cb416fe55507684699de35239681f",
+                "reference": "d19a6b60503cb416fe55507684699de35239681f",
                 "shasum": ""
             },
             "require": {
@@ -1120,7 +1120,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "3.0-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -1149,7 +1149,7 @@
                 "oauth",
                 "passport"
             ],
-            "time": "2017-08-28T21:36:09+00:00"
+            "time": "2017-08-04T14:03:52+00:00"
         },
         {
             "name": "laravel/socialite",

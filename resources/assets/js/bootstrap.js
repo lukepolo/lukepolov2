@@ -8,12 +8,12 @@ window.moment = require('moment-timezone')
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
+import NProgress from "nprogress";
+
 window.axios = require('axios')
 
-window.axios.defaults.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
-
-window.NProgress = require('nprogress')
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-CSRF-TOKEN"] = window.Laravel.csrfToken;
 
 axios.interceptors.request.use((config) => {
     NProgress.configure({

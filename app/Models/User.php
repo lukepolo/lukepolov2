@@ -10,6 +10,8 @@ class User extends Authenticatable
 {
     use Notifiable, HasApiTokens;
 
+    const ADMIN_ROLE = 'admin';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -27,4 +29,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relations
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Helpers
+    |--------------------------------------------------------------------------
+    */
+
+    public function isAdmin()
+    {
+        return $this->role ===  self::ADMIN_ROLE;
+    }
 }

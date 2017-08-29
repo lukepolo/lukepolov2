@@ -1,12 +1,13 @@
 import Request from "./Request";
 
 class Form extends Request {
+
     /**
      * Reset the form fields.
      */
     reset() {
         for (const field in this.originalData) {
-            this[field] = this.originalData[field];
+            Vue.set(this, field, this.originalData[field])
         }
 
         this.errors.clear();
@@ -14,10 +15,18 @@ class Form extends Request {
 
     empty() {
         for (const field in this.emptyData) {
-            this[field] = this.emptyData[field];
+            Vue.set(this, field, this.emptyData[field])
         }
 
         this.errors.clear();
+    }
+
+    fill(data) {
+        for (const field in this.data()) {
+            if(data[field]) {
+                Vue.set(this, field, data[field])
+            }
+        }
     }
 
     /**
