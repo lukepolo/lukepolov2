@@ -1,1 +1,2 @@
-import {} from './helpers'
+require('./froala')
+require('./helpers')

@@ -13,3 +13,4 @@
 Auth::routes();
 
 Route::get('/{any}', 'Controller@app')->where('any', '.*');
+

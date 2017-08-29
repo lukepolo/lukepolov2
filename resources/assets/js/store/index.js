@@ -10,6 +10,10 @@ Vue.Form = Form
 Vue.Errors = Errors
 Vue.Request = Request
 
+Vue.request = (data) => {
+    return new Request(data)
+}
+
 export default new Vuex.Store({
     modules: Modules
 })

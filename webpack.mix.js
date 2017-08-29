@@ -21,6 +21,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
         'jquery',
         'chartjs',
         'select2',
+        'nprogress',
         'tinycolor',
         'vue-router',
         'snapsvg-cjs',
@@ -33,7 +34,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
         select2 : 'select2',
         chartjs : 'chartjs',
         'pusher-js' : 'Pusher',
-        'snap' : 'snapsvg-cjs',
+        'snapsvg-cjs' : 'snap',
         tinycolor : 'tinycolor',
         jquery: ['$', 'jQuery'],
     })
