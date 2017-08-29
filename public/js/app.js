@@ -5125,9 +5125,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(_) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg__ = __webpack_require__(246);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg__);
+//
+//
+//
+//
 //
 //
 //
@@ -5198,15 +5202,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     created: function created() {
-        this.$store.dispatch('timelines/get');
+        this.fetchData();
     },
 
+    watch: {
+        '$route': 'fetchData',
+        'project': function project() {
+            this.form.fill(this.project);
+        }
+    },
+    methods: {
+        submit: function submit() {
+            if (this.project) {
+                return this.update();
+            }
+            this.create();
+        },
+        create: function create() {
+            this.$store.dispatch('projects/store', this.form);
+        },
+        update: function update() {
+            this.$store.dispatch('projects/update', _.merge(this.form, { project: this.project.id }));
+        },
+        fetchData: function fetchData() {
+            this.$store.dispatch('timelines/get');
+            this.$store.dispatch('technologies/get');
+        }
+    },
     computed: {
+        project: function project() {
+            return this.$store.state.projects.project;
+        },
         timelines: function timelines() {
             return this.$store.state.timelines.timelines;
+        },
+        technologies: function technologies() {
+            return this.$store.state.technologies.technologies;
         }
     }
 });
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
 /* 170 */
@@ -5252,22 +5287,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
         this.$store.dispatch('projects/get');
     },
 
+    methods: {
+        deleteProject: function deleteProject(project) {
+            this.$store.dispatch('projects/destroy', project.id);
+        }
+    },
     computed: {
         projects: function projects() {
-            return [];
+            return this.$store.state.projects.projects;
         }
     }
 });
@@ -6364,32 +6397,34 @@ var get = function get() {
     Vue.request().get('/api/projects', 'projects/setAll');
 };
 
-var store = function store() {
-    Vue.request().post('/api/projects', 'projects/add').then(function () {
+var store = function store(_ref, form) {
+    _objectDestructuringEmpty(_ref);
+
+    Vue.request(form).post('/api/projects', 'projects/add').then(function () {
         app.showSuccess('You have created a new project');
         app.$router.push({ name: 'admin-projects' });
     });
 };
 
-var show = function show(_ref, project) {
-    _objectDestructuringEmpty(_ref);
+var show = function show(_ref2, project) {
+    _objectDestructuringEmpty(_ref2);
 
     Vue.request().get('/api/projects/' + project, 'projects/set');
 };
 
-var update = function update(_ref2, form) {
-    _objectDestructuringEmpty(_ref2);
+var update = function update(_ref3, form) {
+    _objectDestructuringEmpty(_ref3);
 
-    Vue.request().put('/api/projects/' + form.project, 'projects/update').then(function () {
+    Vue.request(form).put('/api/projects/' + form.project, 'projects/update').then(function () {
         app.showSuccess('You have updated the project');
         app.$router.push({ name: 'admin-projects' });
     });
 };
 
-var destroy = function destroy(_ref3, project) {
-    _objectDestructuringEmpty(_ref3);
+var destroy = function destroy(_ref4, project) {
+    _objectDestructuringEmpty(_ref4);
 
-    Vue.request().delete('/api/projects/' + project, 'projects/remove').then(function () {
+    Vue.request(project).delete('/api/projects/' + project, 'projects/remove').then(function () {
         app.showSuccess('You have deleted the project');
         app.$router.push({ name: 'admin-projects' });
     });
@@ -6453,7 +6488,7 @@ var update = function update(state, _ref4) {
 var remove = function remove(state, _ref5) {
     var requestData = _ref5.requestData;
 
-    Vue.set(state, "projects", _.reject(state.projects, { id: requestData.project }));
+    Vue.set(state, "projects", _.reject(state.projects, { id: requestData.value }));
 };
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2), __webpack_require__(4)))
 
@@ -9326,6 +9361,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "col-md-3"
+  }, [_c('form', {
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.submit()
+      }
+    }
   }, [_c('div', {
     staticClass: "form-group"
   }, [_c('label', [_vm._v("Name")]), _vm._v(" "), _c('input', {
@@ -9442,25 +9484,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": timeline.id
       }
-    }, [_vm._v("\n                    " + _vm._s(timeline.name) + "\n                ")])
-  })], 2)]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('br'), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary"
-  }, [_vm._v("Create")])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', [_vm._v("Project Image")]), _vm._v(" "), _c('div', {
-    staticClass: "dropzone"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+    }, [_vm._v("\n                        " + _vm._s(timeline.name) + "\n                    ")])
+  })], 2)]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', [_vm._v("Technologies")]), _vm._v(" "), _c('select', {
     staticClass: "form-control",
     attrs: {
       "multiple": ""
     }
-  }, [_c('option')])])
+  }, _vm._l((_vm.technologies), function(technology) {
+    return _c('option', {
+      domProps: {
+        "value": technology.id
+      }
+    }, [_vm._v("\n                        " + _vm._s(technology.name) + "\n                    ")])
+  }))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary"
+  }, [_vm._v("Create")])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Project Image")]), _vm._v(" "), _c('div', {
+    staticClass: "dropzone"
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -9650,32 +9696,32 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', [(_vm.projects.length) ? [_vm._m(0)] : [_c('h3', [_vm._v("No Projects")]), _vm._v(" "), _c('router-link', {
+  return _c('section', [(_vm.projects.length) ? [_c('table', {
+    staticClass: "table table-striped"
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.projects), function(project) {
+    return _c('tr', [_c('td', [_vm._v("\n                        " + _vm._s(project.name) + "\n                    ")]), _vm._v(" "), _c('td', [_c('a', {
+      attrs: {
+        "target": "_blank",
+        "href": project.url
+      }
+    }, [_vm._v("\n                            " + _vm._s(project.url) + "\n                        ")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(project.timeline) + " ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(project.end_date))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(project.start_date))]), _vm._v(" "), _c('td', [_c('div', {
+      staticClass: "btn-link confirm",
+      on: {
+        "click": function($event) {
+          _vm.deleteProject(project)
+        }
+      }
+    }, [_vm._v("Delete")])])])
+  }))])] : _vm._e(), _vm._v(" "), _c('router-link', {
     staticClass: "btn btn-primary",
     attrs: {
       "to": {
         name: 'admin-projects-create'
       }
     }
-  }, [_vm._v("Create")])]], 2)
+  }, [_vm._v("Create")])], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('table', {
-    staticClass: "table table-striped"
-  }, [_c('thead', [_c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("URL")]), _vm._v(" "), _c('th', [_vm._v("Timeline")]), _vm._v(" "), _c('th', [_vm._v("Start Date")]), _vm._v(" "), _c('th', [_vm._v("End Date")]), _vm._v(" "), _c('th')]), _vm._v(" "), _c('tbody', [_vm._v("\n            @foreach($projects as $project)\n            "), _c('tr', [_c('td', [_c('a', {
-    attrs: {
-      "href": "--- action('ProjectsController@getEdit', $project->id)--- "
-    }
-  }, [_vm._v("\n                        --- $project->name---\n                    ")])]), _vm._v(" "), _c('td', [_c('a', {
-    attrs: {
-      "target": "_blank",
-      "href": "--- $project->url--- "
-    }
-  }, [_vm._v("\n                        --- $project->url---\n                    ")])]), _vm._v(" "), _c('td', [_vm._v("--- !empty($project->timeline) ? $project->timeline->name : ''}}")]), _vm._v(" "), _c('td', [_vm._v("--- $project->start_date->format('F jS Y g:i A')--- ")]), _vm._v(" "), _c('td', [_vm._v("--- $project->end_date->format('F jS Y g:i A')--- ")]), _vm._v(" "), _c('td', [_c('a', {
-    staticClass: "confirm",
-    attrs: {
-      "href": "--- action('ProjectsController@getDelete', $project->id)--- "
-    }
-  }, [_vm._v("Delete")])]), _vm._v("watc\n            ")]), _vm._v("\n            @endforeach\n            ")])])
+  return _c('thead', [_c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("URL")]), _vm._v(" "), _c('th', [_vm._v("Timeline")]), _vm._v(" "), _c('th', [_vm._v("Start Date")]), _vm._v(" "), _c('th', [_vm._v("End Date")]), _vm._v(" "), _c('th')])
 }]}
 module.exports.render._withStripped = true
 if (false) {

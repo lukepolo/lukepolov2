@@ -30,6 +30,7 @@ class ProjectsController extends Controller
             'html' => $request->get('html'),
             'name' => $request->get('name'),
             'end_date' => $request->get('end_date'),
+            'timeline_id' => $request->get('timeline'),
             'start_date' => $request->get('start_date'),
         ]);
 
@@ -71,6 +72,7 @@ class ProjectsController extends Controller
             'html' => $request->get('html'),
             'name' => $request->get('name'),
             'end_date' => $request->get('end_date'),
+            'timeline_id' => $request->get('timeline'),
             'start_date' => $request->get('start_date'),
         ]);
 

@@ -3,42 +3,35 @@
         <template v-if="projects.length">
             <table class="table table-striped">
                 <thead>
-                <th>Name</th>
-                <th>URL</th>
-                <th>Timeline</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th></th>
+                    <th>Name</th>
+                    <th>URL</th>
+                    <th>Timeline</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th></th>
                 </thead>
                 <tbody>
-                @foreach($projects as $project)
-                <tr>
-                    <td>
-                        <a href="--- action('ProjectsController@getEdit', $project->id)--- ">
-                            --- $project->name---
-                        </a>
-                    </td>
-                    <td>
-                        <a target="_blank" href="--- $project->url--- ">
-                            --- $project->url---
-                        </a>
-                    </td>
-                    <td>--- !empty($project->timeline) ? $project->timeline->name : ''}}</td>
-                    <td>--- $project->start_date->format('F jS Y g:i A')--- </td>
-                    <td>--- $project->end_date->format('F jS Y g:i A')--- </td>
-                    <td>
-                        <a class="confirm" href="--- action('ProjectsController@getDelete', $project->id)--- ">Delete</a>
-                    </td>watc
-                </tr>
-                @endforeach
+                    <tr v-for="project in projects">
+                        <td>
+                            {{ project.name }}
+                        </td>
+                        <td>
+                            <a target="_blank" :href="project.url">
+                                {{ project.url }}
+                            </a>
+                        </td>
+                        <td>{{ project.timeline }} </td>
+                        <td>{{ project.end_date }}</td>
+                        <td>{{ project.start_date }}</td>
+                        <td>
+                            <div class="btn-link confirm" @click="deleteProject(project)">Delete</div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </template>
 
-        <template v-else>
-            <h3>No Projects</h3>
-            <router-link class="btn btn-primary" :to="{ name : 'admin-projects-create' }">Create</router-link>
-        </template>
+        <router-link class="btn btn-primary" :to="{ name : 'admin-projects-create' }">Create</router-link>
 
     </section>
 </template>
@@ -48,9 +41,14 @@
         created() {
             this.$store.dispatch('projects/get')
         },
+        methods : {
+            deleteProject(project) {
+                this.$store.dispatch('projects/destroy', project.id)
+            }
+        },
         computed : {
             projects() {
-                return []
+                return this.$store.state.projects.projects
             }
         }
     }
