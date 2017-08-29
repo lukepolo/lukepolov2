@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'LukePOLO'),
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -166,9 +166,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Laravel\Tinker\TinkerServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -180,11 +177,9 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /*
-        * Third Party Service Providers...
+        * Third Party Application Service Providers...
         */
         Lord\Laroute\LarouteServiceProvider::class,
-        Spatie\Analytics\AnalyticsServiceProvider::class,
-        Spatie\Glide\GlideServiceProvider::class,
 
     ],
 
@@ -200,7 +195,7 @@ return [
     */
 
     'aliases' => [
-        'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
+
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
@@ -216,7 +211,6 @@ return [
         'Event' => Illuminate\Support\Facades\Event::class,
         'File' => Illuminate\Support\Facades\File::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
-        'GlideImage' => Spatie\Glide\GlideImageFacade::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
@@ -231,7 +225,6 @@ return [
         'Route' => Illuminate\Support\Facades\Route::class,
         'Schema' => Illuminate\Support\Facades\Schema::class,
         'Session' => Illuminate\Support\Facades\Session::class,
-        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,

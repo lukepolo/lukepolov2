@@ -1,9 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Modules from './modules'
+import Form from './../classes/Form'
+import Errors from './../classes/Errors'
+import Request from './../classes/Request'
 
 Vue.use(Vuex)
-
-import Modules from './modules'
+Vue.Form = Form
+Vue.Errors = Errors
+Vue.Request = Request
 
 export default new Vuex.Store({
     modules: Modules
