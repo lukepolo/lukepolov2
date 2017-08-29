@@ -4995,7 +4995,57 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(_) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5003,13 +5053,62 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            form: {}
+            form: this.createForm({
+                name: null,
+                draft: null,
+                link_name: null,
+                image: null,
+                tags: [],
+                html: null,
+                preview_text: null
+            })
         };
+    },
+    created: function created() {
+        this.fetchData();
+    },
+
+    watch: {
+        '$route': 'fetchData',
+        'blog': function blog() {
+            this.form.fill(this.blog);
+        }
+    },
+    methods: {
+        submit: function submit() {
+            if (this.blog) {
+                return this.update();
+            }
+            this.create();
+        },
+        create: function create() {
+            this.$store.dispatch('blogs/store', this.form);
+        },
+        update: function update() {
+            this.$store.dispatch('blogs/update', _.merge(this.form, { blog: this.blog.id }));
+        },
+        fetchData: function fetchData() {
+            var blog = this.$route.params.blog;
+            if (blog) {
+                this.$store.dispatch('blogs/show', blog);
+            }
+        }
+    },
+    computed: {
+        blog: function blog() {
+            return this.$store.state.blogs.blog;
+        },
+        tags: function tags() {
+            return this.$store.state.tags.tags;
+        }
     }
 });
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
 /* 167 */
@@ -5023,8 +5122,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    created: function created() {
+        this.$store.dispatch('blogs/get');
+    },
+
+    methods: {
+        deleteBlog: function deleteBlog(blog) {
+            this.$store.dispatch('blogs/destroy', blog.id);
+        }
+    },
+    computed: {
+        blogs: function blogs() {
+            return this.$store.state.blogs.blogs;
+        }
+    }
+});
 
 /***/ }),
 /* 168 */
@@ -5185,20 +5328,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            form: {
+            form: this.createForm({
                 url: null,
                 name: null,
                 html: null,
                 timeline: null,
                 end_date: null,
                 start_date: null
-            }
+            })
         };
     },
     created: function created() {
@@ -5227,6 +5377,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetchData: function fetchData() {
             this.$store.dispatch('timelines/get');
             this.$store.dispatch('technologies/get');
+
+            var project = this.$route.params.project;
+            if (project) {
+                this.$store.dispatch('projects/show', project);
+            }
         }
     },
     computed: {
@@ -5249,6 +5404,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -5310,7 +5467,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(_) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5321,10 +5501,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            form: {}
+            form: this.createForm({
+                name: null,
+                color: null
+            })
         };
+    },
+    created: function created() {
+        this.fetchData();
+    },
+
+    watch: {
+        '$route': 'fetchData',
+        'tag': function tag() {
+            this.form.fill(this.tag);
+        }
+    },
+    methods: {
+        submit: function submit() {
+            if (this.tag) {
+                return this.update();
+            }
+            this.create();
+        },
+        create: function create() {
+            this.$store.dispatch('tags/store', this.form);
+        },
+        update: function update() {
+            this.$store.dispatch('tags/update', _.merge(this.form, { tag: this.tag.id }));
+        },
+        fetchData: function fetchData() {
+            var tag = this.$route.params.tag;
+
+            if (tag) {
+                this.$store.dispatch('tags/show', tag);
+            }
+        }
+    },
+    computed: {
+        tag: function tag() {
+            return this.$store.state.tags.tag;
+        }
     }
 });
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
 /* 172 */
@@ -5338,8 +5558,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    created: function created() {
+        this.$store.dispatch('tags/get');
+    },
+
+    methods: {
+        deletetag: function deletetag(tag) {
+            this.$store.dispatch('tags/destroy', tag.id);
+        }
+    },
+    computed: {
+        tags: function tags() {
+            return this.$store.state.tags.tags;
+        }
+    }
+});
 
 /***/ }),
 /* 173 */
@@ -6023,11 +6281,17 @@ __webpack_require__(183);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-    path: '/admin/blogs', component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a, name: 'admin-blogs'
+    path: '/admin/blogs',
+    component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a,
+    name: 'admin-blogs'
 }, {
-    path: '/admin/blogs/create', component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a, name: 'admin-blogs-create'
+    path: '/admin/blogs/create',
+    component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
+    name: 'admin-blogs-create'
 }, {
-    path: '/admin/blogs/edit', component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a, name: 'admin-blogs-edit'
+    path: '/admin/blogs/edit/:blog',
+    component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
+    name: 'admin-blogs-edit'
 }]);
 
 /***/ }),
@@ -6040,7 +6304,9 @@ __webpack_require__(183);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-    path: '/admin/dashboard', component: __WEBPACK_IMPORTED_MODULE_0__Index_vue___default.a, name: 'admin-dashboard'
+    path: '/admin/dashboard',
+    component: __WEBPACK_IMPORTED_MODULE_0__Index_vue___default.a,
+    name: 'admin-dashboard'
 }]);
 
 /***/ }),
@@ -6056,11 +6322,17 @@ __webpack_require__(183);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-    path: '/projects', component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a, name: 'admin-projects'
+    path: '/projects',
+    component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a,
+    name: 'admin-projects'
 }, {
-    path: '/projects/create', component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a, name: 'admin-projects-create'
+    path: '/projects/create',
+    component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
+    name: 'admin-projects-create'
 }, {
-    path: '/projects/edit', component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a, name: 'admin-projects-edit'
+    path: '/projects/edit/:project',
+    component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
+    name: 'admin-projects-edit'
 }]);
 
 /***/ }),
@@ -6076,11 +6348,17 @@ __webpack_require__(183);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-    path: '/admin/tags', component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a, name: 'admin-tags'
+    path: '/admin/tags',
+    component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a,
+    name: 'admin-tags'
 }, {
-    path: '/admin/tags/create', component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a, name: 'admin-tags-create'
+    path: '/admin/tags/create',
+    component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
+    name: 'admin-tags-create'
 }, {
-    path: '/admin/tags/edit', component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a, name: 'admin-tags-edit'
+    path: '/admin/tags/edit',
+    component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
+    name: 'admin-tags-edit'
 }]);
 
 /***/ }),
@@ -6096,17 +6374,17 @@ __webpack_require__(183);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
+    path: '/admin/technologies',
     component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a,
-    name: 'admin-technologies',
-    path: '/admin/technologies'
+    name: 'admin-technologies'
 }, {
+    path: '/admin/technologies/create',
     component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
-    name: 'admin-technologies-create',
-    path: '/admin/technologies/create'
+    name: 'admin-technologies-create'
 }, {
+    path: '/admin/technologies/edit/:technology',
     component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
-    name: 'admin-technologies-edit',
-    path: '/admin/technologies/edit/:technology'
+    name: 'admin-technologies-edit'
 }]);
 
 /***/ }),
@@ -6122,17 +6400,17 @@ __webpack_require__(183);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
+    path: '/admin/timelines',
     component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a,
-    name: 'admin-timelines',
-    path: '/admin/timelines'
+    name: 'admin-timelines'
 }, {
+    path: '/admin/timelines/create',
     component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
-    name: 'admin-timelines-create',
-    path: '/admin/timelines/create'
+    name: 'admin-timelines-create'
 }, {
+    path: '/admin/timelines/edit/:timeline',
     component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
-    name: 'admin-timelines-edit',
-    path: '/admin/timelines/edit/:timeline'
+    name: 'admin-timelines-edit'
 }]);
 
 /***/ }),
@@ -6171,14 +6449,16 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Home_vue__ = __webpack_require__(263);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Home_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Home_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Admin_routes__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Blogs_routes__ = __webpack_require__(311);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Admin_routes__ = __webpack_require__(194);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 
 
 
 
-var routes = [].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_1__Admin_routes__["a" /* default */]), [{
+
+var routes = [].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_2__Admin_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_1__Blogs_routes__["a" /* default */]), [{
     path: '/', component: __WEBPACK_IMPORTED_MODULE_0__Home_vue___default.a, name: 'home'
 }]);
 
@@ -6253,32 +6533,34 @@ var get = function get() {
     Vue.request().get('/api/blogs', 'blogs/setAll');
 };
 
-var store = function store() {
-    Vue.request().post('/api/blogs', 'blogs/add').then(function () {
+var store = function store(_ref, form) {
+    _objectDestructuringEmpty(_ref);
+
+    Vue.request(form).post('/api/blogs', 'blogs/add').then(function () {
         app.showSuccess('You have created a new blog');
         app.$router.push({ name: 'admin-blogs' });
     });
 };
 
-var show = function show(_ref, blog) {
-    _objectDestructuringEmpty(_ref);
+var show = function show(_ref2, blog) {
+    _objectDestructuringEmpty(_ref2);
 
     Vue.request().get('/api/blogs/' + blog, 'blogs/set');
 };
 
-var update = function update(_ref2, form) {
-    _objectDestructuringEmpty(_ref2);
+var update = function update(_ref3, form) {
+    _objectDestructuringEmpty(_ref3);
 
-    Vue.request().put('/api/blogs/' + form.blog, 'blogs/update').then(function () {
+    Vue.request(form).put('/api/blogs/' + form.blog, 'blogs/update').then(function () {
         app.showSuccess('You have updated the blog');
         app.$router.push({ name: 'admin-blogs' });
     });
 };
 
-var destroy = function destroy(_ref3, blog) {
-    _objectDestructuringEmpty(_ref3);
+var destroy = function destroy(_ref4, blog) {
+    _objectDestructuringEmpty(_ref4);
 
-    Vue.request().delete('/api/blogs/' + blog, 'blogs/remove').then(function () {
+    Vue.request(blog).delete('/api/blogs/' + blog, 'blogs/remove').then(function () {
         app.showSuccess('You have deleted the blog');
         app.$router.push({ name: 'admin-blogs' });
     });
@@ -6309,7 +6591,7 @@ var destroy = function destroy(_ref3, blog) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Vue, _) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(_, Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAll", function() { return setAll; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
@@ -6336,15 +6618,18 @@ var add = function add(state, _ref3) {
 var update = function update(state, _ref4) {
     var response = _ref4.response;
 
-    Vue.set(state.blogs, parseInt(_.findKey(state.blogs, { id: response.id })), response);
+    var blogKey = parseInt(_.findKey(state.blogs, { id: response.id }));
+    if (blogKey) {
+        Vue.set(state.blogs, blogKey, response);
+    }
 };
 
 var remove = function remove(state, _ref5) {
     var requestData = _ref5.requestData;
 
-    Vue.set(state, "blogs", _.reject(state.blogs, { id: requestData.blog }));
+    Vue.set(state, "blogs", _.reject(state.blogs, { id: requestData.value }));
 };
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4), __webpack_require__(2)))
 
 /***/ }),
 /* 201 */
@@ -6519,32 +6804,34 @@ var get = function get() {
     Vue.request().get('/api/tags', 'tags/setAll');
 };
 
-var store = function store() {
-    Vue.request().post('/api/tags', 'tags/add').then(function () {
+var store = function store(_ref, form) {
+    _objectDestructuringEmpty(_ref);
+
+    Vue.request(form).post('/api/tags', 'tags/add').then(function () {
         app.showSuccess('You have created a new tag');
         app.$router.push({ name: 'admin-tags' });
     });
 };
 
-var show = function show(_ref, tag) {
-    _objectDestructuringEmpty(_ref);
+var show = function show(_ref2, tag) {
+    _objectDestructuringEmpty(_ref2);
 
     Vue.request().get('/api/tags/' + tag, 'tags/set');
 };
 
-var update = function update(_ref2, form) {
-    _objectDestructuringEmpty(_ref2);
+var update = function update(_ref3, form) {
+    _objectDestructuringEmpty(_ref3);
 
-    Vue.request().put('/api/tags/' + form.tag, 'tags/update').then(function () {
+    Vue.request(form).put('/api/tags/' + form.tag, 'tags/update').then(function () {
         app.showSuccess('You have updated the tag');
         app.$router.push({ name: 'admin-tags' });
     });
 };
 
-var destroy = function destroy(_ref3, tag) {
-    _objectDestructuringEmpty(_ref3);
+var destroy = function destroy(_ref4, tag) {
+    _objectDestructuringEmpty(_ref4);
 
-    Vue.request().delete('/api/tags/' + tag, 'tags/remove').then(function () {
+    Vue.request(tag).delete('/api/tags/' + tag, 'tags/remove').then(function () {
         app.showSuccess('You have deleted the tag');
         app.$router.push({ name: 'admin-tags' });
     });
@@ -6608,7 +6895,7 @@ var update = function update(state, _ref4) {
 var remove = function remove(state, _ref5) {
     var requestData = _ref5.requestData;
 
-    Vue.set(state, "tags", _.reject(state.tags, { id: requestData.tag }));
+    Vue.set(state, "tags", _.reject(state.tags, { id: requestData.value }));
 };
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2), __webpack_require__(4)))
 
@@ -9051,8 +9338,37 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', [_vm._v("\n  tags\n")])
-},staticRenderFns: []}
+  return _c('section', [_c('h3', [_vm._v("tags")]), _vm._v(" "), (_vm.tags.length) ? [_c('table', {
+    staticClass: "table table-striped"
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.tags), function(tag) {
+    return _c('tr', [_c('td', [_c('router-link', {
+      attrs: {
+        "to": {
+          name: 'admin-tags-edit',
+          params: {
+            tag: tag.id
+          }
+        }
+      }
+    }, [_vm._v("\n                        " + _vm._s(tag.name) + "\n                    ")])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(tag.color))]), _vm._v(" "), _c('td', [_c('div', {
+      staticClass: "btn-link confirm",
+      on: {
+        "click": function($event) {
+          _vm.deletetag(tag)
+        }
+      }
+    }, [_vm._v("Delete")])])])
+  }))])] : _vm._e(), _vm._v(" "), _c('router-link', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "to": {
+        name: 'admin-tags-create'
+      }
+    }
+  }, [_vm._v("Create")])], 2)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("Color")]), _vm._v(" "), _c('th')])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -9191,7 +9507,59 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section')
+  return _c('section', [_c('div', {
+    staticClass: "col-md-3"
+  }, [_c('h3', [_vm._v("Create tag")]), _vm._v(" "), _c('form', {
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.submit($event)
+      }
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Name")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.name),
+      expression: "form.name"
+    }],
+    staticClass: "form-control",
+    domProps: {
+      "value": (_vm.form.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.name = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Color")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.color),
+      expression: "form.color"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.form.color)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.color = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary"
+  }, [(_vm.tag) ? [_vm._v("\n                    Update\n                ")] : [_vm._v("\n                    Create\n                ")]], 2)])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -9290,8 +9658,37 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', [_vm._v("\n   blogs\n")])
-},staticRenderFns: []}
+  return _c('section', [_c('h3', [_vm._v("Blogs")]), _vm._v(" "), (_vm.blogs.length) ? [_c('table', {
+    staticClass: "table table-striped"
+  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.blogs), function(blog) {
+    return _c('tr', [_c('td', [_c('router-link', {
+      attrs: {
+        "to": {
+          name: 'admin-blogs-edit',
+          params: {
+            blog: blog.id
+          }
+        }
+      }
+    }, [_vm._v("\n                        " + _vm._s(blog.name) + "\n                    ")])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(blog.draft))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(blog.created_at))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(blog.updated_at))]), _vm._v(" "), _c('td', [_vm._v("preview")]), _vm._v(" "), _c('td', [_c('div', {
+      staticClass: "btn-link confirm",
+      on: {
+        "click": function($event) {
+          _vm.deleteBlog(blog)
+        }
+      }
+    }, [_vm._v("Delete")])])])
+  }))])] : _vm._e(), _vm._v(" "), _c('router-link', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "to": {
+        name: 'admin-blogs-create'
+      }
+    }
+  }, [_vm._v("Create")])], 2)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("Draft")]), _vm._v(" "), _c('th', [_vm._v("Created At")]), _vm._v(" "), _c('th', [_vm._v("Updated At")]), _vm._v(" "), _c('th', [_vm._v("Preview")]), _vm._v(" "), _c('th')])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -9500,7 +9897,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                        " + _vm._s(technology.name) + "\n                    ")])
   }))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary"
-  }, [_vm._v("Create")])])])])
+  }, [(_vm.project) ? [_vm._v("\n                    Update\n                ")] : [_vm._v("\n                    Create\n                ")]], 2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "form-group"
@@ -9699,7 +10096,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('section', [(_vm.projects.length) ? [_c('table', {
     staticClass: "table table-striped"
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.projects), function(project) {
-    return _c('tr', [_c('td', [_vm._v("\n                        " + _vm._s(project.name) + "\n                    ")]), _vm._v(" "), _c('td', [_c('a', {
+    return _c('tr', [_c('td', [_c('router-link', {
+      attrs: {
+        "to": {
+          name: 'admin-projects-edit',
+          params: {
+            project: project.id
+          }
+        }
+      }
+    }, [_vm._v("\n                            " + _vm._s(project.name) + "\n                        ")])], 1), _vm._v(" "), _c('td', [_c('a', {
       attrs: {
         "target": "_blank",
         "href": project.url
@@ -9736,8 +10142,154 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section')
-},staticRenderFns: []}
+  return _c('section', [_c('div', {
+    staticClass: "col-md-9"
+  }, [_c('h3', [_vm._v("Preview Text")]), _vm._v(" "), _c('froala', {
+    model: {
+      value: (_vm.form.preview_text),
+      callback: function($$v) {
+        _vm.form.preview_text = $$v
+      },
+      expression: "form.preview_text"
+    }
+  }), _vm._v(" "), _c('froala', {
+    model: {
+      value: (_vm.form.html),
+      callback: function($$v) {
+        _vm.form.html = $$v
+      },
+      expression: "form.html"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3"
+  }, [_c('form', {
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.submit()
+      }
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Name")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.name),
+      expression: "form.name"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "url"
+    },
+    domProps: {
+      "value": (_vm.form.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.name = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Draft")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.draft),
+      expression: "form.draft"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "checkbox",
+      "name": "url"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.form.draft) ? _vm._i(_vm.form.draft, null) > -1 : (_vm.form.draft)
+    },
+    on: {
+      "__c": function($event) {
+        var $$a = _vm.form.draft,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$c) {
+            $$i < 0 && (_vm.form.draft = $$a.concat($$v))
+          } else {
+            $$i > -1 && (_vm.form.draft = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+          }
+        } else {
+          _vm.form.draft = $$c
+        }
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Link name")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.link_name),
+      expression: "form.link_name"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "link_name"
+    },
+    domProps: {
+      "value": (_vm.form.link_name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.link_name = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Tags")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.tags),
+      expression: "tags"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "multiple": ""
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.tags = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.tags), function(tag) {
+    return _c('option', {
+      domProps: {
+        "value": tag.id
+      }
+    }, [_vm._v("\n                        " + _vm._s(tag.name) + "\n                    ")])
+  }))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary"
+  }, [(_vm.blog) ? [_vm._v("\n                    Update\n                ")] : [_vm._v("\n                    Create\n                ")]], 2)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Blog Image")]), _vm._v(" "), _c('div', {
+    staticClass: "dropzone"
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -9842,6 +10394,283 @@ if (false) {
 __webpack_require__(139);
 module.exports = __webpack_require__(142);
 
+
+/***/ }),
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__View_vue__ = __webpack_require__(313);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__View_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__View_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Index_vue__ = __webpack_require__(312);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Index_vue__);
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ([{
+    path: '/blogs',
+    component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a,
+    name: 'blogs'
+}, {
+    path: '/blog/:blog',
+    component: __WEBPACK_IMPORTED_MODULE_0__View_vue___default.a,
+    name: 'blog'
+}]);
+
+/***/ }),
+/* 312 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(316),
+  /* template */
+  __webpack_require__(315),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/LukePOLO/resources/assets/js/pages/Blogs/Index.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Index.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-fed8c9ae", Component.options)
+  } else {
+    hotAPI.reload("data-v-fed8c9ae", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 313 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  null,
+  /* template */
+  __webpack_require__(314),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/LukePOLO/resources/assets/js/pages/Blogs/View.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] View.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5d6e061e", Component.options)
+  } else {
+    hotAPI.reload("data-v-5d6e061e", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 314 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_vm._v("\n    Blog View\n")])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-5d6e061e", module.exports)
+  }
+}
+
+/***/ }),
+/* 315 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "blog-container col-md-10"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('a', {
+    staticClass: "label clear-filter"
+  }, [_vm._v("Clear Filters")])]), _vm._v(" "), _c('div', {
+    staticClass: "blog"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('h1', {
+    staticClass: "blog-name"
+  }, [_c('a', [_vm._v("{  $blog->name ")])]), _vm._v(" "), _c('small', [_vm._v("$blog->created_at->format('F jS Y g:i A')")]), _vm._v(" "), _c('div', {
+    staticClass: "technologies"
+  }, [_vm._v("\n                    @foreach($blog->tags as $tag)\n                    "), _c('span', {
+    staticClass: "label",
+    staticStyle: {
+      "background-color": "#tag-color"
+    }
+  }, [_vm._v("\n                                $tag->name\n                            ")]), _vm._v("\n                    @endforeach\n                ")])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('a', [_c('img', {
+    staticClass: "img-responsive blog-image center-block",
+    attrs: {
+      "src": "$blog->image"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('p', [_vm._v("\n                    preview text\n                ")])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('a', {
+    staticClass: "pull-right continue-reading"
+  }, [_vm._v("\n                    Continue Reading ...\n                ")])]), _vm._v(" "), _c('hr')]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('h2', [_vm._v("Oh no, there are no blogs with that filter . . .")])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-2"
+  }, [_c('div', {
+    staticClass: "row text-center"
+  }, [_c('select', {
+    attrs: {
+      "id": "blog-search",
+      "multiple": ""
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('hr')])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-fed8c9ae", module.exports)
+  }
+}
+
+/***/ }),
+/* 316 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    computed: {
+        created: function created() {
+            this.$store.dispatch('blogs/get');
+        },
+        blogs: function blogs() {
+            return this.$store.state.blogs.blogs;
+        }
+    }
+});
 
 /***/ })
 ],[280]);

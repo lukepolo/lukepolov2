@@ -11,17 +11,20 @@ export const add = (state, { response }) => {
 };
 
 export const update = (state, { response }) => {
-    Vue.set(
-        state.blogs,
-        parseInt(_.findKey(state.blogs, { id: response.id })),
-        response
-    );
+    let blogKey = parseInt(_.findKey(state.blogs, { id: response.id }));
+    if(blogKey) {
+        Vue.set(
+            state.blogs,
+            blogKey,
+            response
+        );
+    }
 };
 
 export const remove = (state, { requestData }) => {
     Vue.set(
         state,
         "blogs",
-        _.reject(state.blogs, { id: requestData.blog })
+        _.reject(state.blogs, { id: requestData.value })
     );
 };

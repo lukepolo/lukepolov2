@@ -22,6 +22,6 @@ export const remove = (state, { requestData }) => {
     Vue.set(
         state,
         "tags",
-        _.reject(state.tags, { id: requestData.tag })
+        _.reject(state.tags, { id: requestData.value })
     );
 };

@@ -13,7 +13,9 @@
                 <tbody>
                     <tr v-for="project in projects">
                         <td>
-                            {{ project.name }}
+                            <router-link :to="{ name : 'admin-projects-edit', params : { project : project.id } }">
+                                {{ project.name }}
+                            </router-link>
                         </td>
                         <td>
                             <a target="_blank" :href="project.url">

@@ -49,7 +49,14 @@
                     </select>
                 </div>
                 <br>
-                <button class="btn btn-primary">Create</button>
+                <button class="btn btn-primary">
+                    <template v-if="project">
+                        Update
+                    </template>
+                    <template v-else>
+                        Create
+                    </template>
+                </button>
             </form>
         </div>
     </section>
@@ -61,14 +68,14 @@
     export default {
         data() {
             return {
-                form : {
+                form : this.createForm({
                     url : null,
                     name : null,
                     html : null,
                     timeline : null,
                     end_date : null,
                     start_date : null,
-                }
+                })
             }
         },
         created() {
@@ -96,6 +103,11 @@
             fetchData() {
                 this.$store.dispatch('timelines/get')
                 this.$store.dispatch('technologies/get')
+
+                let project = this.$route.params.project
+                if(project) {
+                    this.$store.dispatch('projects/show', project)
+                }
             },
         },
         computed : {
