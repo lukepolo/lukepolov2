@@ -13,32 +13,33 @@
             <div id="main-menu" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="action('BlogController@getPublicIndex')">BLOG</a>
+                        <a href="#">BLOG</a>
                     </li>
                     <li>
-                        <a href="action('ResumeController@getIndex')">RESUME</a>
+                        <a href="#">RESUME</a>
                     </li>
-                    @if(Auth::check())
-                        @if(Auth::user()->role == 'admin')
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                ADMIN
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="action('AdminController@getIndex')">Dashboard</a></li>
-                                <li><a href="action('Auth\AuthController@getUsers')">Users</a></li>
-                                <li><a href="action('SettingsController@getIndex')">Settings</a></li>
-                                <li class="divider"></li>
-                                <li><a href="action('Auth\AuthController@getLogout')">Logout</a></li>
-                            </ul>
-                        </li>
-                        @else
-                        <li>
-                            <li><a href="action('Auth\AuthController@getLogout')">LOGOUT</a></li>
-                        </li>
-                        @endif
-                    @endif
+                    <template v-if="isAuthed">
+                        <template v-if="isAdmin">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    ADMIN
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <router-link :to="{ name : 'admin-dashboard' }">Dashboard</router-link>
+                                    </li>
+                                    <li><a href="action('Auth\AuthController@getUsers')">Users</a></li>
+                                    <li><a href="action('SettingsController@getIndex')">Settings</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="action('Auth\AuthController@getLogout')">Logout</a></li>
+                                </ul>
+                            </li>
+                        </template>
+                        <template v-else>
+                            <li><a href="#">Logout</a></li>
+                        </template>
+                    </template>
                 </ul>
             </div>
         </div>

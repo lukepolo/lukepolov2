@@ -1,6 +1,6 @@
 import Home from './Home.vue'
 
-import Admin from './Admin/Projects/routes'
+import Admin from './Admin/routes'
 
 let routes = [
     ... Admin,

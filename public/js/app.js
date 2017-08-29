@@ -4992,6 +4992,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
@@ -5161,7 +5162,9 @@ var createForm = function createForm(data, reset) {
 /* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__time__ = __webpack_require__(173);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__notifications__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__permissions__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__notifications__ = __webpack_require__(172);
+
 
 
 
@@ -5172,12 +5175,15 @@ Vue.mixin({
 
         createForm: __WEBPACK_IMPORTED_MODULE_1__form__["a" /* createForm */],
 
-        showError: __WEBPACK_IMPORTED_MODULE_2__notifications__["a" /* showError */],
-        showSuccess: __WEBPACK_IMPORTED_MODULE_2__notifications__["b" /* showSuccess */],
-        handleApiError: __WEBPACK_IMPORTED_MODULE_2__notifications__["c" /* handleApiError */]
+        showError: __WEBPACK_IMPORTED_MODULE_3__notifications__["a" /* showError */],
+        showSuccess: __WEBPACK_IMPORTED_MODULE_3__notifications__["b" /* showSuccess */],
+        handleApiError: __WEBPACK_IMPORTED_MODULE_3__notifications__["c" /* handleApiError */]
     },
 
-    computed: {}
+    computed: {
+        isAdmin: __WEBPACK_IMPORTED_MODULE_2__permissions__["a" /* isAdmin */],
+        isAuthed: __WEBPACK_IMPORTED_MODULE_2__permissions__["b" /* isAuthed */]
+    }
 });
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
@@ -5261,21 +5267,34 @@ __webpack_require__(249);
 __webpack_require__(171);
 
 /***/ }),
-/* 175 */,
+/* 175 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Projects_routes__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Dashboard_routes__ = __webpack_require__(268);
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ([].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_0__Projects_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_1__Dashboard_routes__["a" /* default */])));
+
+/***/ }),
 /* 176 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Home_vue__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Home_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Home_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Admin_Projects_routes__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Admin_routes__ = __webpack_require__(175);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 
 
 
 
-var routes = [].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_1__Admin_Projects_routes__["a" /* default */]), [{
+var routes = [].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_1__Admin_routes__["a" /* default */]), [{
     path: '/', component: __WEBPACK_IMPORTED_MODULE_0__Home_vue___default.a, name: 'home'
 }]);
 
@@ -6535,8 +6554,6 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('nav', {
     staticClass: "navbar navbar-default",
     attrs: {
@@ -6544,7 +6561,35 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "container"
-  }, [_c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "collapse navbar-collapse",
+    attrs: {
+      "id": "main-menu"
+    }
+  }, [_c('ul', {
+    staticClass: "nav navbar-nav navbar-right"
+  }, [_vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), (_vm.isAuthed) ? [(_vm.isAdmin) ? [_c('li', {
+    staticClass: "dropdown"
+  }, [_vm._m(3), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu",
+    attrs: {
+      "role": "menu"
+    }
+  }, [_c('li', [_c('router-link', {
+    attrs: {
+      "to": {
+        name: 'admin-dashboard'
+      }
+    }
+  }, [_vm._v("Dashboard")])], 1), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _c('li', {
+    staticClass: "divider"
+  }), _vm._v(" "), _vm._m(6)])])] : [_c('li', [_c('a', {
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v("Logout")])])]] : _vm._e()], 2)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "navbar-header"
   }, [_c('button', {
     staticClass: "navbar-toggle collapsed",
@@ -6561,61 +6606,47 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "icon-bar"
   }), _vm._v(" "), _c('span', {
     staticClass: "icon-bar"
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "collapse navbar-collapse",
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('a', {
     attrs: {
-      "id": "main-menu"
+      "href": "#"
     }
-  }, [_c('ul', {
-    staticClass: "nav navbar-nav navbar-right"
-  }, [_c('li', [_c('a', {
+  }, [_vm._v("BLOG")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('a', {
     attrs: {
-      "href": "action('BlogController@getPublicIndex')"
+      "href": "#"
     }
-  }, [_vm._v("BLOG")])]), _vm._v(" "), _c('li', [_c('a', {
-    attrs: {
-      "href": "action('ResumeController@getIndex')"
-    }
-  }, [_vm._v("RESUME")])]), _vm._v("\n                @if(Auth::check())\n                    @if(Auth::user()->role == 'admin')\n                    "), _c('li', {
-    staticClass: "dropdown"
-  }, [_c('a', {
+  }, [_vm._v("RESUME")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
     staticClass: "dropdown-toggle",
     attrs: {
       "href": "#",
-      "data-toggle": "dropdown",
-      "role": "button",
-      "aria-expanded": "false"
+      "data-toggle": "dropdown"
     }
-  }, [_vm._v("\n                            ADMIN\n                            "), _c('span', {
+  }, [_vm._v("\n                                ADMIN\n                                "), _c('span', {
     staticClass: "caret"
-  })]), _vm._v(" "), _c('ul', {
-    staticClass: "dropdown-menu",
-    attrs: {
-      "role": "menu"
-    }
-  }, [_c('li', [_c('a', {
-    attrs: {
-      "href": "action('AdminController@getIndex')"
-    }
-  }, [_vm._v("Dashboard")])]), _vm._v(" "), _c('li', [_c('a', {
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('a', {
     attrs: {
       "href": "action('Auth\\AuthController@getUsers')"
     }
-  }, [_vm._v("Users")])]), _vm._v(" "), _c('li', [_c('a', {
+  }, [_vm._v("Users")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('a', {
     attrs: {
       "href": "action('SettingsController@getIndex')"
     }
-  }, [_vm._v("Settings")])]), _vm._v(" "), _c('li', {
-    staticClass: "divider"
-  }), _vm._v(" "), _c('li', [_c('a', {
+  }, [_vm._v("Settings")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('a', {
     attrs: {
       "href": "action('Auth\\AuthController@getLogout')"
     }
-  }, [_vm._v("Logout")])])])]), _vm._v("\n                    @else\n                    "), _c('li'), _c('li', [_c('a', {
-    attrs: {
-      "href": "action('Auth\\AuthController@getLogout')"
-    }
-  }, [_vm._v("LOGOUT")])]), _vm._v(" "), _vm._v("\n                    @endif\n                @endif\n            ")])])])])
+  }, [_vm._v("Logout")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -8357,6 +8388,247 @@ var remove = function remove(state, _ref5) {
     timelines: {},
     timeline: null
 });
+
+/***/ }),
+/* 266 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isAdmin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isAuthed; });
+var isAdmin = function isAdmin() {
+    return true;
+};
+
+var isAuthed = function isAuthed() {
+    return true;
+};
+
+/***/ }),
+/* 267 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+/* 268 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Index_vue__ = __webpack_require__(269);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Index_vue__);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ([{
+    path: '/admin/dashboard', component: __WEBPACK_IMPORTED_MODULE_0__Index_vue___default.a, name: 'admin-dashboard'
+}]);
+
+/***/ }),
+/* 269 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(5)(
+  /* script */
+  __webpack_require__(267),
+  /* template */
+  __webpack_require__(270),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/pages/Admin/Dashboard/Index.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Index.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2b15c5ac", Component.options)
+  } else {
+    hotAPI.reload("data-v-2b15c5ac", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 270 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('section', [_vm._v("\n    woo\n    "), _c('div', {
+    staticClass: "col-md-6 admin-comments"
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_c('h3', {
+    staticClass: "panel-title"
+  }, [_vm._v("\n                    User Comments\n                    "), _c('span', {
+    staticClass: "pull-right unread label @if($comments->count() == 0) label-default @else label-warning @endif"
+  }, [_c('span', {
+    staticClass: "count"
+  }, [_vm._v("-- $comments->count() --")]), _vm._v(" Messages\n                ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body"
+  }, [_vm._v("\n                @if($comments->count()  == 0)\n                "), _c('div', {
+    staticClass: "text-center"
+  }, [_vm._v("\n                    Go Enjoy Your Day!\n                ")]), _vm._v("\n                @else\n                -- Form::open(['class' => 'comment-form form-horizontal hide']) --\n                "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('div', {
+    staticClass: "col-sm-2"
+  }, [_c('img', {
+    staticClass: "pull-right user-image img-responsive",
+    attrs: {
+      "src": "-- empty(\\Auth::user()->profile_img) === false ?  \\Auth::user()->profile_img : asset('/img/user.svg') --"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-10"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_vm._v("\n                            -- Form::text('comment', null, ['class'=> 'comment-text form-control','placeholder' =>'Reply . . . ']) --\n                        ")])])]), _vm._v("\n                -- Form::submit('Post', ['class' => 'pull-right comment-post btn btn-primary']) --\n                "), _c('div', {
+    staticClass: "pull-right btn btn-danger cancel"
+  }, [_vm._v("Cancel")]), _vm._v("\n                -- Form::close() --\n                @foreach($comments->reverse() as $comment)\n                @include('admin.comment', ['comment' => $comment])\n                @endforeach\n                @endif\n            ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_c('h3', {
+    staticClass: "panel-title"
+  }, [_vm._v("Active Users")])]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body"
+  }, [_c('div', {
+    staticClass: "active-users text-center"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "active-user-locations"
+  }, [_c('table', {
+    staticClass: "table table-striped"
+  }, [_c('thead', [_c('th', [_vm._v("Location")]), _vm._v(" "), _c('th', [_vm._v("User Count")])]), _vm._v(" "), _c('tbody'), _vm._v("g\n                        ")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_c('h3', {
+    staticClass: "panel-title"
+  }, [_vm._v("Visitors")])]), _vm._v(" "), _c('div', {
+    staticClass: "visitor-chart"
+  }, [_c('canvas', {
+    attrs: {
+      "id": "chart"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "popular-pages"
+  }, [_c('table', {
+    staticClass: "table table-striped"
+  }, [_c('thead', [_c('th', [_vm._v("URL")]), _vm._v(" "), _c('th', [_vm._v("Views")])]), _vm._v(" "), _c('tbody')])])])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-2b15c5ac", module.exports)
+  }
+}
 
 /***/ })
 ],[199]);

@@ -1,5 +1,6 @@
 import { parseDate } from './time'
 import { createForm } from './form'
+import { isAdmin, isAuthed } from './permissions'
 import { showError, showSuccess, handleApiError } from './notifications'
 
 Vue.mixin({
@@ -14,5 +15,7 @@ Vue.mixin({
     },
 
     computed: {
+        isAdmin,
+        isAuthed,
     }
 })
