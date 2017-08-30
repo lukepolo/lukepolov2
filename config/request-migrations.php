@@ -8,6 +8,6 @@ return [
         'response-version' => 'x-api-response-version',
     ],
 
-    'current_version' => '2017_08_30',
+    'current_version' => '2017-09-01',
 
 ];

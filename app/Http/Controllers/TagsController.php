@@ -15,7 +15,11 @@ class TagsController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json(Tag::all());
+        if($request->get('all')) {
+            return response()->json(Tag::all());
+        }
+
+        return response()->json(Tag::paginate(5));
     }
 
     /**

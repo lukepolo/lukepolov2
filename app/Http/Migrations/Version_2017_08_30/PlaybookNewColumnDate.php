@@ -2,11 +2,13 @@
 
 namespace App\Http\Migrations\Version_2017_08_30;
 
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\Response;
 use TomSchlick\RequestMigrations\RequestMigration;
 
-class Test extends RequestMigration
+class PlaybookNewColumnDate extends RequestMigration
 {
     /**
      * Migrate the request for the application to "read".
@@ -29,7 +31,18 @@ class Test extends RequestMigration
      */
     public function migrateResponse(Response $response) : Response
     {
-       return $response;
+        $data = $response->original;
+
+        if($data instanceof LengthAwarePaginator) {
+            $data = $data->getCollection();
+        }
+
+        return response()->json(
+            $data->map(function($tag) {
+                $tag->some_old_column_name = 'Im old';
+                return $tag;
+            })
+        );
     }
 
     /**
@@ -39,6 +52,8 @@ class Test extends RequestMigration
      */
     public function paths() : array
     {
-        return [];
+        return [
+            action('TagsController@index')
+        ];
     }
 }
