@@ -22,6 +22,9 @@ class Form extends Request {
     }
 
     fill(data) {
+
+        this.reset()
+
         for (const field in this.data()) {
             if(data[field]) {
                 Vue.set(this, field, data[field])

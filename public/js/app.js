@@ -234,6 +234,9 @@ var Form = function (_Request) {
     }, {
         key: "fill",
         value: function fill(data) {
+
+            this.reset();
+
             for (var field in this.data()) {
                 if (data[field]) {
                     Vue.set(this, field, data[field]);
@@ -5425,7 +5428,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         fill: function fill() {
-            if (this.project) {
+            if (this.projectId && this.project) {
                 this.form.fill(this.project);
                 Vue.set(this.form, 'technologies', _.map(this.project.technologies, 'id'));
             }
@@ -5455,6 +5458,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         fetchData: function fetchData() {
+
+            this.form.reset();
+
             this.$store.dispatch('timelines/get');
             this.$store.dispatch('technologies/get');
 
@@ -5633,12 +5639,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     watch: {
         '$route': 'fetchData',
         'tag': function tag() {
-            this.form.fill(this.tag);
-            Vue.set(this, 'color', this.form.color);
+            if (this.tagId && this.tag) {
+                this.form.fill(this.tag);
+                Vue.set(this, 'color', this.form.color);
+            }
         }
     },
     methods: {
         submit: function submit() {
+
+            this.form.reset();
+
             Vue.set(this.form, 'color', this.color.hex);
 
             if (this.tagId) {
@@ -5790,8 +5801,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     watch: {
         '$route': 'fetchData',
         'technology': function technology() {
-            this.form.fill(this.technology);
-            Vue.set(this, 'color', this.form.color);
+            if (this.technologyId && this.technology) {
+                this.form.fill(this.technology);
+                Vue.set(this, 'color', this.form.color);
+            }
         }
     },
     methods: {
@@ -5812,6 +5825,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$store.dispatch('technologies/update', _.merge(this.form, { technology: this.technologyId }));
         },
         fetchData: function fetchData() {
+
+            this.form.reset();
+
             if (this.technologyId) {
                 this.$store.dispatch('technologies/show', this.technologyId);
             }
@@ -5947,7 +5963,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     watch: {
         '$route': 'fetchData',
         'timeline': function timeline() {
-            this.form.fill(this.timeline);
+            if (this.timelineId && this.timeline) {
+                this.form.fill(this.timeline);
+            }
         }
     },
     methods: {
@@ -5964,6 +5982,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$store.dispatch('timelines/update', _.merge(this.form, { timeline: this.timelineId }));
         },
         fetchData: function fetchData() {
+
+            this.form.reset();
+
             if (this.timelineId) {
                 this.$store.dispatch('timelines/show', this.timelineId);
             }

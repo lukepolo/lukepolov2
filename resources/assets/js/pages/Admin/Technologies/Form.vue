@@ -47,8 +47,10 @@
         watch : {
             '$route' : 'fetchData',
             'technology' : function() {
-                this.form.fill(this.technology)
-                Vue.set(this, 'color', this.form.color)
+                if(this.technologyId && this.technology) {
+                    this.form.fill(this.technology)
+                    Vue.set(this, 'color', this.form.color)
+                }
             }
         } ,
         methods : {
@@ -69,6 +71,9 @@
                 this.$store.dispatch('technologies/update', _.merge(this.form, { technology : this.technologyId }))
             },
             fetchData() {
+
+                this.form.reset();
+
                 if(this.technologyId) {
                     this.$store.dispatch('technologies/show', this.technologyId)
                 }

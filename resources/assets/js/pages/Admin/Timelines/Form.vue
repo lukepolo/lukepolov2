@@ -44,7 +44,9 @@
         watch : {
             '$route' : 'fetchData',
             'timeline' : function() {
-                this.form.fill(this.timeline)
+                if(this.timelineId && this.timeline) {
+                    this.form.fill(this.timeline)
+                }
             }
         } ,
         methods : {
@@ -61,6 +63,9 @@
                 this.$store.dispatch('timelines/update', _.merge(this.form, { timeline : this.timelineId }))
             },
             fetchData() {
+
+                this.form.reset();
+
                 if(this.timelineId) {
                     this.$store.dispatch('timelines/show', this.timelineId)
                 }

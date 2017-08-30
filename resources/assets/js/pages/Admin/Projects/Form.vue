@@ -104,7 +104,7 @@
         } ,
         methods : {
             fill() {
-                if(this.project) {
+                if(this.projectId && this.project) {
                     this.form.fill(this.project)
                     Vue.set(this.form, 'technologies', _.map(this.project.technologies, 'id'))
                 }
@@ -134,6 +134,9 @@
                 })
             },
             fetchData() {
+
+                this.form.reset();
+
                 this.$store.dispatch('timelines/get')
                 this.$store.dispatch('technologies/get')
 
