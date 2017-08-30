@@ -24,6 +24,12 @@ class CreateProjectsTable extends Migration
             $table->integer('timeline_id');
             $table->timestamps();
         });
+
+        Schema::create('project_technology', function(Blueprint $table) {
+            $table->integer('project_id');
+            $table->integer('technology_id');
+        });
+
     }
 
     /**
@@ -34,5 +40,6 @@ class CreateProjectsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('projects');
+        Schema::dropIfExists('project_technology');
     }
 }

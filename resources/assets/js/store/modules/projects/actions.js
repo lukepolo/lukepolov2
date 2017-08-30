@@ -13,8 +13,8 @@ export const show = ({}, project) => {
     Vue.request().get('/api/projects/' + project, 'projects/set')
 }
 
-export const update = ({}, form) => {
-    Vue.request(form).put('/api/projects/' + form.project, 'projects/update').then(() => {
+export const update = ({}, data) => {
+    Vue.request(data).post('/api/projects/' + data.project, 'projects/update').then(() => {
         app.showSuccess('You have updated the project')
         app.$router.push({ name : 'admin-projects' })
     })

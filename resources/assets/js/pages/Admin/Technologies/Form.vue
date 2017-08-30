@@ -53,7 +53,9 @@
         } ,
         methods : {
             submit() {
-                Vue.set(this.form, 'color', this.color.hex)
+                if(this.color.hex) {
+                    Vue.set(this.form, 'color', this.color.hex)
+                }
 
                 if(this.technology) {
                     return this.update()

@@ -23,7 +23,7 @@
                                 {{ project.url }}
                             </a>
                         </td>
-                        <td>{{ project.timeline }} </td>
+                        <td>{{ project.timeline.name }} </td>
                         <td>{{ project.end_date }}</td>
                         <td>{{ project.start_date }}</td>
                         <td>

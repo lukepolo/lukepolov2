@@ -24,7 +24,7 @@ class TechnologyRequest extends FormRequest
     public function rules()
     {
         return [
-            'url' => 'required',
+            'url' => 'required|url',
             'name' => 'required',
             'color' => 'required',
         ];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Http\Requests\ProjectRequest;
+use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
@@ -25,22 +26,7 @@ class ProjectsController extends Controller
      */
     public function store(ProjectRequest $request)
     {
-        $project = Project::create([
-            'url' => $request->get('url'),
-            'html' => $request->get('html'),
-            'name' => $request->get('name'),
-            'end_date' => $request->get('end_date'),
-            'timeline_id' => $request->get('timeline'),
-            'start_date' => $request->get('start_date'),
-        ]);
-
-        // TODO - has many timelines
-        // TODO - has many technologies
-
-        //todo - update image to model as well
-
-//        'project_image' => $request->get('project_image'),
-        return response()->json($project);
+        return response()->json($this->saveProject($request, new Project()));
     }
 
     /**
@@ -65,18 +51,7 @@ class ProjectsController extends Controller
      */
     public function update(ProjectRequest $request, $id)
     {
-        $project = Project::findOrFail($id);
-
-        $project->update([
-            'url' => $request->get('url'),
-            'html' => $request->get('html'),
-            'name' => $request->get('name'),
-            'end_date' => $request->get('end_date'),
-            'timeline_id' => $request->get('timeline'),
-            'start_date' => $request->get('start_date'),
-        ]);
-
-        return response()->json($project);
+        return response()->json($this->saveProject($request, Project::findOrFail($id)));
     }
 
     /**
@@ -88,5 +63,44 @@ class ProjectsController extends Controller
     public function destroy($id)
     {
         return response()->json(Project::destroy($id));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @param $project
+     *
+     * @return Project
+     */
+    private function saveProject(Request $request, Project $project)
+    {
+        $project->fill([
+            'url' => $request->get('url'),
+            'html' => $request->get('html'),
+            'name' => $request->get('name'),
+            'end_date' => $request->get('end_date'),
+            'start_date' => $request->get('start_date'),
+            'timeline_id' => $request->get('timeline_id'),
+        ]);
+
+        if($request->hasFile('project_image')) {
+            $project->fill([
+                'project_image' => \Storage::url(
+                    $request->file('project_image')->store('public/project-photos')
+                )
+            ]);
+        }
+
+        if($request->get('remove_project_image') == 'true') {
+            $project->fill([
+                'project_image' => null
+            ]);
+        }
+
+        $project->save();
+
+        $project->technologies()->sync($request->get('technologies'));
+
+        return $project;
     }
 }

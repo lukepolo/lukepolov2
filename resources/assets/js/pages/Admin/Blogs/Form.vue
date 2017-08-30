@@ -2,9 +2,9 @@
     <section>
         <div class="col-md-9">
             <h3>Preview Text</h3>
-            <froala v-model="form.preview_text"></froala>
+            <froala :config="previewConfig" v-model="form.preview_text"></froala>
 
-            <froala v-model="form.html"></froala>
+            <froala :config="blogConfig" v-model="form.html"></froala>
         </div>
         <div class="col-md-3">
             <form @submit.prevent="submit()">
@@ -104,6 +104,16 @@
             },
             tags() {
                 return this.$store.state.tags.tags
+            },
+            blogConfig() {
+                let config = _.clone(this.froalaConfig)
+                config.heightMin = 400
+                return config
+            },
+            previewConfig() {
+                let config = _.clone(this.froalaConfig)
+                config.heightMin = 200
+                return config
             }
         }
     }
