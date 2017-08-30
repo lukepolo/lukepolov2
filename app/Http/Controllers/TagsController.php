@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Http\Requests\TagRequest;
+use Illuminate\Http\Request;
 
 class TagsController extends Controller
 {
@@ -12,7 +13,7 @@ class TagsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         return response()->json(Tag::all());
     }
