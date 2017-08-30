@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e72403366d360d36ae00ad45d531017",
+    "content-hash": "2dd043da03a5a3d2ab0ba4c0a4547028",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -3605,68 +3605,6 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2016-09-20T12:50:39+00:00"
-        },
-        {
-            "name": "tomschlick/request-migrations",
-            "version": "v0.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tomschlick/request-migrations.git",
-                "reference": "5d41e07c35e1f18070fe9de0b4e991033d678952"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tomschlick/request-migrations/zipball/5d41e07c35e1f18070fe9de0b4e991033d678952",
-                "reference": "5d41e07c35e1f18070fe9de0b4e991033d678952",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/config": "5.4.*|5.5.*",
-                "illuminate/contracts": "5.4.*|5.5.*",
-                "illuminate/http": "5.4.*|5.5.*",
-                "illuminate/support": "5.4.*|5.5.*",
-                "php": "^7.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "~3.4",
-                "phpunit/phpunit": "^6.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "TomSchlick\\RequestMigrations\\RequestMigrationsServiceProvider"
-                    ],
-                    "aliases": []
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "TomSchlick\\RequestMigrations\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Tom Schlick",
-                    "email": "tom@schlick.email",
-                    "homepage": "https://tomschlick.com"
-                }
-            ],
-            "description": "HTTP Request Migrations",
-            "homepage": "https://github.com/tomschlick/request-migrations",
-            "keywords": [
-                "http",
-                "laravel",
-                "middleware",
-                "migrations",
-                "request-migrations",
-                "requests"
-            ],
-            "time": "2017-08-23T20:36:03+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
