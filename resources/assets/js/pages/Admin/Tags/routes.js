@@ -3,17 +3,17 @@ import Index from './Index.vue'
 
 export default [
     {
-        path: '/admin/tags',
+        path: 'tags',
         component: Index,
         name : 'admin-tags',
     },
     {
-        path: '/admin/tags/create',
+        path: 'tags/create',
         component: Form,
         name : 'admin-tags-create',
     },
     {
-        path: '/admin/tags/edit',
+        path: 'tags/edit',
         component: Form,
         name : 'admin-tags-edit',
     }

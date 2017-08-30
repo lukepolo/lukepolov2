@@ -6,6 +6,10 @@ $swb-red: rgb(196, 114, 81);
 $swb-lightBlue: rgb(207, 226, 241);
 $swb-lightGrey: rgb(119, 119, 119);
 
+
+@import url("//fonts.googleapis.com/css?family=Josefin+Slab:100,400,700");
+
+
 html, body {
   font-family: 'Josefin Slab', serif;
   font-size: 20px;
@@ -35,8 +39,7 @@ footer {
   font-size: 15px;
 }
 
-body.admin,
-html.admin {
+.admin-area {
   font-size: 12px;
 }
 

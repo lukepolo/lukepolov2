@@ -2,7 +2,7 @@ import Index from './Index.vue'
 
 export default [
     {
-        path: '/admin/dashboard',
+        path: 'dashboard',
         component: Index,
         name : 'admin-dashboard',
     },

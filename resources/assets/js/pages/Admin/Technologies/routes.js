@@ -3,17 +3,17 @@ import Index from './Index.vue'
 
 export default [
     {
-        path: '/admin/technologies',
+        path: 'technologies',
         component: Index,
         name : 'admin-technologies',
     },
     {
-        path: '/admin/technologies/create',
+        path: 'technologies/create',
         component: Form,
         name : 'admin-technologies-create',
     },
     {
-        path: '/admin/technologies/edit/:technology',
+        path: 'technologies/edit/:technology',
         component: Form,
         name : 'admin-technologies-edit',
     }

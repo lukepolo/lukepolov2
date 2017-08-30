@@ -18,52 +18,23 @@
                 </div>
                 <hr>
             </div>
-            @foreach($projects as $project)
-                <div class="project">
-                    <div class="col-md-6 img-holder" data-project_id="project_id">
-                        <img class="img-responsive" src="">
-                    </div>
-                </div>
-                <div class="project-details" id="project->id">
-                    <div class="show_projects">
-                        <span class="btn btn-info">
-                            <i class="fa fa-arrow-left"></i>
-                        </span>
-                        <h2>
-                            project-name
-                            <small><a target="_blank" href="">url</a></small>
-                        </h2>
-                    </div>
-                    <hr>
-                    <div class="row panel-links">
-                        @foreach($project->technologies->sortBy('name') as $technology)
-                        <div class="col-lg-3">
-                            <div class="panel panel-default">
-                                <div style="background-color:#technology->color"
-                                     class="panel-color"></div>
-                                <div class="panel-body">
-                                    technology->name
-                                    <span>
-                                        <a class="pull-right" target="_blank" href="technology->url">
-                                            <i style="color:#technology->color" class="fa fa-arrow-right"></i>
-                                        </a>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                    <div class="project-html">
-                        $project->html
-                    </div>
-                </div>
-            @endforeach
+            <template v-for="project in projects">
+                <project :project="project"></project>
+            </template>
+
         </div>
     </div>
 </template>
 
 <script>
     export default {
-
+        created() {
+            this.$store.dispatch('projects/get')
+        },
+        computed : {
+            projects() {
+                return this.$store.state.projects.projects
+            }
+        }
     }
 </script>

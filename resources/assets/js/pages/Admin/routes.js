@@ -8,7 +8,7 @@ import Technologies from './Technologies/routes'
 
 export default [
     {
-        path: "/",
+        path: "/admin",
         component: AdminArea,
         children: [
             ... Tags,

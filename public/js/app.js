@@ -6156,44 +6156,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    created: function created() {
+        this.$store.dispatch('projects/get');
+    },
+
+    computed: {
+        projects: function projects() {
+            return this.$store.state.projects.projects;
+        }
+    }
+});
 
 /***/ }),
 /* 181 */
@@ -6315,6 +6289,8 @@ __webpack_require__(182);
 Vue.component('Footer', __webpack_require__(255));
 Vue.component('Navigation', __webpack_require__(256));
 Vue.component('AdminNavigation', __webpack_require__(254));
+
+Vue.component('Project', __webpack_require__(320));
 
 
 
@@ -6496,15 +6472,15 @@ __webpack_require__(187);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-    path: '/admin/blogs',
+    path: 'blogs',
     component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a,
     name: 'admin-blogs'
 }, {
-    path: '/admin/blogs/create',
+    path: 'blogs/create',
     component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
     name: 'admin-blogs-create'
 }, {
-    path: '/admin/blogs/edit/:blog',
+    path: 'blogs/edit/:blog',
     component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
     name: 'admin-blogs-edit'
 }]);
@@ -6519,7 +6495,7 @@ __webpack_require__(187);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-    path: '/admin/dashboard',
+    path: 'dashboard',
     component: __WEBPACK_IMPORTED_MODULE_0__Index_vue___default.a,
     name: 'admin-dashboard'
 }]);
@@ -6537,15 +6513,15 @@ __webpack_require__(187);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-    path: '/projects',
+    path: 'projects',
     component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a,
     name: 'admin-projects'
 }, {
-    path: '/projects/create',
+    path: 'projects/create',
     component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
     name: 'admin-projects-create'
 }, {
-    path: '/projects/edit/:project',
+    path: 'projects/edit/:project',
     component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
     name: 'admin-projects-edit'
 }]);
@@ -6563,15 +6539,15 @@ __webpack_require__(187);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-    path: '/admin/tags',
+    path: 'tags',
     component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a,
     name: 'admin-tags'
 }, {
-    path: '/admin/tags/create',
+    path: 'tags/create',
     component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
     name: 'admin-tags-create'
 }, {
-    path: '/admin/tags/edit',
+    path: 'tags/edit',
     component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
     name: 'admin-tags-edit'
 }]);
@@ -6589,15 +6565,15 @@ __webpack_require__(187);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-    path: '/admin/technologies',
+    path: 'technologies',
     component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a,
     name: 'admin-technologies'
 }, {
-    path: '/admin/technologies/create',
+    path: 'technologies/create',
     component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
     name: 'admin-technologies-create'
 }, {
-    path: '/admin/technologies/edit/:technology',
+    path: 'technologies/edit/:technology',
     component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
     name: 'admin-technologies-edit'
 }]);
@@ -6615,15 +6591,15 @@ __webpack_require__(187);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-    path: '/admin/timelines',
+    path: 'timelines',
     component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a,
     name: 'admin-timelines'
 }, {
-    path: '/admin/timelines/create',
+    path: 'timelines/create',
     component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
     name: 'admin-timelines-create'
 }, {
-    path: '/admin/timelines/edit/:timeline',
+    path: 'timelines/edit/:timeline',
     component: __WEBPACK_IMPORTED_MODULE_0__Form_vue___default.a,
     name: 'admin-timelines-edit'
 }]);
@@ -6652,7 +6628,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-    path: "/",
+    path: "/admin",
     component: __WEBPACK_IMPORTED_MODULE_2__AdminArea_vue___default.a,
     children: [].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_0__Tags_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_1__Blogs_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_3__Projects_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_4__Dashboard_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_5__Timelines_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_6__Technologies_routes__["a" /* default */]))
 }]);
@@ -11816,7 +11792,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "container"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "navbar-header"
+  }, [_vm._m(0), _vm._v(" "), _c('router-link', {
+    staticClass: "navbar-brand",
+    attrs: {
+      "to": "/"
+    }
+  }, [_vm._v("LukePOLO")])], 1), _vm._v(" "), _c('div', {
     staticClass: "collapse navbar-collapse",
     attrs: {
       "id": "main-menu"
@@ -11844,9 +11827,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Logout")])])]] : _vm._e()], 2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "navbar-header"
-  }, [_c('button', {
+  return _c('button', {
     staticClass: "navbar-toggle collapsed",
     attrs: {
       "type": "button",
@@ -11861,7 +11842,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "icon-bar"
   }), _vm._v(" "), _c('span', {
     staticClass: "icon-bar"
-  })])])
+  })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     attrs: {
@@ -11887,19 +11868,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     attrs: {
-      "href": "action('Auth\\AuthController@getUsers')"
+      "href": "#"
     }
   }, [_vm._v("Users")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     attrs: {
-      "href": "action('SettingsController@getIndex')"
+      "href": "#"
     }
   }, [_vm._v("Settings")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     attrs: {
-      "href": "action('Auth\\AuthController@getLogout')"
+      "href": "#"
     }
   }, [_vm._v("Logout")])])
 }]}
@@ -12388,7 +12369,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('section', {
-    staticClass: "container"
+    staticClass: "container admin-area"
   }, [_c('admin-navigation'), _vm._v(" "), _c('router-view')], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -12605,11 +12586,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "git_tree"
     }
-  })]), _vm._v(" "), _vm._m(0)])
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-9"
+  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.projects), function(project) {
+    return [_c('project', {
+      attrs: {
+        "project": project
+      }
+    })]
+  })], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-md-9"
-  }, [_c('div', {
     staticClass: "select-title"
   }, [_c('h1', [_vm._v("Projects")]), _vm._v(" "), _c('div', [_c('small', [_c('span', {
     staticClass: "visible-md visible-lg"
@@ -12617,61 +12604,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-long-arrow-left"
   }), _vm._v(" You can navigate my site using my \"git tree\" just click / hover over them\n                    ")]), _vm._v(" "), _c('span', {
     staticClass: "visible-sm visible-xs"
-  }, [_vm._v("\n                        Click on the images to find out more\n                    ")])])]), _vm._v(" "), _c('hr')]), _vm._v("\n        @foreach($projects as $project)\n            "), _c('div', {
-    staticClass: "project"
-  }, [_c('div', {
-    staticClass: "col-md-6 img-holder",
-    attrs: {
-      "data-project_id": "project_id"
-    }
-  }, [_c('img', {
-    staticClass: "img-responsive",
-    attrs: {
-      "src": ""
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "project-details",
-    attrs: {
-      "id": "project->id"
-    }
-  }, [_c('div', {
-    staticClass: "show_projects"
-  }, [_c('span', {
-    staticClass: "btn btn-info"
-  }, [_c('i', {
-    staticClass: "fa fa-arrow-left"
-  })]), _vm._v(" "), _c('h2', [_vm._v("\n                        project-name\n                        "), _c('small', [_c('a', {
-    attrs: {
-      "target": "_blank",
-      "href": ""
-    }
-  }, [_vm._v("url")])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
-    staticClass: "row panel-links"
-  }, [_vm._v("\n                    @foreach($project->technologies->sortBy('name') as $technology)\n                    "), _c('div', {
-    staticClass: "col-lg-3"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-color",
-    staticStyle: {
-      "background-color": "#technology->color"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_vm._v("\n                                technology->name\n                                "), _c('span', [_c('a', {
-    staticClass: "pull-right",
-    attrs: {
-      "target": "_blank",
-      "href": "technology->url"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-arrow-right",
-    staticStyle: {
-      "color": "#technology->color"
-    }
-  })])])])])]), _vm._v("\n                    @endforeach\n                ")]), _vm._v(" "), _c('div', {
-    staticClass: "project-html"
-  }, [_vm._v("\n                    $project->html\n                ")])]), _vm._v("\n        @endforeach\n    ")])
+  }, [_vm._v("\n                        Click on the images to find out more\n                    ")])])]), _vm._v(" "), _c('hr')])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -13161,6 +13094,226 @@ if (false) {
 __webpack_require__(141);
 module.exports = __webpack_require__(144);
 
+
+/***/ }),
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['project'],
+    data: function data() {
+        return {
+            viewing: false
+        };
+    },
+
+    methods: {
+        goToUrl: function goToUrl(url) {
+            window.open(url);
+        },
+        viewProject: function viewProject() {
+            // need to emit others to close
+            Vue.set(this, 'viewing', true);
+        },
+        closeProject: function closeProject() {
+            Vue.set(this, 'viewing', false);
+        }
+    },
+    computed: {
+        technologies: function technologies() {
+            //T TODO - sort by name
+            return this.project.technologies;
+        }
+    }
+});
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+
+/***/ }),
+/* 320 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(4)(
+  /* script */
+  __webpack_require__(319),
+  /* template */
+  __webpack_require__(321),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/LukePOLO/resources/assets/js/components/Project.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Project.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7695b860", Component.options)
+  } else {
+    hotAPI.reload("data-v-7695b860", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 321 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('section', [(!_vm.viewing) ? _c('div', {
+    staticClass: "project",
+    on: {
+      "click": _vm.viewProject
+    }
+  }, [_c('div', {
+    staticClass: "col-md-6 img-holder",
+    attrs: {
+      "data-project_id": "project_id"
+    }
+  }, [_c('img', {
+    staticClass: "img-responsive",
+    attrs: {
+      "src": _vm.project.project_image
+    }
+  })])]) : _vm._e(), _vm._v(" "), (_vm.viewing) ? _c('div', {
+    staticClass: "project-details",
+    attrs: {
+      "id": "project->id"
+    }
+  }, [_c('div', {
+    staticClass: "show-projects"
+  }, [_c('span', {
+    staticClass: "btn btn-info",
+    on: {
+      "click": function($event) {
+        $event.stopPropagation();
+        _vm.closeProject()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-arrow-left"
+  })]), _vm._v(" "), _c('h2', [_vm._v("\n                " + _vm._s(_vm.project.name) + "\n                "), _c('small', [_c('a', {
+    attrs: {
+      "target": "_blank",
+      "href": ""
+    }
+  }, [_vm._v(_vm._s(_vm.project.url))])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+    staticClass: "row panel-links"
+  }, _vm._l((_vm.technologies), function(technology) {
+    return _c('div', {
+      staticClass: "col-lg-3",
+      on: {
+        "click": function($event) {
+          _vm.goToUrl(technology.url)
+        }
+      }
+    }, [_c('div', {
+      staticClass: "panel panel-default"
+    }, [_c('div', {
+      staticClass: "panel-color",
+      style: ('background-color:' + technology.color)
+    }), _vm._v(" "), _c('div', {
+      staticClass: "panel-body"
+    }, [_vm._v("\n                        " + _vm._s(technology.name) + "\n                        "), _c('span', [_c('i', {
+      staticClass: "pull-right fa fa-arrow-right",
+      style: ('color:' + technology.color)
+    })])])])])
+  })), _vm._v(" "), _c('div', {
+    staticClass: "project-html"
+  }, [_c('froalaView', {
+    model: {
+      value: (_vm.project.html),
+      callback: function($$v) {
+        _vm.project.html = $$v
+      },
+      expression: "project.html"
+    }
+  })], 1)]) : _vm._e()])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7695b860", module.exports)
+  }
+}
 
 /***/ })
 ],[290]);

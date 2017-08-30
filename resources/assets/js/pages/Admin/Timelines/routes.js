@@ -3,17 +3,17 @@ import Index from './Index.vue'
 
 export default [
     {
-        path: '/admin/timelines',
+        path: 'timelines',
         component: Index,
         name : 'admin-timelines',
     },
     {
-        path: '/admin/timelines/create',
+        path: 'timelines/create',
         component: Form,
         name : 'admin-timelines-create',
     },
     {
-        path: '/admin/timelines/edit/:timeline',
+        path: 'timelines/edit/:timeline',
         component: Form,
         name : 'admin-timelines-edit',
     }
