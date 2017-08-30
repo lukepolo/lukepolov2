@@ -1,5 +1,5 @@
 import { parseDate } from './time'
-import { createForm } from './form'
+import { createForm, getDefaultColors } from './form'
 import { isAdmin, isAuthed } from './permissions'
 import { showError, showSuccess, handleApiError } from './notifications'
 
@@ -8,6 +8,7 @@ Vue.mixin({
         parseDate,
 
         createForm,
+        getDefaultColors,
 
         showError,
         showSuccess,

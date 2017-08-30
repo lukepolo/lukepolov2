@@ -10,7 +10,7 @@
                 </div>
                 <div class="form-group">
                     <label>Color</label>
-                    <input type="text" class="form-control" v-model="form.color">
+                    <material-picker v-model="color" />
                 </div>
 
                 <button class="btn btn-primary">
@@ -29,7 +29,8 @@
                 form : this.createForm({
                     name : null,
                     color : null,
-                })
+                }),
+                color : this.getDefaultColors()
             }
         },
         created() {
@@ -39,10 +40,14 @@
             '$route' : 'fetchData',
             'tag' : function() {
                 this.form.fill(this.tag)
+                Vue.set(this, 'color', this.form.color)
             }
         } ,
         methods : {
             submit() {
+
+                Vue.set(this.form, 'color', this.color.hex)
+
                 if(this.tag) {
                     return this.update()
                 }

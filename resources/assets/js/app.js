@@ -5,10 +5,14 @@ require('./bootstrap');
 require('./components')
 require('./mixins')
 
+import { Material } from 'vue-color'
+
 const app = new Vue({
     store,
     router,
 })
+
+
 
 window.app = app
 
