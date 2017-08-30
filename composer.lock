@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1e45bc1eb37a40a629926b87eedf1b46",
+    "content-hash": "3e72403366d360d36ae00ad45d531017",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -952,16 +952,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "dev-master",
+            "version": "v5.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "21f4d19c8413a6688603a73ca341c1de162ec1ee"
+                "reference": "bd352a0d2ca93775fce8ef02365b03fc4fb8cbb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/21f4d19c8413a6688603a73ca341c1de162ec1ee",
-                "reference": "21f4d19c8413a6688603a73ca341c1de162ec1ee",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/bd352a0d2ca93775fce8ef02365b03fc4fb8cbb0",
+                "reference": "bd352a0d2ca93775fce8ef02365b03fc4fb8cbb0",
                 "shasum": ""
             },
             "require": {
@@ -1080,20 +1080,20 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-08-29T19:22:34+00:00"
+            "time": "2017-08-30T09:25:30+00:00"
         },
         {
             "name": "laravel/passport",
-            "version": "v3.0.1",
+            "version": "v4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/passport.git",
-                "reference": "d19a6b60503cb416fe55507684699de35239681f"
+                "reference": "9d7bb2a830fd4adbd46d44b8174b674894e15efd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/passport/zipball/d19a6b60503cb416fe55507684699de35239681f",
-                "reference": "d19a6b60503cb416fe55507684699de35239681f",
+                "url": "https://api.github.com/repos/laravel/passport/zipball/9d7bb2a830fd4adbd46d44b8174b674894e15efd",
+                "reference": "9d7bb2a830fd4adbd46d44b8174b674894e15efd",
                 "shasum": ""
             },
             "require": {
@@ -1120,7 +1120,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "4.0-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -1149,7 +1149,7 @@
                 "oauth",
                 "passport"
             ],
-            "time": "2017-08-04T14:03:52+00:00"
+            "time": "2017-08-28T21:36:09+00:00"
         },
         {
             "name": "laravel/socialite",
@@ -3607,6 +3607,68 @@
             "time": "2016-09-20T12:50:39+00:00"
         },
         {
+            "name": "tomschlick/request-migrations",
+            "version": "v0.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tomschlick/request-migrations.git",
+                "reference": "5d41e07c35e1f18070fe9de0b4e991033d678952"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tomschlick/request-migrations/zipball/5d41e07c35e1f18070fe9de0b4e991033d678952",
+                "reference": "5d41e07c35e1f18070fe9de0b4e991033d678952",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "5.4.*|5.5.*",
+                "illuminate/contracts": "5.4.*|5.5.*",
+                "illuminate/http": "5.4.*|5.5.*",
+                "illuminate/support": "5.4.*|5.5.*",
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.4",
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TomSchlick\\RequestMigrations\\RequestMigrationsServiceProvider"
+                    ],
+                    "aliases": []
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TomSchlick\\RequestMigrations\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Schlick",
+                    "email": "tom@schlick.email",
+                    "homepage": "https://tomschlick.com"
+                }
+            ],
+            "description": "HTTP Request Migrations",
+            "homepage": "https://github.com/tomschlick/request-migrations",
+            "keywords": [
+                "http",
+                "laravel",
+                "middleware",
+                "migrations",
+                "request-migrations",
+                "requests"
+            ],
+            "time": "2017-08-23T20:36:03+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v2.4.0",
             "source": {
@@ -4185,22 +4247,22 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "3.2.2",
+            "version": "3.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "4aada1f93c72c35e22fb1383b47fee43b8f1d157"
+                "reference": "86e24012a3139b42a7b71155cfaa325389f00f1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/4aada1f93c72c35e22fb1383b47fee43b8f1d157",
-                "reference": "4aada1f93c72c35e22fb1383b47fee43b8f1d157",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/86e24012a3139b42a7b71155cfaa325389f00f1f",
+                "reference": "86e24012a3139b42a7b71155cfaa325389f00f1f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5",
+                "php": "^7.0",
                 "phpdocumentor/reflection-common": "^1.0@dev",
-                "phpdocumentor/type-resolver": "^0.3.0",
+                "phpdocumentor/type-resolver": "^0.4.0",
                 "webmozart/assert": "^1.0"
             },
             "require-dev": {
@@ -4226,20 +4288,20 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2017-08-08T06:39:58+00:00"
+            "time": "2017-08-29T19:37:41+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "0.3.0",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "fb3933512008d8162b3cdf9e18dba9309b7c3773"
+                "reference": "9c977708995954784726e25d0cd1dddf4e65b0f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/fb3933512008d8162b3cdf9e18dba9309b7c3773",
-                "reference": "fb3933512008d8162b3cdf9e18dba9309b7c3773",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/9c977708995954784726e25d0cd1dddf4e65b0f7",
+                "reference": "9c977708995954784726e25d0cd1dddf4e65b0f7",
                 "shasum": ""
             },
             "require": {
@@ -4273,7 +4335,7 @@
                     "email": "me@mikevanriel.com"
                 }
             ],
-            "time": "2017-06-03T08:32:36+00:00"
+            "time": "2017-07-14T14:27:02+00:00"
         },
         {
             "name": "phpspec/prophecy",
@@ -5382,9 +5444,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
-    "prefer-stable": true,
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.1.0"
