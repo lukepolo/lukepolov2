@@ -57,7 +57,7 @@
                     Vue.set(this.form, 'color', this.color.hex)
                 }
 
-                if(this.technology) {
+                if(this.technologyId) {
                     return this.update()
                 }
                 this.create()
@@ -66,19 +66,20 @@
                 this.$store.dispatch('technologies/store', this.form)
             },
             update() {
-                this.$store.dispatch('technologies/update', _.merge(this.form, { technology : this.technology.id }))
+                this.$store.dispatch('technologies/update', _.merge(this.form, { technology : this.technologyId }))
             },
             fetchData() {
-                let technology = this.$route.params.technology
-
-                if(technology) {
-                    this.$store.dispatch('technologies/show', technology)
+                if(this.technologyId) {
+                    this.$store.dispatch('technologies/show', this.technologyId)
                 }
             },
         },
         computed : {
             technology() {
                 return this.$store.state.technologies.technology
+            },
+            technologyId() {
+                return this.$route.params.technology
             },
             actionStatus() {
                 return this.technology ? 'Updating' : 'Creating'

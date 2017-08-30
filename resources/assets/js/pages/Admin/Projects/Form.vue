@@ -51,7 +51,7 @@
                     </div>
                     <br>
                     <button class="btn btn-primary">
-                        <template v-if="project">
+                        <template v-if="projectId">
                             Update
                         </template>
                         <template v-else>
@@ -119,7 +119,7 @@
                     }
                 })
 
-                if(this.project) {
+                if(this.projectId) {
                     return this.update(formData)
                 }
                 this.create(formData)
@@ -137,9 +137,8 @@
                 this.$store.dispatch('timelines/get')
                 this.$store.dispatch('technologies/get')
 
-                let project = this.$route.params.project
-                if(project) {
-                    this.$store.dispatch('projects/show', project)
+                if(this.projectId) {
+                    this.$store.dispatch('projects/show', this.projectId)
                 }
             },
             resetProjectImage() {
@@ -169,6 +168,9 @@
         computed : {
             project() {
                 return this.$store.state.projects.project
+            },
+            projectId() {
+                return this.$route.params.project
             },
             timelines() {
                 return this.$store.state.timelines.timelines

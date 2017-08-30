@@ -49,7 +49,7 @@
         } ,
         methods : {
             submit() {
-                if(this.timeline) {
+                if(this.timelineId) {
                     return this.update()
                 }
                 this.create()
@@ -58,13 +58,11 @@
                 this.$store.dispatch('timelines/store', this.form)
             },
             update() {
-                this.$store.dispatch('timelines/update', _.merge(this.form, { timeline : this.timeline.id }))
+                this.$store.dispatch('timelines/update', _.merge(this.form, { timeline : this.timelineId }))
             },
             fetchData() {
-                let timeline = this.$route.params.timeline
-
-                if(timeline) {
-                    this.$store.dispatch('timelines/show', timeline)
+                if(this.timelineId) {
+                    this.$store.dispatch('timelines/show', this.timelineId)
                 }
             },
         },
@@ -72,8 +70,11 @@
             timeline() {
                 return this.$store.state.timelines.timeline
             },
+            timelineId() {
+                return this.$route.params.timeline
+            },
             actionStatus() {
-                return this.timeline ? 'Updating' : 'Creating'
+                return this.timelineId ? 'Updating' : 'Creating'
             }
         }
     }

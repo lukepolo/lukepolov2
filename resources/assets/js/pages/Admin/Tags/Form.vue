@@ -45,10 +45,9 @@
         } ,
         methods : {
             submit() {
-
                 Vue.set(this.form, 'color', this.color.hex)
 
-                if(this.tag) {
+                if(this.tagId) {
                     return this.update()
                 }
                 this.create()
@@ -57,13 +56,11 @@
                 this.$store.dispatch('tags/store', this.form)
             },
             update() {
-                this.$store.dispatch('tags/update', _.merge(this.form, { tag : this.tag.id }))
+                this.$store.dispatch('tags/update', _.merge(this.form, { tag : this.tagId }))
             },
             fetchData() {
-                let tag = this.$route.params.tag
-
-                if(tag) {
-                    this.$store.dispatch('tags/show', tag)
+                if(this.tagId) {
+                    this.$store.dispatch('tags/show', this.tagId)
                 }
             },
         },
@@ -71,8 +68,11 @@
             tag() {
                 return this.$store.state.tags.tag
             },
+            tagId() {
+                return this.$route.params.tag
+            },
             actionStatus() {
-                return this.tag ? 'Updating' : 'Creating'
+                return this.tagId ? 'Updating' : 'Creating'
             }
         }
     }

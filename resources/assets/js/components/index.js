@@ -7,6 +7,8 @@ Vue.component('AdminNavigation', require('./AdminNavigation.vue'))
 
 
 Vue.component('Project', require('./Project.vue'))
+Vue.component('GitTree', require('./GitTree.vue'))
+
 
 
 import { Material } from 'vue-color'

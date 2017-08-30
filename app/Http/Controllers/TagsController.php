@@ -13,13 +13,9 @@ class TagsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if($request->get('all')) {
-            return response()->json(Tag::all());
-        }
-
-        return response()->json(Tag::paginate(5));
+        return response()->json(Tag::get());
     }
 
     /**

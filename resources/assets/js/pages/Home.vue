@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="col-md-3 visible-md visible-lg">
-            <svg id="git_tree"></svg>
+            <git-tree v-if="projects"></git-tree>
         </div>
         <div class="col-md-9">
             <div class="select-title">
@@ -21,7 +21,6 @@
             <template v-for="project in projects">
                 <project :project="project"></project>
             </template>
-
         </div>
     </div>
 </template>
@@ -30,6 +29,7 @@
     export default {
         created() {
             this.$store.dispatch('projects/get')
+            this.$store.dispatch('timelines/get')
         },
         computed : {
             projects() {
