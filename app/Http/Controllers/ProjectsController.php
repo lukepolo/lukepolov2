@@ -101,6 +101,6 @@ class ProjectsController extends Controller
 
         $project->technologies()->sync($request->get('technologies'));
 
-        return $project;
+        return $project->fresh();
     }
 }
