@@ -11,12 +11,15 @@ export default [
         path: "/admin",
         component: AdminArea,
         children: [
-            ... Tags,
-            ... Blogs,
-            ... Projects,
-            ... Dashboard,
-            ... Timelines,
-            ... Technologies,
-        ]
+            ...Tags,
+            ...Blogs,
+            ...Projects,
+            ...Dashboard,
+            ...Timelines,
+            ...Technologies,
+        ],
+        meta: {
+            admin: true
+        }
     }
 ]

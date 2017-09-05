@@ -4804,6 +4804,8 @@ __webpack_require__(192);
 
 
 
+window.store = __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */];
+
 var app = new Vue({
     store: __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */],
     router: __WEBPACK_IMPORTED_MODULE_1__router__["a" /* default */]
@@ -6985,7 +6987,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 /* harmony default export */ __webpack_exports__["a"] = ([{
     path: "/admin",
     component: __WEBPACK_IMPORTED_MODULE_2__AdminArea_vue___default.a,
-    children: [].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_0__Tags_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_1__Blogs_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_3__Projects_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_4__Dashboard_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_5__Timelines_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_6__Technologies_routes__["a" /* default */]))
+    children: [].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_0__Tags_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_1__Blogs_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_3__Projects_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_4__Dashboard_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_5__Timelines_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_6__Technologies_routes__["a" /* default */])),
+    meta: {
+        admin: true
+    }
 }]);
 
 /***/ }),
@@ -7054,6 +7059,16 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["default"]);
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["default"]({
     mode: 'history',
     routes: __WEBPACK_IMPORTED_MODULE_1__pages_routes__["a" /* default */]
+});
+
+router.beforeResolve(function (to, from, next) {
+    if (to.matched.some(function (match) {
+        return match.meta.admin;
+    }) && store.state.auth.authed_user.role !== 'admin') {
+        return next('/login');
+    }
+
+    next();
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (router);
@@ -13110,13 +13125,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "#"
     }
-  }, [_vm._v("USERS")])])
+  }, [_vm._v("Users")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     attrs: {
       "href": "#"
     }
-  }, [_vm._v("SETTINGS")])])
+  }, [_vm._v("Settings")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

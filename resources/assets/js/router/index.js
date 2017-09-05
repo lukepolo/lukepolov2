@@ -8,4 +8,17 @@ const router = new VueRouter({
     routes: routes
 })
 
+router.beforeResolve((to, from, next) => {
+    if(
+        to.matched.some((match) => {
+            return match.meta.admin
+        }) &&
+        store.state.auth.authed_user.role !== 'admin'
+    ) {
+        return next('/login')
+    }
+
+    next()
+})
+
 export default router

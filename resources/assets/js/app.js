@@ -7,12 +7,12 @@ require('./mixins')
 
 import { Material } from 'vue-color'
 
+window.store = store
+
 const app = new Vue({
     store,
     router,
 })
-
-
 
 window.app = app
 
