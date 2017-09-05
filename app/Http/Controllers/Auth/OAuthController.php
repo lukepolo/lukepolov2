@@ -19,6 +19,7 @@ class OAuthController
 
     /**
      * @param $provider
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function callback($provider)
     {
@@ -59,5 +60,6 @@ class OAuthController
 
         \Auth::loginUsingId($user->id, true);
 
+        return redirect()->intended('/');
     }
 }

@@ -28,6 +28,12 @@
             <footer></footer>
         </div>
 
+        @auth
+            <script>
+                window.Laravel.user = {!! \Auth::user() !!}
+            </script>
+        @endauth
+
         <!-- Scripts -->
         <script src="{{ mix('js/manifest.js') }}"></script>
         <script src="{{ mix('js/vendor.js') }}"></script>

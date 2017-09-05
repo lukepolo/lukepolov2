@@ -6786,11 +6786,11 @@ var handleApiError = function handleApiError(response) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isAdmin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isAuthed; });
 var isAdmin = function isAdmin() {
-    return true;
+    return this.isAuthed && this.isAuthed.role === 'admin';
 };
 
 var isAuthed = function isAuthed() {
-    return true;
+    return this.$store.state.auth.authed_user;
 };
 
 /***/ }),
@@ -7089,14 +7089,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.request = function (data) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
-function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
-
-var store = function store(_ref, form) {
-    _objectDestructuringEmpty(_ref);
-};
-
 var logout = function logout() {
     Vue.request().post('/logout').then(function () {
         window.location.reload();
@@ -7112,6 +7105,7 @@ var logout = function logout() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__state__ = __webpack_require__(207);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions__ = __webpack_require__(204);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mutations__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mutations___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__mutations__);
 
 
 
@@ -7125,16 +7119,10 @@ var logout = function logout() {
 
 /***/ }),
 /* 206 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, __webpack_exports__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
-var set = function set(state, _ref) {
-    var response = _ref.response;
 
-    state.authed_user = response;
-};
 
 /***/ }),
 /* 207 */
@@ -7142,7 +7130,7 @@ var set = function set(state, _ref) {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-    authed_user: null
+    authed_user: Laravel.user
 });
 
 /***/ }),

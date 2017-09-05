@@ -1,3 +1,3 @@
 export default {
-    authed_user : null,
+    authed_user : Laravel.user,
 }
