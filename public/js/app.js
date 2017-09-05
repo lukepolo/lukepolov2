@@ -6641,6 +6641,7 @@ __webpack_require__(183);
 
 Vue.component('Footer', __webpack_require__(261));
 Vue.component('Navigation', __webpack_require__(263));
+Vue.component('Notifications', __webpack_require__(335));
 Vue.component('AdminNavigation', __webpack_require__(260));
 
 Vue.component('Project', __webpack_require__(264));
@@ -7016,8 +7017,14 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Home_vue__ = __webpack_require__(279);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Home_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Home_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Blogs_routes__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Admin_routes__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Resume_vue__ = __webpack_require__(339);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Resume_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Resume_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Blogs_routes__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Admin_routes__ = __webpack_require__(199);
+var _ref;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 
@@ -7025,9 +7032,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 
-var routes = [].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_2__Admin_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_1__Blogs_routes__["a" /* default */]), [{
+
+var routes = [].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_3__Admin_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_2__Blogs_routes__["a" /* default */]), [(_ref = {
     path: '/', component: __WEBPACK_IMPORTED_MODULE_0__Home_vue___default.a, name: 'home'
-}]);
+}, _defineProperty(_ref, 'path', '/resume'), _defineProperty(_ref, 'component', __WEBPACK_IMPORTED_MODULE_1__Resume_vue___default.a), _defineProperty(_ref, 'name', 'resume'), _ref)]);
 
 /* harmony default export */ __webpack_exports__["a"] = (routes);
 
@@ -7269,6 +7277,8 @@ var remove = function remove(state, _ref5) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__projects__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__timelines__ = __webpack_require__(226);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__technologies__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__notifications__ = __webpack_require__(329);
+
 
 
 
@@ -7282,7 +7292,8 @@ var remove = function remove(state, _ref5) {
     blogs: __WEBPACK_IMPORTED_MODULE_2__blogs__["a" /* default */],
     projects: __WEBPACK_IMPORTED_MODULE_3__projects__["a" /* default */],
     timelines: __WEBPACK_IMPORTED_MODULE_4__timelines__["a" /* default */],
-    technologies: __WEBPACK_IMPORTED_MODULE_5__technologies__["a" /* default */]
+    technologies: __WEBPACK_IMPORTED_MODULE_5__technologies__["a" /* default */],
+    notifications: __WEBPACK_IMPORTED_MODULE_6__notifications__["a" /* default */]
 });
 
 /***/ }),
@@ -13025,9 +13036,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('ul', {
     staticClass: "nav navbar-nav navbar-right"
-  }, [_vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), (_vm.isAuthed) ? [(_vm.isAdmin) ? [_c('li', {
+  }, [_vm._m(1), _vm._v(" "), _c('li', [_c('router-link', {
+    attrs: {
+      "to": {
+        name: 'resume'
+      }
+    }
+  }, [_vm._v("RESUME")])], 1), _vm._v(" "), (_vm.isAuthed) ? [(_vm.isAdmin) ? [_c('li', {
     staticClass: "dropdown"
-  }, [_vm._m(3), _vm._v(" "), _c('ul', {
+  }, [_vm._m(2), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu",
     attrs: {
       "role": "menu"
@@ -13038,7 +13055,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         name: 'admin-dashboard'
       }
     }
-  }, [_vm._v("Dashboard")])], 1), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _c('li', {
+  }, [_vm._v("Dashboard")])], 1), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _c('li', {
     staticClass: "divider"
   }), _vm._v(" "), _c('li', [_c('a', {
     on: {
@@ -13047,14 +13064,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.logout($event)
       }
     }
-  }, [_vm._v("Logout")])])])])] : [_c('li', [_c('a', {
+  }, [_vm._v("LOGOUT")])])])])] : [_c('li', [_c('a', {
     on: {
       "click": function($event) {
         $event.preventDefault();
         _vm.logout($event)
       }
     }
-  }, [_vm._v("Logout")])])]] : _vm._e()], 2)])])])
+  }, [_vm._v("LOGOUT")])])]] : _vm._e()], 2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('button', {
     staticClass: "navbar-toggle collapsed",
@@ -13079,12 +13096,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("BLOG")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("RESUME")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "dropdown-toggle",
     attrs: {
@@ -13099,13 +13110,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "#"
     }
-  }, [_vm._v("Users")])])
+  }, [_vm._v("USERS")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     attrs: {
       "href": "#"
     }
-  }, [_vm._v("Settings")])])
+  }, [_vm._v("SETTINGS")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -13688,6 +13699,371 @@ if (false) {
 __webpack_require__(141);
 module.exports = __webpack_require__(144);
 
+
+/***/ }),
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "remove", function() { return remove; });
+var add = function add(_ref, notification) {
+  var commit = _ref.commit;
+
+  commit("add", notification);
+};
+
+var remove = function remove(_ref2, notification) {
+  var commit = _ref2.commit;
+
+  commit("remove", notification);
+};
+
+/***/ }),
+/* 329 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__state__ = __webpack_require__(331);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions__ = __webpack_require__(328);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mutations__ = __webpack_require__(330);
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  state: __WEBPACK_IMPORTED_MODULE_0__state__["a" /* default */],
+  actions: __WEBPACK_IMPORTED_MODULE_1__actions__,
+  mutations: __WEBPACK_IMPORTED_MODULE_2__mutations__,
+  namespaced: true
+});
+
+/***/ }),
+/* 330 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(_) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "remove", function() { return remove; });
+var add = function add(state, notification) {
+  state.notifications.push(notification);
+};
+
+var remove = function remove(state, notification) {
+  state.notifications = _.without(state.notifications, notification);
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
+
+/***/ }),
+/* 331 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+  notifications: []
+});
+
+/***/ }),
+/* 332 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['notification'],
+    data: function data() {
+        return {
+            timer: null
+        };
+    },
+    created: function created() {
+        var timeout = this.notification.hasOwnProperty('timeout') ? this.notification.timeout : true;
+        if (timeout) {
+            this.timer = setTimeout(function () {
+                this.close(this.notification);
+            }.bind(this), this.notification.timeout);
+        }
+    },
+
+    methods: {
+        close: function close(notification) {
+            clearTimeout(this.timer);
+            this.$store.dispatch('notifications/remove', notification);
+        }
+    }
+});
+
+/***/ }),
+/* 333 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Notification_vue__ = __webpack_require__(334);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Notification_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Notification_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        Notification: __WEBPACK_IMPORTED_MODULE_0__Notification_vue___default.a
+    },
+    computed: {
+        notifications: function notifications() {
+            return this.$store.state.notifications.notifications;
+        }
+    },
+    methods: {
+        removeNotification: function removeNotification(notification) {
+            this.$store.dispatch('notifications/remove', notification);
+        }
+    }
+});
+
+/***/ }),
+/* 334 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(332),
+  /* template */
+  __webpack_require__(337),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/components/Notification.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Notification.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7194bab8", Component.options)
+  } else {
+    hotAPI.reload("data-v-7194bab8", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 335 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(333),
+  /* template */
+  __webpack_require__(336),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/components/Notifications.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Notifications.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-232a52ff", Component.options)
+  } else {
+    hotAPI.reload("data-v-232a52ff", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 336 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "notifications"
+  }, _vm._l((_vm.notifications), function(notification, index) {
+    return _c('notification', {
+      key: index,
+      attrs: {
+        "notification": notification
+      }
+    })
+  }))
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-232a52ff", module.exports)
+  }
+}
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [_c('div', {
+    staticClass: "notification",
+    class: _vm.notification.class
+  }, [_c('button', {
+    staticClass: "notification-close",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.close(_vm.notification)
+      }
+    }
+  }, [_c('span', [_vm._v("×")])]), _vm._v(" "), (_vm.notification.title) ? _c('h4', {
+    staticClass: "notification-heading"
+  }, [_vm._v(_vm._s(_vm.notification.title))]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "notification-text",
+    domProps: {
+      "innerHTML": _vm._s(_vm.notification.text)
+    }
+  })])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7194bab8", module.exports)
+  }
+}
+
+/***/ }),
+/* 338 */,
+/* 339 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  null,
+  /* template */
+  __webpack_require__(340),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/pages/Resume.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Resume.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-10362de8", Component.options)
+  } else {
+    hotAPI.reload("data-v-10362de8", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 340 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('a', {
+    attrs: {
+      "href": "https://www.dropbox.com/s/4q6urgnixx8tdb0/Luke%20Policinski.pdf?dl=1"
+    }
+  }, [_vm._v("Download PDF")]), _vm._v(" "), _c('iframe', {
+    staticClass: "no-border",
+    attrs: {
+      "src": "https://docs.google.com/viewer?url=https://www.dropbox.com/s/4q6urgnixx8tdb0/Luke%20Policinski.pdf?dl=1&embedded=true",
+      "width": "100%",
+      "height": "1080"
+    }
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-10362de8", module.exports)
+  }
+}
 
 /***/ })
 ],[300]);

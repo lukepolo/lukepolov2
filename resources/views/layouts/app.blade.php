@@ -23,6 +23,7 @@
 </head>
     <body>
         <div id="app">
+            <notifications></notifications>
             <navigation></navigation>
             @yield('content')
             <footer></footer>

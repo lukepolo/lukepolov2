@@ -16,7 +16,7 @@
                         <a href="#">BLOG</a>
                     </li>
                     <li>
-                        <a href="#">RESUME</a>
+                        <router-link :to="{ name : 'resume' }">RESUME</router-link>
                     </li>
                     <template v-if="isAuthed">
                         <template v-if="isAdmin">
@@ -29,15 +29,15 @@
                                     <li>
                                         <router-link :to="{ name : 'admin-dashboard' }">Dashboard</router-link>
                                     </li>
-                                    <li><a href="#">Users</a></li>
-                                    <li><a href="#">Settings</a></li>
+                                    <li><a href="#">USERS</a></li>
+                                    <li><a href="#">SETTINGS</a></li>
                                     <li class="divider"></li>
-                                    <li><a @click.prevent="logout">Logout</a></li>
+                                    <li><a @click.prevent="logout">LOGOUT</a></li>
                                 </ul>
                             </li>
                         </template>
                         <template v-else>
-                            <li><a @click.prevent="logout">Logout</a></li>
+                            <li><a @click.prevent="logout">LOGOUT</a></li>
                         </template>
                     </template>
                 </ul>
