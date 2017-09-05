@@ -12,5 +12,8 @@
 */
 Auth::routes();
 
+Route::get('/oauth/{provider}', 'Auth\OAuthController@redirect');
+Route::get('/oauth/callback/{provider}', 'Auth\OAuthController@callback');
+
 Route::get('/{any}', 'Controller@app')->where('any', '.*');
 

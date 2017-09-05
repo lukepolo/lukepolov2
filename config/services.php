@@ -19,38 +19,17 @@ return [
         'secret' => env('MAILGUN_SECRET'),
     ],
 
-    'ses' => [
-        'key' => env('SES_KEY'),
-        'secret' => env('SES_SECRET'),
-        'region' => 'us-east-1',
-    ],
-
-    'sparkpost' => [
-        'secret' => env('SPARKPOST_SECRET'),
-    ],
-
-    'stripe' => [
-        'model' => App\Models\User::class,
-        'key' => env('STRIPE_KEY'),
-        'secret' => env('STRIPE_SECRET'),
-    ],
-
-    'google' => [
-        'client_id' => env('GOOGLE_CLIENT'),
-        'client_secret' => env('GOOGLE_SECRET'),
-        'redirect' => env('APP_URL').'/auth/callback/google'
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT'),
+        'client_secret' => env('GITHUB_SECRET'),
+        'redirect' => env('APP_URL').'/oauth/callback/github'
     ],
 
     'twitter' => [
         'client_id' => env('TWITTER_CLIENT'),
         'client_secret' => env('TWITTER_SECRET'),
-        'redirect' => env('APP_URL').'/auth/callback/twitter'
+        'redirect' => env('APP_URL').'/oauth/callback/twitter'
     ],
 
-    'github' => [
-        'client_id' => env('GITHUB_CLIENT'),
-        'client_secret' => env('GITHUB_SECRET'),
-        'redirect' => env('APP_URL').'/auth/callback/github'
-    ],
 
 ];
