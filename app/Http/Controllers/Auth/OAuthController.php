@@ -8,11 +8,18 @@ use App\Models\UserProvider;
 
 class OAuthController
 {
+    /**
+     * @param $provider
+     * @return mixed
+     */
     public function redirect($provider)
     {
         return Socialite::driver($provider)->redirect();
     }
 
+    /**
+     * @param $provider
+     */
     public function callback($provider)
     {
         $user = null;
