@@ -7001,7 +7001,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 /* harmony default export */ __webpack_exports__["a"] = ([{
-    path: '/blogs',
+    path: '/blog',
     component: __WEBPACK_IMPORTED_MODULE_1__Index_vue___default.a,
     name: 'blogs'
 }, {
@@ -13036,7 +13036,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('ul', {
     staticClass: "nav navbar-nav navbar-right"
-  }, [_vm._m(1), _vm._v(" "), _c('li', [_c('router-link', {
+  }, [_c('li', [_c('router-link', {
+    attrs: {
+      "to": {
+        name: 'blogs'
+      }
+    }
+  }, [_vm._v("BLOG")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
     attrs: {
       "to": {
         name: 'resume'
@@ -13044,7 +13050,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("RESUME")])], 1), _vm._v(" "), (_vm.isAuthed) ? [(_vm.isAdmin) ? [_c('li', {
     staticClass: "dropdown"
-  }, [_vm._m(2), _vm._v(" "), _c('ul', {
+  }, [_vm._m(1), _vm._v(" "), _c('ul', {
     staticClass: "dropdown-menu",
     attrs: {
       "role": "menu"
@@ -13055,7 +13061,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         name: 'admin-dashboard'
       }
     }
-  }, [_vm._v("Dashboard")])], 1), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _c('li', {
+  }, [_vm._v("Dashboard")])], 1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('li', {
     staticClass: "divider"
   }), _vm._v(" "), _c('li', [_c('a', {
     on: {
@@ -13089,12 +13095,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('span', {
     staticClass: "icon-bar"
   })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', [_c('a', {
-    attrs: {
-      "href": "#"
-    }
-  }, [_vm._v("BLOG")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "dropdown-toggle",

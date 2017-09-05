@@ -13,7 +13,7 @@
             <div id="main-menu" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#">BLOG</a>
+                        <router-link :to="{ name : 'blogs' }">BLOG</router-link>
                     </li>
                     <li>
                         <router-link :to="{ name : 'resume' }">RESUME</router-link>

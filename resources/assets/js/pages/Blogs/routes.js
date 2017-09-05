@@ -3,7 +3,7 @@ import Index from './Index.vue'
 
 export default [
     {
-        path: '/blogs',
+        path: '/blog',
         component: Index,
         name : 'blogs',
     },
