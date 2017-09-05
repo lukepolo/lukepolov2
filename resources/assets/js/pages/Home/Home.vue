@@ -26,7 +26,14 @@
 </template>
 
 <script>
+
+    import GitTree from './Components/GitTree.vue'
+    import Project from './Components/Project.vue'
     export default {
+        components : {
+            GitTree,
+            Project,
+        },
         created() {
             this.$store.dispatch('projects/get')
             this.$store.dispatch('timelines/get')

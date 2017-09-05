@@ -4971,251 +4971,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
-/* 166 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($, tinycolor, _) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            tree: null,
-            circles: [],
-            merge_levels: [],
-            branches: [],
-
-            merges: {},
-            ag_colors: {},
-            colors: {},
-
-            default_x: 35,
-            default_y: 25,
-            default_r: 14,
-
-            big_r: 27,
-            vertical_multiplier: 0
-        };
-    },
-    mounted: function mounted() {
-        this.tree = Snap('#git_tree');
-
-        // http://paletton.com/#uid=70f0u0ke9vf4TW49xJliLoCnugw
-        this.colors['lines'] = {};
-        this.colors.lines['0'] = 'rgb(249, 170, 139)';
-        this.colors.lines['1'] = 'rgb(249, 202, 139)';
-        this.colors.lines['2'] = 'rgb(94, 131, 160)';
-        this.colors.lines['3'] = 'rgb(95, 171, 138)';
-        this.colors.lines['4'] = 'rgb(196, 114, 81)';
-        this.colors.lines['5'] = 'rgb(255, 223, 179)';
-
-        this.draw();
-
-        var curves = this.tree.paper.g(this.tree.paper.selectAll('.curves'));
-        var lines = this.tree.paper.g(this.tree.paper.selectAll('.lines'));
-        var circles = this.tree.paper.g(this.tree.paper.selectAll('circle'));
-        var flip_matrix = new Snap.Matrix().scale(1, -1).translate(0, -$(this.$refs.tree).height());
-
-        curves.transform(flip_matrix);
-        lines.transform(flip_matrix);
-        circles.transform(flip_matrix);
-
-        this.tree.paper.selectAll('circle').forEach(function (elem) {
-            $(elem.node).attr('old_color', $(elem.node).attr('fill'));
-            elem.mouseover(function () {
-                this.animate({
-                    fill: '#FFFFFF',
-                    r: big_r,
-                    strokeOpacity: 1
-                }, 200, mina.easeinout);
-            });
-            elem.mouseout(function () {
-                this.animate({
-                    fill: $(this.node).attr('old_color'),
-                    r: default_r,
-                    strokeOpacity: .3
-                }, 200, mina.easeinout);
-            });
-        });
-    },
-
-    methods: {
-        draw: function draw() {
-
-            this.getMerges();
-
-            var start_x = void 0;
-            var final_x = void 0;
-
-            var start_y = void 0;
-            var end_y = void 0;
-
-            // Draw most left line
-            var treeHeight = (this.merge_levels.length + 3) * this.default_y;
-            this.drawLine(this.default_x, 0, treeHeight, this.colors.lines[0]);
-
-            $(this.$refs.tree).css('height', treeHeight);
-
-            // draw line up till they merge
-            $.each(this.branches, function (branch_index, branch) {
-
-                // also lets set the colors
-                if (!colors.lines[branch.horizontal_multiplier]) {
-                    colors.lines[branch.horizontal_multiplier] = tinycolor.random().toHexString();
-                }
-
-                // If its not a timeline shift it outwards by the multiplier
-                start_x = default_x + default_x * branch.horizontal_multiplier;
-
-                // If its not based off a timline merge it all the way back in!
-                if (!branch.timeline_id || branch.timeline) {
-                    final_x = default_x;
-                } else {
-                    // Since its based off a timeline we need to adjust the final location by the timelines multiplier
-                    // The branch can end afterwards of the timeline! so lets make sure of that
-                    if (branch.end_date <= timelines[branch.timeline_id].end_date) {
-                        final_x = default_x + default_x * timelines[branch.timeline_id].horizontal_multiplier;
-                    } else {
-                        final_x = default_x;
-                    }
-                }
-
-                // find out where its vertical multiplier should be
-                start_y = default_y + default_y * branch.vertical_multiplier;
-                end_y = default_y + default_y * branch.merge;
-
-                // Draw the long line up to the merge point
-                drawLine(start_x, start_y, end_y, colors.lines[branch.horizontal_multiplier]);
-
-                // Draw the Branch Curve
-                draw_curve(final_x, start_y - default_y, start_x, start_y, colors.lines[branch.horizontal_multiplier]);
-
-                // Draw Merge Curve
-                draw_curve(start_x, end_y, final_x, end_y + default_y, colors.lines[branch.horizontal_multiplier]);
-
-                // Draw the Branch Starting Circle
-                if (!branch.timeline) {
-                    draw_circle(start_x, start_y, get_analogous(colors.lines[branch.horizontal_multiplier]), branch.id);
-                }
-            });
-
-            this.renderCircles();
-        },
-        getMerges: function getMerges() {
-
-            console.info('branches are at 0');
-            console.warn(this.branches.length);
-            //                // Get the proper merge levels
-            //                $.each(this.branches, function(branch_index, branch) {
-            //
-            //                    $.each(this.branches, (lowerBranch) => {
-            //
-            //                        if(branch.end_date > lowerBranch.start_date) {
-            //                            branch.merge = lowerBranch.vertical_multiplier;
-            //
-            //                            this.merges[branch.name] = branch.merge;
-            //                        }
-            //                    });
-            //
-            //                    //console.log(branch.name  + ' merges @ ' + branch.merge);
-            //                });
-            //
-            //                $.each(this.branches, (branch) =>  {
-            //                    this.findMergeConflicts(branch);
-            //                    this.merge_levels.push(branch.merge);
-            //                });
-        },
-        drawLine: function drawLine(x, start_y, end_y, color) {
-            this.tree.path("M" + x + "," + start_y + " L" + x + "," + end_y + "").attr({
-                stroke: color,
-                strokeWidth: 4,
-                class: 'lines'
-            });
-        },
-        findMergeConflicts: function findMergeConflicts() {
-            //            console.log('Finding conflicts with ' + branch.name);
-
-            var conflicts = [];
-
-            $.each(branches, function () {
-                if (branch.id != this.id && branch.merge == this.merge) {
-                    //                    console.log('Conflicts with ' + this.name);
-                    conflicts.push(this);
-                }
-            });
-
-            $.each(conflicts, function () {
-                if (branch.id != this.id) {
-                    if (branch.end_date > this.end_date) {
-                        move_up(branch);
-                        branch.merge += 2;
-                    } else {
-                        move_up(this);
-                        this.merge = branch.merge + 2;
-                    }
-                }
-            });
-        },
-        renderCircles: function renderCircles() {
-            var _this = this;
-
-            $.each(this.circles, function (circle) {
-                _this.projects.circle(circle.x, circle.y, circle.r).attr({
-                    fill: circle.color,
-                    stroke: circle.color,
-                    strokeOpacity: .3,
-                    strokeWidth: 5,
-                    'data-project_id': circle.id
-                });
-            });
-        }
-    },
-    computed: {
-        projects: function projects() {
-            return this.$store.state.projects.projects;
-        },
-        timelines: function timelines() {
-            var _this2 = this;
-
-            var timelines = {};
-
-            _.each(_.reverse(this.projects), function (project) {
-
-                _this2.branches.push({
-                    id: project.id,
-                    name: project.timeline.name,
-                    horizontal_multiplier: 1,
-                    vertical_multiplier: 0,
-                    timeline_id: project.timeline.id,
-                    timeline: false,
-                    start_date: project.start_date,
-                    end_date: project.end_date,
-                    merge: null
-                });
-
-                timelines[project.id] = {
-                    id: project.timeline.id,
-                    timeline_id: project.timeline.id,
-                    name: project.timeline.name,
-                    start_date: project.timeline.start_date,
-                    end_date: project.timeline.end_date,
-                    horizontal_multiplier: 1,
-                    vertical_multiplier: 0,
-                    timeline: true
-                };
-            });
-        }
-    }
-});
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1), __webpack_require__(11), __webpack_require__(4)))
-
-/***/ }),
+/* 166 */,
 /* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5279,81 +5035,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 168 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['project'],
-    data: function data() {
-        return {
-            viewing: false
-        };
-    },
-
-    methods: {
-        goToUrl: function goToUrl(url) {
-            window.open(url);
-        },
-        viewProject: function viewProject() {
-            // need to emit others to close
-            Vue.set(this, 'viewing', true);
-        },
-        closeProject: function closeProject() {
-            Vue.set(this, 'viewing', false);
-        }
-    },
-    computed: {
-        technologies: function technologies() {
-            //T TODO - sort by name
-            return this.project.technologies;
-        }
-    }
-});
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
-
-/***/ }),
+/* 168 */,
 /* 169 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6403,37 +6085,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Components_BlogCard_vue__ = __webpack_require__(352);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Components_BlogCard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Components_BlogCard_vue__);
 //
 //
 //
@@ -6466,11 +6119,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        BlogCard: __WEBPACK_IMPORTED_MODULE_0__Components_BlogCard_vue___default.a
+    },
+    data: function data() {
+        return {
+            form: this.createForm({
+                filters: []
+            })
+        };
+    },
+    created: function created() {
+        this.$store.dispatch('blogs/get');
+    },
+
     computed: {
-        created: function created() {
-            this.$store.dispatch('blogs/get');
-        },
         blogs: function blogs() {
             return this.$store.state.blogs.blogs;
         }
@@ -6478,53 +6143,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 181 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    created: function created() {
-        this.$store.dispatch('projects/get');
-        this.$store.dispatch('timelines/get');
-    },
-
-    computed: {
-        projects: function projects() {
-            return this.$store.state.projects.projects;
-        }
-    }
-});
-
-/***/ }),
+/* 181 */,
 /* 182 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6645,9 +6264,6 @@ Vue.component('Footer', __webpack_require__(261));
 Vue.component('Navigation', __webpack_require__(263));
 Vue.component('Notifications', __webpack_require__(335));
 Vue.component('AdminNavigation', __webpack_require__(260));
-
-Vue.component('Project', __webpack_require__(264));
-Vue.component('GitTree', __webpack_require__(262));
 
 
 
@@ -7020,16 +6636,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Home_vue__ = __webpack_require__(279);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Home_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Home_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Resume_vue__ = __webpack_require__(339);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Resume_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Resume_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Home_routes__ = __webpack_require__(341);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Admin_routes__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Blogs_routes__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Admin_routes__ = __webpack_require__(199);
-var _ref;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Resume_vue__ = __webpack_require__(339);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Resume_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Resume_vue__);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 
@@ -7038,9 +6649,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 
-var routes = [].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_3__Admin_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_2__Blogs_routes__["a" /* default */]), [(_ref = {
-    path: '/', component: __WEBPACK_IMPORTED_MODULE_0__Home_vue___default.a, name: 'home'
-}, _defineProperty(_ref, 'path', '/resume'), _defineProperty(_ref, 'component', __WEBPACK_IMPORTED_MODULE_1__Resume_vue___default.a), _defineProperty(_ref, 'name', 'resume'), _ref)]);
+var routes = [].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_0__Home_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_1__Admin_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_2__Blogs_routes__["a" /* default */]), [{
+    path: '/resume', component: __WEBPACK_IMPORTED_MODULE_3__Resume_vue___default.a, name: 'resume'
+}]);
 
 /* harmony default export */ __webpack_exports__["a"] = (routes);
 
@@ -11686,40 +11297,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 262 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(3)(
-  /* script */
-  __webpack_require__(166),
-  /* template */
-  __webpack_require__(296),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/components/GitTree.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] GitTree.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c4cd9832", Component.options)
-  } else {
-    hotAPI.reload("data-v-c4cd9832", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 262 */,
 /* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11754,40 +11332,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 264 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(3)(
-  /* script */
-  __webpack_require__(168),
-  /* template */
-  __webpack_require__(292),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/components/Project.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Project.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-74165820", Component.options)
-  } else {
-    hotAPI.reload("data-v-74165820", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 264 */,
 /* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12264,40 +11809,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 279 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(3)(
-  /* script */
-  __webpack_require__(181),
-  /* template */
-  __webpack_require__(291),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/pages/Home.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Home.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6f44834c", Component.options)
-  } else {
-    hotAPI.reload("data-v-6f44834c", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 279 */,
 /* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12860,54 +12372,53 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
     staticClass: "blog-container col-md-10"
-  }, [_c('div', {
+  }, [(_vm.form.filters.length) ? _c('div', {
     staticClass: "row"
   }, [_c('a', {
     staticClass: "label clear-filter"
-  }, [_vm._v("Clear Filters")])]), _vm._v(" "), _c('div', {
-    staticClass: "blog"
-  }, [_c('div', {
+  }, [_vm._v("Clear Filters")])]) : _vm._e(), _vm._v(" "), _vm._l((_vm.blogs), function(blog) {
+    return _c('blog-card', {
+      key: blog.id,
+      attrs: {
+        "blog": blog
+      }
+    })
+  }), _vm._v(" "), (_vm.blogs.length === 0) ? _c('div', {
     staticClass: "row"
-  }, [_c('h1', {
-    staticClass: "blog-name"
-  }, [_c('a', [_vm._v("{  $blog->name ")])]), _vm._v(" "), _c('small', [_vm._v("$blog->created_at->format('F jS Y g:i A')")]), _vm._v(" "), _c('div', {
-    staticClass: "technologies"
-  }, [_vm._v("\n                    @foreach($blog->tags as $tag)\n                    "), _c('span', {
-    staticClass: "label",
-    staticStyle: {
-      "background-color": "#tag-color"
-    }
-  }, [_vm._v("\n                                $tag->name\n                            ")]), _vm._v("\n                    @endforeach\n                ")])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('a', [_c('img', {
-    staticClass: "img-responsive blog-image center-block",
-    attrs: {
-      "src": "$blog->image"
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('p', [_vm._v("\n                    preview text\n                ")])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('a', {
-    staticClass: "pull-right continue-reading"
-  }, [_vm._v("\n                    Continue Reading ...\n                ")])]), _vm._v(" "), _c('hr')]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('h2', [_vm._v("Oh no, there are no blogs with that filter . . .")])])]), _vm._v(" "), _c('div', {
+  }, [_c('h2', [_vm._v("Oh no, there are no blogs with that filter . . .")])]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "col-md-2"
   }, [_c('div', {
     staticClass: "row text-center"
   }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.filters),
+      expression: "form.filters"
+    }],
     attrs: {
-      "id": "blog-search",
       "multiple": ""
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.form.filters = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
     }
-  })]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _vm._m(0)])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "row"
-  }, [_c('hr')])])])
+  }, [_c('hr'), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-12 tags-area"
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -13200,124 +12711,8 @@ if (false) {
 }
 
 /***/ }),
-/* 291 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "col-md-3 visible-md visible-lg"
-  }, [(_vm.projects) ? _c('git-tree') : _vm._e()], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-9"
-  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.projects), function(project) {
-    return [_c('project', {
-      attrs: {
-        "project": project
-      }
-    })]
-  })], 2)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "select-title"
-  }, [_c('h1', [_vm._v("Projects")]), _vm._v(" "), _c('div', [_c('small', [_c('span', {
-    staticClass: "visible-md visible-lg"
-  }, [_c('i', {
-    staticClass: "fa fa-long-arrow-left"
-  }), _vm._v(" You can navigate my site using my \"git tree\" just click / hover over them\n                    ")]), _vm._v(" "), _c('span', {
-    staticClass: "visible-sm visible-xs"
-  }, [_vm._v("\n                        Click on the images to find out more\n                    ")])])]), _vm._v(" "), _c('hr')])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-6f44834c", module.exports)
-  }
-}
-
-/***/ }),
-/* 292 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', [(!_vm.viewing) ? _c('div', {
-    staticClass: "project",
-    on: {
-      "click": _vm.viewProject
-    }
-  }, [_c('div', {
-    staticClass: "col-md-6 img-holder",
-    attrs: {
-      "data-project_id": "project_id"
-    }
-  }, [_c('img', {
-    staticClass: "img-responsive",
-    attrs: {
-      "src": _vm.project.project_image
-    }
-  })])]) : _vm._e(), _vm._v(" "), (_vm.viewing) ? _c('div', {
-    staticClass: "project-details",
-    attrs: {
-      "id": "project->id"
-    }
-  }, [_c('div', {
-    staticClass: "show-projects"
-  }, [_c('span', {
-    staticClass: "btn btn-info",
-    on: {
-      "click": function($event) {
-        $event.stopPropagation();
-        _vm.closeProject()
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-arrow-left"
-  })]), _vm._v(" "), _c('h2', [_vm._v("\n                " + _vm._s(_vm.project.name) + "\n                "), _c('small', [_c('a', {
-    attrs: {
-      "target": "_blank",
-      "href": ""
-    }
-  }, [_vm._v(_vm._s(_vm.project.url))])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
-    staticClass: "row panel-links"
-  }, _vm._l((_vm.technologies), function(technology) {
-    return _c('div', {
-      staticClass: "col-lg-3",
-      on: {
-        "click": function($event) {
-          _vm.goToUrl(technology.url)
-        }
-      }
-    }, [_c('div', {
-      staticClass: "panel panel-default"
-    }, [_c('div', {
-      staticClass: "panel-color",
-      style: ('background-color:' + technology.color)
-    }), _vm._v(" "), _c('div', {
-      staticClass: "panel-body"
-    }, [_vm._v("\n                        " + _vm._s(technology.name) + "\n                        "), _c('span', [_c('i', {
-      staticClass: "pull-right fa fa-arrow-right",
-      style: ('color:' + technology.color)
-    })])])])])
-  })), _vm._v(" "), _c('div', {
-    staticClass: "project-html"
-  }, [_c('froalaView', {
-    model: {
-      value: (_vm.project.html),
-      callback: function($$v) {
-        _vm.project.html = $$v
-      },
-      expression: "project.html"
-    }
-  })], 1)]) : _vm._e()])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-74165820", module.exports)
-  }
-}
-
-/***/ }),
+/* 291 */,
+/* 292 */,
 /* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13591,26 +12986,7 @@ if (false) {
 }
 
 /***/ }),
-/* 296 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', [_c('svg', {
-    ref: "tree",
-    attrs: {
-      "id": "git_tree"
-    }
-  })])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-c4cd9832", module.exports)
-  }
-}
-
-/***/ }),
+/* 296 */,
 /* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14077,6 +13453,785 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-10362de8", module.exports)
+  }
+}
+
+/***/ }),
+/* 341 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Home_vue__ = __webpack_require__(343);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Home_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Home_vue__);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ([{
+    path: '/',
+    component: __WEBPACK_IMPORTED_MODULE_0__Home_vue___default.a,
+    name: 'home'
+}]);
+
+/***/ }),
+/* 342 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Components_GitTree_vue__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Components_GitTree_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Components_GitTree_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Components_Project_vue__ = __webpack_require__(349);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Components_Project_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Components_Project_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        GitTree: __WEBPACK_IMPORTED_MODULE_0__Components_GitTree_vue___default.a,
+        Project: __WEBPACK_IMPORTED_MODULE_1__Components_Project_vue___default.a
+    },
+    created: function created() {
+        this.$store.dispatch('projects/get');
+        this.$store.dispatch('timelines/get');
+    },
+
+    computed: {
+        projects: function projects() {
+            return this.$store.state.projects.projects;
+        }
+    }
+});
+
+/***/ }),
+/* 343 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(342),
+  /* template */
+  __webpack_require__(344),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/pages/Home/Home.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Home.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7bd2e2c4", Component.options)
+  } else {
+    hotAPI.reload("data-v-7bd2e2c4", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 344 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "col-md-3 visible-md visible-lg"
+  }, [(_vm.projects) ? _c('git-tree') : _vm._e()], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-9"
+  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.projects), function(project) {
+    return [_c('project', {
+      attrs: {
+        "project": project
+      }
+    })]
+  })], 2)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "select-title"
+  }, [_c('h1', [_vm._v("Projects")]), _vm._v(" "), _c('div', [_c('small', [_c('span', {
+    staticClass: "visible-md visible-lg"
+  }, [_c('i', {
+    staticClass: "fa fa-long-arrow-left"
+  }), _vm._v(" You can navigate my site using my \"git tree\" just click / hover over them\n                    ")]), _vm._v(" "), _c('span', {
+    staticClass: "visible-sm visible-xs"
+  }, [_vm._v("\n                        Click on the images to find out more\n                    ")])])]), _vm._v(" "), _c('hr')])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7bd2e2c4", module.exports)
+  }
+}
+
+/***/ }),
+/* 345 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($, tinycolor, _) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            tree: null,
+            circles: [],
+            merge_levels: [],
+            branches: [],
+
+            merges: {},
+            ag_colors: {},
+            colors: {},
+
+            default_x: 35,
+            default_y: 25,
+            default_r: 14,
+
+            big_r: 27,
+            vertical_multiplier: 0
+        };
+    },
+    mounted: function mounted() {
+        this.tree = Snap('#git_tree');
+
+        // http://paletton.com/#uid=70f0u0ke9vf4TW49xJliLoCnugw
+        this.colors['lines'] = {};
+        this.colors.lines['0'] = 'rgb(249, 170, 139)';
+        this.colors.lines['1'] = 'rgb(249, 202, 139)';
+        this.colors.lines['2'] = 'rgb(94, 131, 160)';
+        this.colors.lines['3'] = 'rgb(95, 171, 138)';
+        this.colors.lines['4'] = 'rgb(196, 114, 81)';
+        this.colors.lines['5'] = 'rgb(255, 223, 179)';
+
+        this.draw();
+
+        var curves = this.tree.paper.g(this.tree.paper.selectAll('.curves'));
+        var lines = this.tree.paper.g(this.tree.paper.selectAll('.lines'));
+        var circles = this.tree.paper.g(this.tree.paper.selectAll('circle'));
+        var flip_matrix = new Snap.Matrix().scale(1, -1).translate(0, -$(this.$refs.tree).height());
+
+        curves.transform(flip_matrix);
+        lines.transform(flip_matrix);
+        circles.transform(flip_matrix);
+
+        this.tree.paper.selectAll('circle').forEach(function (elem) {
+            $(elem.node).attr('old_color', $(elem.node).attr('fill'));
+            elem.mouseover(function () {
+                this.animate({
+                    fill: '#FFFFFF',
+                    r: big_r,
+                    strokeOpacity: 1
+                }, 200, mina.easeinout);
+            });
+            elem.mouseout(function () {
+                this.animate({
+                    fill: $(this.node).attr('old_color'),
+                    r: default_r,
+                    strokeOpacity: .3
+                }, 200, mina.easeinout);
+            });
+        });
+    },
+
+    methods: {
+        draw: function draw() {
+
+            this.getMerges();
+
+            var start_x = void 0;
+            var final_x = void 0;
+
+            var start_y = void 0;
+            var end_y = void 0;
+
+            // Draw most left line
+            var treeHeight = (this.merge_levels.length + 3) * this.default_y;
+            this.drawLine(this.default_x, 0, treeHeight, this.colors.lines[0]);
+
+            $(this.$refs.tree).css('height', treeHeight);
+
+            // draw line up till they merge
+            $.each(this.branches, function (branch_index, branch) {
+
+                // also lets set the colors
+                if (!colors.lines[branch.horizontal_multiplier]) {
+                    colors.lines[branch.horizontal_multiplier] = tinycolor.random().toHexString();
+                }
+
+                // If its not a timeline shift it outwards by the multiplier
+                start_x = default_x + default_x * branch.horizontal_multiplier;
+
+                // If its not based off a timline merge it all the way back in!
+                if (!branch.timeline_id || branch.timeline) {
+                    final_x = default_x;
+                } else {
+                    // Since its based off a timeline we need to adjust the final location by the timelines multiplier
+                    // The branch can end afterwards of the timeline! so lets make sure of that
+                    if (branch.end_date <= timelines[branch.timeline_id].end_date) {
+                        final_x = default_x + default_x * timelines[branch.timeline_id].horizontal_multiplier;
+                    } else {
+                        final_x = default_x;
+                    }
+                }
+
+                // find out where its vertical multiplier should be
+                start_y = default_y + default_y * branch.vertical_multiplier;
+                end_y = default_y + default_y * branch.merge;
+
+                // Draw the long line up to the merge point
+                drawLine(start_x, start_y, end_y, colors.lines[branch.horizontal_multiplier]);
+
+                // Draw the Branch Curve
+                draw_curve(final_x, start_y - default_y, start_x, start_y, colors.lines[branch.horizontal_multiplier]);
+
+                // Draw Merge Curve
+                draw_curve(start_x, end_y, final_x, end_y + default_y, colors.lines[branch.horizontal_multiplier]);
+
+                // Draw the Branch Starting Circle
+                if (!branch.timeline) {
+                    draw_circle(start_x, start_y, get_analogous(colors.lines[branch.horizontal_multiplier]), branch.id);
+                }
+            });
+
+            this.renderCircles();
+        },
+        getMerges: function getMerges() {
+
+            console.info('branches are at 0');
+            console.warn(this.branches.length);
+            //                // Get the proper merge levels
+            //                $.each(this.branches, function(branch_index, branch) {
+            //
+            //                    $.each(this.branches, (lowerBranch) => {
+            //
+            //                        if(branch.end_date > lowerBranch.start_date) {
+            //                            branch.merge = lowerBranch.vertical_multiplier;
+            //
+            //                            this.merges[branch.name] = branch.merge;
+            //                        }
+            //                    });
+            //
+            //                    //console.log(branch.name  + ' merges @ ' + branch.merge);
+            //                });
+            //
+            //                $.each(this.branches, (branch) =>  {
+            //                    this.findMergeConflicts(branch);
+            //                    this.merge_levels.push(branch.merge);
+            //                });
+        },
+        drawLine: function drawLine(x, start_y, end_y, color) {
+            this.tree.path("M" + x + "," + start_y + " L" + x + "," + end_y + "").attr({
+                stroke: color,
+                strokeWidth: 4,
+                class: 'lines'
+            });
+        },
+        findMergeConflicts: function findMergeConflicts() {
+            //            console.log('Finding conflicts with ' + branch.name);
+
+            var conflicts = [];
+
+            $.each(branches, function () {
+                if (branch.id != this.id && branch.merge == this.merge) {
+                    //                    console.log('Conflicts with ' + this.name);
+                    conflicts.push(this);
+                }
+            });
+
+            $.each(conflicts, function () {
+                if (branch.id != this.id) {
+                    if (branch.end_date > this.end_date) {
+                        move_up(branch);
+                        branch.merge += 2;
+                    } else {
+                        move_up(this);
+                        this.merge = branch.merge + 2;
+                    }
+                }
+            });
+        },
+        renderCircles: function renderCircles() {
+            var _this = this;
+
+            $.each(this.circles, function (circle) {
+                _this.projects.circle(circle.x, circle.y, circle.r).attr({
+                    fill: circle.color,
+                    stroke: circle.color,
+                    strokeOpacity: .3,
+                    strokeWidth: 5,
+                    'data-project_id': circle.id
+                });
+            });
+        }
+    },
+    computed: {
+        projects: function projects() {
+            return this.$store.state.projects.projects;
+        },
+        timelines: function timelines() {
+            var _this2 = this;
+
+            var timelines = {};
+
+            _.each(_.reverse(this.projects), function (project) {
+
+                _this2.branches.push({
+                    id: project.id,
+                    name: project.timeline.name,
+                    horizontal_multiplier: 1,
+                    vertical_multiplier: 0,
+                    timeline_id: project.timeline.id,
+                    timeline: false,
+                    start_date: project.start_date,
+                    end_date: project.end_date,
+                    merge: null
+                });
+
+                timelines[project.id] = {
+                    id: project.timeline.id,
+                    timeline_id: project.timeline.id,
+                    name: project.timeline.name,
+                    start_date: project.timeline.start_date,
+                    end_date: project.timeline.end_date,
+                    horizontal_multiplier: 1,
+                    vertical_multiplier: 0,
+                    timeline: true
+                };
+            });
+        }
+    }
+});
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1), __webpack_require__(11), __webpack_require__(4)))
+
+/***/ }),
+/* 346 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(345),
+  /* template */
+  __webpack_require__(347),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/pages/Home/Components/GitTree.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] GitTree.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7717179c", Component.options)
+  } else {
+    hotAPI.reload("data-v-7717179c", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 347 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('section', [_c('svg', {
+    ref: "tree",
+    attrs: {
+      "id": "git_tree"
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7717179c", module.exports)
+  }
+}
+
+/***/ }),
+/* 348 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['project'],
+    data: function data() {
+        return {
+            viewing: false
+        };
+    },
+
+    methods: {
+        goToUrl: function goToUrl(url) {
+            window.open(url);
+        },
+        viewProject: function viewProject() {
+            // need to emit others to close
+            Vue.set(this, 'viewing', true);
+        },
+        closeProject: function closeProject() {
+            Vue.set(this, 'viewing', false);
+        }
+    },
+    computed: {
+        technologies: function technologies() {
+            //T TODO - sort by name
+            return this.project.technologies;
+        }
+    }
+});
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+
+/***/ }),
+/* 349 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(348),
+  /* template */
+  __webpack_require__(350),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/pages/Home/Components/Project.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Project.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c11a90b6", Component.options)
+  } else {
+    hotAPI.reload("data-v-c11a90b6", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 350 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('section', [(!_vm.viewing) ? _c('div', {
+    staticClass: "project",
+    on: {
+      "click": _vm.viewProject
+    }
+  }, [_c('div', {
+    staticClass: "col-md-6 img-holder",
+    attrs: {
+      "data-project_id": "project_id"
+    }
+  }, [_c('img', {
+    staticClass: "img-responsive",
+    attrs: {
+      "src": _vm.project.project_image
+    }
+  })])]) : _vm._e(), _vm._v(" "), (_vm.viewing) ? _c('div', {
+    staticClass: "project-details",
+    attrs: {
+      "id": "project->id"
+    }
+  }, [_c('div', {
+    staticClass: "show-projects"
+  }, [_c('span', {
+    staticClass: "btn btn-info",
+    on: {
+      "click": function($event) {
+        $event.stopPropagation();
+        _vm.closeProject()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-arrow-left"
+  })]), _vm._v(" "), _c('h2', [_vm._v("\n                " + _vm._s(_vm.project.name) + "\n                "), _c('small', [_c('a', {
+    attrs: {
+      "target": "_blank",
+      "href": ""
+    }
+  }, [_vm._v(_vm._s(_vm.project.url))])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+    staticClass: "row panel-links"
+  }, _vm._l((_vm.technologies), function(technology) {
+    return _c('div', {
+      staticClass: "col-lg-3",
+      on: {
+        "click": function($event) {
+          _vm.goToUrl(technology.url)
+        }
+      }
+    }, [_c('div', {
+      staticClass: "panel panel-default"
+    }, [_c('div', {
+      staticClass: "panel-color",
+      style: ('background-color:' + technology.color)
+    }), _vm._v(" "), _c('div', {
+      staticClass: "panel-body"
+    }, [_vm._v("\n                        " + _vm._s(technology.name) + "\n                        "), _c('span', [_c('i', {
+      staticClass: "pull-right fa fa-arrow-right",
+      style: ('color:' + technology.color)
+    })])])])])
+  })), _vm._v(" "), _c('div', {
+    staticClass: "project-html"
+  }, [_c('froalaView', {
+    model: {
+      value: (_vm.project.html),
+      callback: function($$v) {
+        _vm.project.html = $$v
+      },
+      expression: "project.html"
+    }
+  })], 1)]) : _vm._e()])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-c11a90b6", module.exports)
+  }
+}
+
+/***/ }),
+/* 351 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['blog']
+});
+
+/***/ }),
+/* 352 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(351),
+  /* template */
+  __webpack_require__(353),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/pages/Blogs/Components/BlogCard.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] BlogCard.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2daa7042", Component.options)
+  } else {
+    hotAPI.reload("data-v-2daa7042", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 353 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "blog"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('h1', {
+    staticClass: "blog-name"
+  }, [_c('router-link', {
+    staticClass: "pull-right continue-reading",
+    attrs: {
+      "to": {
+        name: 'blog',
+        params: {
+          blog: _vm.blog.id
+        }
+      }
+    }
+  }, [_vm._v("\n                { " + _vm._s(_vm.blog.name) + "\n            ")])], 1), _vm._v(" "), _c('small', [_vm._v(_vm._s(_vm.parseDate(_vm.blog.created_at)))]), _vm._v(" "), _c('div', {
+    staticClass: "technologies"
+  }, _vm._l((_vm.blog.tags), function(tag) {
+    return _c('span', {
+      staticClass: "label",
+      style: ('background-color:' + _vm.blog.tag.color)
+    }, [_vm._v("\n                 " + _vm._s(tag.name) + "\n             ")])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('a', [_c('img', {
+    staticClass: "img-responsive blog-image center-block",
+    attrs: {
+      "src": _vm.blog.image
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('p', [_c('froalaView', {
+    model: {
+      value: (_vm.blog.preview_text),
+      callback: function($$v) {
+        _vm.blog.preview_text = $$v
+      },
+      expression: "blog.preview_text"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('router-link', {
+    staticClass: "pull-right continue-reading",
+    attrs: {
+      "to": {
+        name: 'blog',
+        params: {
+          blog: _vm.blog.id
+        }
+      }
+    }
+  }, [_vm._v("\n            Continue Reading ...\n        ")])], 1), _vm._v(" "), _c('hr')])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-2daa7042", module.exports)
   }
 }
 
