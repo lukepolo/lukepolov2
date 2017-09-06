@@ -6319,6 +6319,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6329,11 +6338,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            reply: false
+            reply: false,
+            editing: false,
+            form: this.createForm({
+                comment: this.comment.comment
+            })
         };
     },
 
     methods: {
+        update: function update() {
+            var _this = this;
+
+            this.$store.dispatch('blog_comments/update', {
+                form: this.form,
+                comment: this.comment.id,
+                blog: this.$route.params.blog
+            }).then(function () {
+                _this.editing = false;
+            });
+        },
         deleteComment: function deleteComment() {
             this.$store.dispatch('blog_comments/destroy', {
                 comment: this.comment.id,
@@ -6347,7 +6371,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$store.state.auth.authed_user;
         },
         isOwners: function isOwners() {
-            if (this.user && this.user === this.comment.user_id) {
+            if (this.user && this.user.id === this.comment.user_id) {
                 return true;
             }
             return false;
@@ -7660,7 +7684,7 @@ var store = function store(_ref2, form) {
 var update = function update(_ref3, data) {
     _objectDestructuringEmpty(_ref3);
 
-    Vue.request(data).post('/api/blogs/' + data.blog + '/comments/' + data.comment, 'blog_comments/update');
+    Vue.request(data.form).patch('/api/blogs/' + data.blog + '/comments/' + data.comment, 'blog_comments/update');
 };
 
 var destroy = function destroy(_ref4, data) {
@@ -7729,13 +7753,13 @@ var add = function add(state, _ref2) {
 var update = function update(state, _ref3) {
     var response = _ref3.response;
 
-    if (requestData.parent) {
-        var parentComment = findParentComment(state.comments[requestData.blog], requestData.parent);
+    if (response.parent_id) {
+        var parentComment = findParentComment(state.comments[response.blog_id], response.parent_id);
         if (parentComment) {
-            Vue.set(parentComment.children, _.findKey(parentComment.children, { id: requestData.comment }), response);
+            Vue.set(parentComment.children, _.findKey(parentComment.children, { id: response.id }), response);
         }
     } else {
-        Vue.set(state.comments[requestData.blog], _.findKey(state.comments[requestData.blog], { id: requestData.comment }), response);
+        Vue.set(state.comments[response.blog_id], _.findKey(state.comments[response.blog_id], { id: response.id }), response);
     }
 };
 
@@ -13572,7 +13596,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "timestamp"
   }, [_vm._v(_vm._s(_vm.comment.created_at))])]), _vm._v(" "), _c('div', {
     staticClass: "row comment"
-  }, [_vm._v("\n            " + _vm._s(_vm.comment.comment) + "\n        ")]), _vm._v(" "), _c('div', {
+  }, [(!_vm.editing) ? [_vm._v("\n                " + _vm._s(_vm.comment.comment) + "\n            ")] : [_c('form', {
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.update($event)
+      }
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.comment),
+      expression: "form.comment"
+    }],
+    domProps: {
+      "value": (_vm.form.comment)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.comment = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "cancel comment-post btn btn-danger",
+    on: {
+      "click": function($event) {
+        _vm.editing = false
+      }
+    }
+  }, [_vm._v("Cancel")]), _vm._v(" "), _c('button', {
+    staticClass: "comment-post btn btn-primary"
+  }, [_vm._v("Update")])])]], 2), _vm._v(" "), _c('div', {
     staticClass: "row comment-footer"
   }, [(!_vm.isOwners) ? _c('span', {
     staticClass: "voting"
@@ -13588,7 +13644,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v("Reply")]), _vm._v(" "), (_vm.isOwners) ? _c('span', {
-    staticClass: "btn-link edit"
+    staticClass: "btn-link edit",
+    on: {
+      "click": function($event) {
+        _vm.editing = true
+      }
+    }
   }, [_vm._v("Edit")]) : _vm._e(), _vm._v(" "), (_vm.isAdmin) ? _c('span', [_vm._v("\n                    • "), _c('span', {
     staticClass: "btn-link delete",
     on: {

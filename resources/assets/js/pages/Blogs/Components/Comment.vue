@@ -12,7 +12,16 @@
                     <span class="timestamp">{{ comment.created_at }}</span>
             </div>
             <div class="row comment">
-                {{ comment.comment }}
+                <template v-if="!editing">
+                    {{ comment.comment }}
+                </template>
+                <template v-else>
+                    <form @submit.prevent="update">
+                        <input v-model="form.comment">
+                        <div class="cancel comment-post btn btn-danger" @click="editing = false">Cancel</div>
+                        <button class="comment-post btn btn-primary">Update</button>
+                    </form>
+                </template>
             </div>
             <div class="row comment-footer">
                 <span class="voting" v-if="!isOwners">
@@ -21,7 +30,7 @@
                 </span>
                 <template v-if="isAuthed">
                     &bull; <span class="btn-link reply" @click="reply = true">Reply</span>
-                    <span class="btn-link edit" v-if="isOwners">Edit</span>
+                    <span class="btn-link edit" v-if="isOwners" @click="editing = true">Edit</span>
                     <span v-if="isAdmin">
                         &bull; <span class="btn-link delete" @click="deleteComment">Delete</span>
                     </span>
@@ -45,10 +54,23 @@
         },
         data() {
             return {
-                reply : false
+                reply : false,
+                editing : false,
+                form : this.createForm({
+                    comment : this.comment.comment
+                })
             }
         },
         methods : {
+            update() {
+              this.$store.dispatch('blog_comments/update', {
+                  form : this.form,
+                  comment : this.comment.id,
+                  blog : this.$route.params.blog,
+              }).then(() => {
+                  this.editing = false
+              })
+            },
             deleteComment() {
                 this.$store.dispatch('blog_comments/destroy', {
                     comment : this.comment.id,
@@ -62,7 +84,7 @@
                 return this.$store.state.auth.authed_user
             },
             isOwners() {
-                if(this.user && this.user === this.comment.user_id) {
+                if(this.user && this.user.id === this.comment.user_id) {
                     return true
                 }
                 return false

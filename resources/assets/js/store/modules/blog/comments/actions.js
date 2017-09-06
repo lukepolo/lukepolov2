@@ -7,7 +7,7 @@ export const store = ({}, form) => {
 }
 
 export const update = ({}, data) => {
-    Vue.request(data).post('/api/blogs/'+data.blog+'/comments/'+data.comment, 'blog_comments/update')
+    Vue.request(data.form).patch('/api/blogs/'+data.blog+'/comments/'+data.comment, 'blog_comments/update')
 }
 
 export const destroy = ({}, data) => {
