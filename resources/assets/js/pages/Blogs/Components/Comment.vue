@@ -15,14 +15,13 @@
                 {{ comment.comment }}
             </div>
             <div class="row comment-footer">
-                <!--@if(!\Auth::check() || $comment->user_id != \Auth::user()->id)-->
-                <span class="voting">
+                <span class="voting" v-if="!isOwners">
                     <i class="js-up-vote-count fa fa-thumbs-o-up up-vote"> up vote count </i> |
                     <i class="js-down-vote-count fa fa-thumbs-o-down down-vote"> down vote count</i>
                 </span>
                 <template v-if="isAuthed">
                     &bull; <span class="btn-link reply">Reply</span>
-                    <!--<span data-id="{{ $comment->id }}" class="btn-link edit">Edit</span>-->
+                    <span class="btn-link edit" v-if="isOwners">Edit</span>
                     <span v-if="isAdmin">
                         &bull; <span class="btn-link delete">Delete</span>
                     </span>
@@ -32,7 +31,8 @@
 
             <comment-form :parentComment="comment" placeholder="Reply"></comment-form>
 
-            <comment :comment="comment" v-for="comment in comment.descendants"></comment>
+            <comment :comment="comment" v-for="comment in comment.descendants" :key="comment.id"></comment>
+
         </div>
     </div>
 </template>
@@ -45,18 +45,16 @@
         components : {
             CommentForm
         },
-        data() {
-            return {
-                form : this.createForm({
-                    comment : null
-                })
-            }
-        },
-        methods : {
-            postComment() {
-                alert('post it')
-            }
+        computed : {
+            user() {
+                return this.$store.state.auth.authed_user
+            },
+            isOwners() {
+                if(this.user && this.user === this.comment.user_id) {
+                    return true
+                }
+                return false
+            },
         }
-
     }
 </script>

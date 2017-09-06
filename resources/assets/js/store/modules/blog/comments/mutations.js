@@ -1,10 +1,10 @@
 export const set = (state, { response }) => {
 };
 
-export const setAll = (state, { response, requestData }) => {
-
-    console.warn('this wont work once we start getting more and more')
-    Vue.set(state.comments, requestData.value, response)
+export const setAll = (state, { response }) => {
+    if(response.length) {
+        Vue.set(state.comments, response[0].blog_id, response)
+    }
 };
 
 export const add = (state, { response }) => {

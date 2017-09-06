@@ -1,5 +1,5 @@
 export const get = ({}, blog) => {
-    Vue.request(blog).get('/api/blogs/'+blog+'/comments', 'blog_comments/setAll')
+    Vue.request().get('/api/blogs/'+blog+'/comments', 'blog_comments/setAll')
 }
 
 export const store = ({}, form) => {

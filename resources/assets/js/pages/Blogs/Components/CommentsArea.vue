@@ -46,8 +46,7 @@
         </nav>
 
         <template v-if="isAuthed">
-            <!--Start the discussion . . .' : 'Join the discussion . . .-->
-           <comment-form placeholder="Start the discussion ..."></comment-form>
+           <comment-form :placeholder="blogComments ? 'Join the discussion ...' : 'Start the discussion ...'"></comment-form>
         </template>
 
         <div class="comments">
@@ -68,23 +67,9 @@
             CommentForm
         },
         props : [ 'blog' ],
-        data() {
-            return {
-                newCommentForm : this.createForm({
-                    'comment' : null,
-                })
-            }
-        },
         watch: {
             'blog' : function() {
                 this.$store.dispatch('blog_comments/get', this.blog.id)
-            }
-        },
-        methods : {
-            postComment() {
-                let form = this.newCommentForm
-                form.blog = this.blog.id
-                this.$store.dispatch('blog_comments/store', form)
             }
         },
         computed: {

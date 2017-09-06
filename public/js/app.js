@@ -14420,7 +14420,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -14430,24 +14429,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         CommentForm: __WEBPACK_IMPORTED_MODULE_1__CommentForm_vue___default.a
     },
     props: ['blog'],
-    data: function data() {
-        return {
-            newCommentForm: this.createForm({
-                'comment': null
-            })
-        };
-    },
-
     watch: {
         'blog': function blog() {
             this.$store.dispatch('blog_comments/get', this.blog.id);
-        }
-    },
-    methods: {
-        postComment: function postComment() {
-            var form = this.newCommentForm;
-            form.blog = this.blog.id;
-            this.$store.dispatch('blog_comments/store', form);
         }
     },
     computed: {
@@ -14521,7 +14505,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "caret"
   })]), _vm._v(" "), _vm._m(1)])] : [_vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5)]], 2)])]), _vm._v(" "), (_vm.isAuthed) ? [_c('comment-form', {
     attrs: {
-      "placeholder": "Start the discussion ..."
+      "placeholder": _vm.blogComments ? 'Join the discussion ...' : 'Start the discussion ...'
     }
   })] : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "comments"
@@ -14601,7 +14585,7 @@ function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("
 var get = function get(_ref, blog) {
     _objectDestructuringEmpty(_ref);
 
-    Vue.request(blog).get('/api/blogs/' + blog + '/comments', 'blog_comments/setAll');
+    Vue.request().get('/api/blogs/' + blog + '/comments', 'blog_comments/setAll');
 };
 
 var store = function store(_ref2, form) {
@@ -14658,12 +14642,11 @@ var set = function set(state, _ref) {
 };
 
 var setAll = function setAll(state, _ref2) {
-    var response = _ref2.response,
-        requestData = _ref2.requestData;
+    var response = _ref2.response;
 
-
-    console.warn('this wont work once we start getting more and more');
-    Vue.set(state.comments, requestData.value, response);
+    if (response.length) {
+        Vue.set(state.comments, response[0].blog_id, response);
+    }
 };
 
 var add = function add(state, _ref3) {
@@ -14758,20 +14741,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: {
         CommentForm: __WEBPACK_IMPORTED_MODULE_0__CommentForm_vue___default.a
     },
-    data: function data() {
-        return {
-            form: this.createForm({
-                comment: null
-            })
-        };
-    },
-
-    methods: {
-        postComment: function postComment() {
-            alert('post it');
+    computed: {
+        user: function user() {
+            return this.$store.state.auth.authed_user;
+        },
+        isOwners: function isOwners() {
+            if (this.user && this.user === this.comment.user_id) {
+                return true;
+            }
+            return false;
         }
     }
-
 });
 
 /***/ }),
@@ -14829,9 +14809,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row comment"
   }, [_vm._v("\n            " + _vm._s(_vm.comment.comment) + "\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "row comment-footer"
-  }, [_vm._m(1), _vm._v(" "), (_vm.isAuthed) ? [_vm._v("\n                • "), _c('span', {
+  }, [(!_vm.isOwners) ? _c('span', {
+    staticClass: "voting"
+  }, [_c('i', {
+    staticClass: "js-up-vote-count fa fa-thumbs-o-up up-vote"
+  }, [_vm._v(" up vote count ")]), _vm._v(" |\n                "), _c('i', {
+    staticClass: "js-down-vote-count fa fa-thumbs-o-down down-vote"
+  }, [_vm._v(" down vote count")])]) : _vm._e(), _vm._v(" "), (_vm.isAuthed) ? [_vm._v("\n                • "), _c('span', {
     staticClass: "btn-link reply"
-  }, [_vm._v("Reply")]), _vm._v(" "), (_vm.isAdmin) ? _c('span', [_vm._v("\n                    • "), _c('span', {
+  }, [_vm._v("Reply")]), _vm._v(" "), (_vm.isOwners) ? _c('span', {
+    staticClass: "btn-link edit"
+  }, [_vm._v("Edit")]) : _vm._e(), _vm._v(" "), (_vm.isAdmin) ? _c('span', [_vm._v("\n                    • "), _c('span', {
     staticClass: "btn-link delete"
   }, [_vm._v("Delete")])]) : _vm._e()] : _vm._e()], 2), _vm._v(" "), _c('comment-form', {
     attrs: {
@@ -14840,6 +14828,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _vm._l((_vm.comment.descendants), function(comment) {
     return _c('comment', {
+      key: comment.id,
       attrs: {
         "comment": comment
       }
@@ -14854,14 +14843,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": ""
     }
   })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "voting"
-  }, [_c('i', {
-    staticClass: "js-up-vote-count fa fa-thumbs-o-up up-vote"
-  }, [_vm._v(" up vote count ")]), _vm._v(" |\n                "), _c('i', {
-    staticClass: "js-down-vote-count fa fa-thumbs-o-down down-vote"
-  }, [_vm._v(" down vote count")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
