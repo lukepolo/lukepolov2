@@ -23,7 +23,7 @@
                     <td>{{ blog.updated_at }}</td>
                     <td>preview</td>
                     <td>
-                            <div class="btn-link confirm" @click="deleteBlog(blog)">Delete</div>
+                        <div class="btn-link confirm" @click="deleteBlog(blog)">Delete</div>
                     </td>
                 </tr>
                 </tbody>

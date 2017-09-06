@@ -30,7 +30,13 @@
 </template>
 
 <script>
+
+    import { Material as MaterialPicker } from 'vue-color'
+
     export default {
+        components : {
+            MaterialPicker
+        },
         data() {
             return {
                 form : this.createForm({
