@@ -7316,11 +7316,14 @@ var remove = function remove(state, _ref5) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth__ = __webpack_require__(209);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tags__ = __webpack_require__(226);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__blogs__ = __webpack_require__(213);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__projects__ = __webpack_require__(222);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__timelines__ = __webpack_require__(234);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__technologies__ = __webpack_require__(230);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__notifications__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__projects__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__timelines__ = __webpack_require__(234);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__technologies__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__notifications__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__blogs__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__blog_comments__ = __webpack_require__(353);
+
+
 
 
 
@@ -7332,11 +7335,13 @@ var remove = function remove(state, _ref5) {
 /* harmony default export */ __webpack_exports__["a"] = ({
     auth: __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */],
     tags: __WEBPACK_IMPORTED_MODULE_1__tags__["a" /* default */],
-    blogs: __WEBPACK_IMPORTED_MODULE_2__blogs__["a" /* default */],
-    projects: __WEBPACK_IMPORTED_MODULE_3__projects__["a" /* default */],
-    timelines: __WEBPACK_IMPORTED_MODULE_4__timelines__["a" /* default */],
-    technologies: __WEBPACK_IMPORTED_MODULE_5__technologies__["a" /* default */],
-    notifications: __WEBPACK_IMPORTED_MODULE_6__notifications__["a" /* default */]
+    projects: __WEBPACK_IMPORTED_MODULE_2__projects__["a" /* default */],
+    timelines: __WEBPACK_IMPORTED_MODULE_3__timelines__["a" /* default */],
+    technologies: __WEBPACK_IMPORTED_MODULE_4__technologies__["a" /* default */],
+    notifications: __WEBPACK_IMPORTED_MODULE_5__notifications__["a" /* default */],
+
+    blogs: __WEBPACK_IMPORTED_MODULE_6__blogs__["a" /* default */],
+    blog_comments: __WEBPACK_IMPORTED_MODULE_7__blog_comments__["a" /* default */]
 });
 
 /***/ }),
@@ -12531,7 +12536,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control",
     attrs: {
-      "type": "text",
       "name": "url"
     },
     domProps: {
@@ -12554,7 +12558,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control",
     attrs: {
-      "type": "text",
       "name": "url"
     },
     domProps: {
@@ -13638,7 +13641,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control",
     attrs: {
-      "type": "text",
       "name": "url"
     },
     domProps: {
@@ -13696,7 +13698,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control",
     attrs: {
-      "type": "text",
       "name": "link_name"
     },
     domProps: {
@@ -13878,7 +13879,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "blog.html"
     }
-  })], 1)])]) : _vm._e()])
+  })], 1)])]) : _vm._e(), _vm._v(" "), _c('comments-area', {
+    attrs: {
+      "blog": _vm.blog
+    }
+  })], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -14011,6 +14016,9 @@ module.exports = __webpack_require__(144);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Components_CommentsArea_vue__ = __webpack_require__(350);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Components_CommentsArea_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Components_CommentsArea_vue__);
+//
 //
 //
 //
@@ -14039,7 +14047,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        CommentsArea: __WEBPACK_IMPORTED_MODULE_0__Components_CommentsArea_vue___default.a
+    },
     created: function created() {
         this.$store.dispatch('blogs/show', this.$route.params.blog);
     },
@@ -14335,6 +14347,670 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-b17c6bf6", module.exports)
+  }
+}
+
+/***/ }),
+/* 349 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Comment_vue__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Comment_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Comment_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CommentForm_vue__ = __webpack_require__(360);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CommentForm_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__CommentForm_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        Comment: __WEBPACK_IMPORTED_MODULE_0__Comment_vue___default.a,
+        CommentForm: __WEBPACK_IMPORTED_MODULE_1__CommentForm_vue___default.a
+    },
+    props: ['blog'],
+    data: function data() {
+        return {
+            newCommentForm: this.createForm({
+                'comment': null
+            })
+        };
+    },
+
+    watch: {
+        'blog': function blog() {
+            this.$store.dispatch('blog_comments/get', this.blog.id);
+        }
+    },
+    methods: {
+        postComment: function postComment() {
+            var form = this.newCommentForm;
+            form.blog = this.blog.id;
+            this.$store.dispatch('blog_comments/store', form);
+        }
+    },
+    computed: {
+        user: function user() {
+            return this.$store.state.auth.authed_user;
+        },
+        blogComments: function blogComments() {
+            if (this.blog) {
+                return this.$store.state.blog_comments.comments[this.blog.id];
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 350 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(349),
+  /* template */
+  __webpack_require__(351),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/pages/Blogs/Components/CommentsArea.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] CommentsArea.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2d87cf91", Component.options)
+  } else {
+    hotAPI.reload("data-v-2d87cf91", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 351 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "comment-area"
+  }, [_c('nav', {
+    staticClass: "navbar"
+  }, [_c('div', {
+    staticClass: "container-fluid"
+  }, [_vm._m(0), _vm._v(" "), _c('ul', {
+    staticClass: "nav navbar-nav navbar-right"
+  }, [(_vm.isAuthed) ? [_c('li', {
+    staticClass: "dropdown"
+  }, [_c('a', {
+    staticClass: "dropdown-toggle",
+    attrs: {
+      "href": "#",
+      "data-toggle": "dropdown"
+    }
+  }, [_vm._v("\n                            " + _vm._s(_vm.user.name) + "\n                            "), _c('span', {
+    staticClass: "caret"
+  })]), _vm._v(" "), _vm._m(1)])] : [_vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5)]], 2)])]), _vm._v(" "), (_vm.isAuthed) ? [_c('comment-form', {
+    attrs: {
+      "placeholder": "Start the discussion ..."
+    }
+  })] : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "comments"
+  }, [_vm._l((_vm.blogComments), function(comment) {
+    return _c('comment', {
+      key: comment.id,
+      attrs: {
+        "comment": comment
+      }
+    })
+  }), _vm._v(" "), _c('hr')], 2)], 2)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('ul', {
+    staticClass: "nav navbar-nav"
+  }, [_c('li', [_c('p', {
+    staticClass: "navbar-text"
+  }, [_c('span', {
+    staticClass: "total_count"
+  }), _vm._v(" Comments")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('ul', {
+    staticClass: "dropdown-menu",
+    attrs: {
+      "role": "menu"
+    }
+  }, [_c('li', [_vm._v("Logout")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('div', {
+    staticClass: "navbar-text"
+  }, [_vm._v("\n                            Login to comment :\n                        ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('a', {
+    attrs: {
+      "href": "/oauth/google"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-google"
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('a', {
+    attrs: {
+      "href": "/oauth/github"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-github"
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('a', {
+    attrs: {
+      "href": "/oauth/twitter"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-twitter"
+  })])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-2d87cf91", module.exports)
+  }
+}
+
+/***/ }),
+/* 352 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get", function() { return get; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "show", function() { return show; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroy", function() { return destroy; });
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+var get = function get(_ref, blog) {
+    _objectDestructuringEmpty(_ref);
+
+    Vue.request(blog).get('/api/blogs/' + blog + '/comments', 'blog_comments/setAll');
+};
+
+var store = function store(_ref2, form) {
+    _objectDestructuringEmpty(_ref2);
+
+    Vue.request(form).post('/api/blogs/' + form.blog + '/comments', 'blog_comments/add');
+};
+
+var show = function show(_ref3, blog) {
+    _objectDestructuringEmpty(_ref3);
+};
+
+var update = function update(_ref4, form) {
+    _objectDestructuringEmpty(_ref4);
+};
+
+var destroy = function destroy(_ref5, blog) {
+    _objectDestructuringEmpty(_ref5);
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+
+/***/ }),
+/* 353 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__state__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions__ = __webpack_require__(352);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mutations__ = __webpack_require__(354);
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    namespaced: true,
+    state: __WEBPACK_IMPORTED_MODULE_0__state__["a" /* default */],
+    mutations: __WEBPACK_IMPORTED_MODULE_2__mutations__,
+    actions: __WEBPACK_IMPORTED_MODULE_1__actions__
+});
+
+/***/ }),
+/* 354 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return set; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAll", function() { return setAll; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "remove", function() { return remove; });
+var set = function set(state, _ref) {
+    var response = _ref.response;
+};
+
+var setAll = function setAll(state, _ref2) {
+    var response = _ref2.response,
+        requestData = _ref2.requestData;
+
+
+    console.warn('this wont work once we start getting more and more');
+    Vue.set(state.comments, requestData.value, response);
+};
+
+var add = function add(state, _ref3) {
+    var response = _ref3.response;
+};
+
+var update = function update(state, _ref4) {
+    // let key = parseInt(_.findKey(state.blogs, { id: response.id }));
+    // if(key) {
+    //     Vue.set(
+    //         state.blogs,
+    //         key,
+    //         response
+    //     );
+    // }
+
+    var response = _ref4.response;
+};
+
+var remove = function remove(state, _ref5) {
+    // Vue.set(
+    //     state,
+    //     "blogs",
+    //     _.reject(state.blogs, { id: requestData.value })
+    // );
+
+    var requestData = _ref5.requestData;
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+
+/***/ }),
+/* 355 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    comments: {}
+});
+
+/***/ }),
+/* 356 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CommentForm_vue__ = __webpack_require__(360);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CommentForm_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__CommentForm_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'comment',
+    props: ['comment'],
+    components: {
+        CommentForm: __WEBPACK_IMPORTED_MODULE_0__CommentForm_vue___default.a
+    },
+    data: function data() {
+        return {
+            form: this.createForm({
+                comment: null
+            })
+        };
+    },
+
+    methods: {
+        postComment: function postComment() {
+            alert('post it');
+        }
+    }
+
+});
+
+/***/ }),
+/* 357 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(356),
+  /* template */
+  __webpack_require__(358),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/pages/Blogs/Components/Comment.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Comment.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-18d0659f", Component.options)
+  } else {
+    hotAPI.reload("data-v-18d0659f", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 358 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row comment-row"
+  }, [_c('div', {
+    staticClass: "cancel pull-right comment-post btn btn-danger"
+  }, [_vm._v("Cancel")]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-11 reply-area"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('span', {
+    staticClass: "user-name"
+  }, [_vm._v("\n            " + _vm._s(_vm.comment.user.name) + "\n        ")]), _vm._v(" "), _c('span', {
+    staticClass: "timestamp"
+  }, [_vm._v(_vm._s(_vm.comment.created_at))])]), _vm._v(" "), _c('div', {
+    staticClass: "row comment"
+  }, [_vm._v("\n            " + _vm._s(_vm.comment.comment) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "row comment-footer"
+  }, [_vm._m(1), _vm._v(" "), (_vm.isAuthed) ? [_vm._v("\n                • "), _c('span', {
+    staticClass: "btn-link reply"
+  }, [_vm._v("Reply")]), _vm._v(" "), (_vm.isAdmin) ? _c('span', [_vm._v("\n                    • "), _c('span', {
+    staticClass: "btn-link delete"
+  }, [_vm._v("Delete")])]) : _vm._e()] : _vm._e()], 2), _vm._v(" "), _c('comment-form', {
+    attrs: {
+      "parentComment": _vm.comment,
+      "placeholder": "Reply"
+    }
+  }), _vm._v(" "), _vm._l((_vm.comment.descendants), function(comment) {
+    return _c('comment', {
+      attrs: {
+        "comment": comment
+      }
+    })
+  })], 2)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-xs-1"
+  }, [_c('img', {
+    staticClass: "pull-right img-responsive",
+    attrs: {
+      "src": ""
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "voting"
+  }, [_c('i', {
+    staticClass: "js-up-vote-count fa fa-thumbs-o-up up-vote"
+  }, [_vm._v(" up vote count ")]), _vm._v(" |\n                "), _c('i', {
+    staticClass: "js-down-vote-count fa fa-thumbs-o-down down-vote"
+  }, [_vm._v(" down vote count")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-18d0659f", module.exports)
+  }
+}
+
+/***/ }),
+/* 359 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ["parentComment", "placeholder"],
+    data: function data() {
+        return {
+            form: this.createForm({
+                comment: null
+            })
+        };
+    },
+
+    methods: {
+        postComment: function postComment() {
+            var form = this.form;
+
+            form.blog = this.blogId;
+
+            if (this.parentComment) {
+                form.parent_comment = this.parentComment.id;
+            }
+
+            this.$store.dispatch('blog_comments/store', form);
+        }
+    },
+    computed: {
+        blogId: function blogId() {
+            return this.$route.params.blog;
+        }
+    }
+});
+
+/***/ }),
+/* 360 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(359),
+  /* template */
+  __webpack_require__(361),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/pages/Blogs/Components/CommentForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] CommentForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0f0ff903", Component.options)
+  } else {
+    hotAPI.reload("data-v-0f0ff903", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 361 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('form', {
+    staticClass: "comment-form form-horizontal",
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.postComment($event)
+      }
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-11"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.comment),
+      expression: "form.comment"
+    }],
+    staticClass: "comment-text form-control",
+    attrs: {
+      "placeholder": _vm.placeholder
+    },
+    domProps: {
+      "value": (_vm.form.comment)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.comment = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('button', {
+    staticClass: "pull-right comment-post btn btn-primary"
+  }, [_vm._v("Post")])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-xs-1"
+  }, [_c('img', {
+    staticClass: "pull-right user-image img-responsive",
+    attrs: {
+      "src": "#"
+    }
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-0f0ff903", module.exports)
   }
 }
 

@@ -8,11 +8,11 @@
                 <form @submit.prevent="submit()">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" name="url" v-model="form.name">
+                        <input class="form-control" name="url" v-model="form.name">
                     </div>
                     <div class="form-group">
                         <label>URL</label>
-                        <input type="text" class="form-control" name="url" v-model="form.url">
+                        <input class="form-control" name="url" v-model="form.url">
                     </div>
                     <div class="form-group">
                         <label>Project Image</label>

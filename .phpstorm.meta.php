@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-09-05.
+    * Generated on 2017-09-06.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -47,6 +47,9 @@ namespace PHPSTORM_META {
         'command.debugbar.clear' => \Barryvdh\Debugbar\Console\ClearCommand::class,
         'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
         'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
+        'hashids.factory' => \Vinkla\Hashids\HashidsFactory::class,
+        'hashids' => \Vinkla\Hashids\HashidsManager::class,
+        'hashids.connection' => \Hashids\Hashids::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -188,6 +191,9 @@ namespace PHPSTORM_META {
         'command.debugbar.clear' => \Barryvdh\Debugbar\Console\ClearCommand::class,
         'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
         'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
+        'hashids.factory' => \Vinkla\Hashids\HashidsFactory::class,
+        'hashids' => \Vinkla\Hashids\HashidsManager::class,
+        'hashids.connection' => \Hashids\Hashids::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -329,6 +335,9 @@ namespace PHPSTORM_META {
         'command.debugbar.clear' => \Barryvdh\Debugbar\Console\ClearCommand::class,
         'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
         'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
+        'hashids.factory' => \Vinkla\Hashids\HashidsFactory::class,
+        'hashids' => \Vinkla\Hashids\HashidsManager::class,
+        'hashids.connection' => \Hashids\Hashids::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -470,6 +479,9 @@ namespace PHPSTORM_META {
         'command.debugbar.clear' => \Barryvdh\Debugbar\Console\ClearCommand::class,
         'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
         'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
+        'hashids.factory' => \Vinkla\Hashids\HashidsFactory::class,
+        'hashids' => \Vinkla\Hashids\HashidsManager::class,
+        'hashids.connection' => \Hashids\Hashids::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -611,6 +623,9 @@ namespace PHPSTORM_META {
         'command.debugbar.clear' => \Barryvdh\Debugbar\Console\ClearCommand::class,
         'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
         'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
+        'hashids.factory' => \Vinkla\Hashids\HashidsFactory::class,
+        'hashids' => \Vinkla\Hashids\HashidsManager::class,
+        'hashids.connection' => \Hashids\Hashids::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -752,6 +767,9 @@ namespace PHPSTORM_META {
         'command.debugbar.clear' => \Barryvdh\Debugbar\Console\ClearCommand::class,
         'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
         'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
+        'hashids.factory' => \Vinkla\Hashids\HashidsFactory::class,
+        'hashids' => \Vinkla\Hashids\HashidsManager::class,
+        'hashids.connection' => \Hashids\Hashids::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -893,6 +911,9 @@ namespace PHPSTORM_META {
         'command.debugbar.clear' => \Barryvdh\Debugbar\Console\ClearCommand::class,
         'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
         'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
+        'hashids.factory' => \Vinkla\Hashids\HashidsFactory::class,
+        'hashids' => \Vinkla\Hashids\HashidsManager::class,
+        'hashids.connection' => \Hashids\Hashids::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,

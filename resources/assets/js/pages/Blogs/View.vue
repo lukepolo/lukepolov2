@@ -22,11 +22,16 @@
                 </div>
             </div>
         </div>
+        <comments-area :blog="blog"></comments-area>
     </div>
 </template>
 
 <script>
+    import CommentsArea from './Components/CommentsArea.vue'
     export default {
+        components : {
+            CommentsArea
+        },
         created() {
           this.$store.dispatch('blogs/show', this.$route.params.blog)
         },

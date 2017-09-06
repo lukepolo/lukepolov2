@@ -10,7 +10,7 @@
             <form @submit.prevent="submit()">
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control" name="url" v-model="form.name">
+                    <input class="form-control" name="url" v-model="form.name">
                 </div>
                 <div class="form-group">
                     <label>Draft</label>
@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-group">
                     <label>Link name</label>
-                    <input type="text" class="form-control" name="link_name" v-model="form.link_name">
+                    <input class="form-control" name="link_name" v-model="form.link_name">
                 </div>
                 <div class="form-group">
                     <label>Blog Image</label>
