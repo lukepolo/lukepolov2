@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="blog-container col-md-10">
+    <div class="container blog-container">
+        <div class="col-md-10">
             <div class="row" v-if="form.filters.length">
                 <a class="label clear-filter" @click="clearFilters">Clear Filters</a>
             </div>
@@ -10,10 +10,11 @@
             <div class="row" v-if="blogs.length === 0">
                 <h2>Oh no, there are no blogs with that filter . . .</h2>
             </div>
+
         </div>
         <div class="col-md-2">
-            <div class="row text-center">
-                <select v-model="form.filters" multiple></select>
+            <div class="row">
+                <input class="form-group"> // turn into searching
             </div>
             <div class="row">
                 <hr>

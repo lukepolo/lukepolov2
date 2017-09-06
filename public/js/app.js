@@ -6576,6 +6576,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -15050,8 +15051,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "blog-container col-md-10"
+  return _c('div', {
+    staticClass: "container blog-container"
+  }, [_c('div', {
+    staticClass: "col-md-10"
   }, [(_vm.form.filters.length) ? _c('div', {
     staticClass: "row"
   }, [_c('a', {
@@ -15070,30 +15073,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('h2', [_vm._v("Oh no, there are no blogs with that filter . . .")])]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "col-md-2"
-  }, [_c('div', {
-    staticClass: "row text-center"
-  }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.form.filters),
-      expression: "form.filters"
-    }],
-    attrs: {
-      "multiple": ""
-    },
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.form.filters = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  })]), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('hr'), _vm._v(" "), _c('div', {
     staticClass: "col-sm-12 tags-area"
@@ -15134,7 +15114,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }), _vm._v(_vm._s(tag.name) + "\n                ")]
   })], 2)])])])
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('input', {
+    staticClass: "form-group"
+  }), _vm._v(" // turn into searching\n        ")])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
