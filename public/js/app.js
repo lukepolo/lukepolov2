@@ -6331,6 +6331,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -13559,7 +13561,9 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _vm._m(0)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('a', {
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('a', {
     attrs: {
       "href": "https://www.dropbox.com/s/4q6urgnixx8tdb0/Luke%20Policinski.pdf?dl=1"
     }
@@ -13647,7 +13651,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.reply = false
       }
     }
-  }, [_vm._v("Cancel")]) : _vm._e(), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+  }, [_vm._v("Cancel")]) : _vm._e(), _vm._v(" "), (_vm.comment.user.user_provider) ? _c('div', {
+    staticClass: "col-xs-1"
+  }, [_c('img', {
+    staticClass: "pull-right img-responsive",
+    attrs: {
+      "src": _vm.comment.user.user_provider.avatar
+    }
+  })]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "col-xs-11 reply-area"
   }, [_c('div', {
     staticClass: "row"
@@ -13704,14 +13715,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.reply = true
       }
     }
-  }, [_vm._v("Reply")]), _vm._v(" "), (_vm.isOwners) ? _c('span', {
+  }, [_vm._v("Reply")]), _vm._v(" "), (_vm.isOwners) ? [_vm._v("\n                    • "), _c('span', {
     staticClass: "btn-link edit",
     on: {
       "click": function($event) {
         _vm.editing = true
       }
     }
-  }, [_vm._v("Edit")]) : _vm._e(), _vm._v(" "), (_vm.isAdmin) ? _c('span', [_vm._v("\n                    • "), _c('span', {
+  }, [_vm._v("Edit")])] : _vm._e(), _vm._v(" "), (_vm.isAdmin) ? _c('span', [_vm._v("\n                    • "), _c('span', {
     staticClass: "btn-link delete",
     on: {
       "click": _vm.deleteComment
@@ -13735,16 +13746,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })
   })], 2)])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-xs-1"
-  }, [_c('img', {
-    staticClass: "pull-right img-responsive",
-    attrs: {
-      "src": ""
-    }
-  })])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -14366,9 +14368,9 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.blog) ? _c('div', {
-    staticClass: "container blog-container"
-  }, [_c('div', {
+  return _c('div', {
+    staticClass: "container"
+  }, [(_vm.blog) ? _c('div', [_c('div', {
     staticClass: "col-md-12 big-bottom-padding"
   }, [_c('h1', {
     staticClass: "blog-name"

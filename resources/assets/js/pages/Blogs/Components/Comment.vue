@@ -1,8 +1,8 @@
 <template>
     <div class="col-sm-12 comment-row">
         <div class="cancel pull-right comment-post btn btn-danger" @click="reply = false" v-if="reply">Cancel</div>
-        <div class="col-xs-1">
-            <img class="pull-right img-responsive" src="">
+        <div class="col-xs-1" v-if="comment.user.user_provider">
+            <img class="pull-right img-responsive" :src="comment.user.user_provider.avatar">
         </div>
         <div class="col-xs-11 reply-area">
             <div class="row">
@@ -30,7 +30,9 @@
                 </span>
                 <template v-if="isAuthed">
                     &bull; <span class="btn-link reply" @click="reply = true">Reply</span>
-                    <span class="btn-link edit" v-if="isOwners" @click="editing = true">Edit</span>
+                    <template v-if="isOwners" >
+                        &bull; <span class="btn-link edit" @click="editing = true">Edit</span>
+                    </template>
                     <span v-if="isAdmin">
                         &bull; <span class="btn-link delete" @click="deleteComment">Delete</span>
                     </span>

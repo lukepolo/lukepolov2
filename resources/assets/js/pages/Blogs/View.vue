@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="container blog-container" v-if="blog">
+    <div class="container">
+        <div v-if="blog">
             <div class="col-md-12 big-bottom-padding">
                 <h1 class="blog-name">
                     { {{ blog.name }}

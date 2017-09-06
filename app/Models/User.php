@@ -33,11 +33,20 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $with = [
+        'userProvider'
+    ];
+
     /*
     |--------------------------------------------------------------------------
     | Relations
     |--------------------------------------------------------------------------
     */
+
+    public function userProvider()
+    {
+        return $this->belongsTo(UserProvider::class);
+    }
 
     /*
     |--------------------------------------------------------------------------
