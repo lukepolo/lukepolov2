@@ -55,8 +55,6 @@
         methods : {
             submit() {
 
-                this.form.reset();
-
                 Vue.set(this.form, 'color', this.color.hex)
 
                 if(this.tagId) {

@@ -8,9 +8,11 @@
            </h1>
            <small>{{ parseDate(blog.created_at) }}</small>
            <div class="technologies">
-               <span class="label" :style="'background-color:' + blog.tag.color" v-for="tag in blog.tags">
-                    {{ tag.name }}
-                </span>
+                <template v-for="tag in blog.tags">
+                    <span class="label" :style="'background-color:' + tag.color">
+                        {{ tag.name }}
+                    </span>
+                </template>
            </div>
        </div>
        <div class="row">

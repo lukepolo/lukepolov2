@@ -1,5 +1,5 @@
-export const get = () => {
-    Vue.request().get('/api/blogs', 'blogs/setAll')
+export const get = ({}, filters) => {
+    Vue.request(filters).get('/api/blogs', 'blogs/setAll')
 }
 
 export const store = ({}, form) => {

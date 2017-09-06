@@ -3,6 +3,7 @@ export const get = () => {
 }
 
 export const store = ({}, form) => {
+    console.info(form)
     Vue.request(form).post('/api/tags', 'tags/add').then(() => {
         app.showSuccess('You have created a new tag')
         app.$router.push({ name : 'admin-tags' })

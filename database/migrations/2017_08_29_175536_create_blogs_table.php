@@ -18,10 +18,15 @@ class CreateBlogsTable extends Migration
             $table->string('name');
             $table->string('draft');
             $table->string('blog_image')->nullable();
-            $table->string('html');
-            $table->string('preview_text');
+            $table->longText('html');
+            $table->longText('preview_text');
             $table->string('link_name');
             $table->timestamps();
+        });
+
+        Schema::create('blog_tag', function(Blueprint $table) {
+            $table->integer('tag_ig');
+            $table->integer('blog_id');
         });
     }
 
@@ -33,5 +38,6 @@ class CreateBlogsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('blogs');
+        Schema::dropIfExists('blog_tag');
     }
 }

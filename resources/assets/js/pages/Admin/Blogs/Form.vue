@@ -32,7 +32,7 @@
                 </div>
                 <div class="form-group">
                     <label>Tags</label>
-                    <select class="form-control" multiple v-model="tags">
+                    <select class="form-control" multiple v-model="form.tags">
                         <option v-for="tag in tags" :value="tag.id">
                             {{ tag.name }}
                         </option>
@@ -76,6 +76,8 @@
             '$route' : 'fetchData',
             'blog' : function() {
                 this.form.fill(this.blog)
+                console.info(this.blog.tags)
+                this.form.tags = _.map(this.blog.tags, 'id')
             }
         } ,
         methods : {
@@ -92,6 +94,7 @@
                 this.$store.dispatch('blogs/update', _.merge(this.form, { blog : this.blog.id }))
             },
             fetchData() {
+                this.$store.dispatch('tags/get')
                 let blog = this.$route.params.blog
                 if(blog) {
                     this.$store.dispatch('blogs/show', blog)

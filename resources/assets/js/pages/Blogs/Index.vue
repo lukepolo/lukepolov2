@@ -2,7 +2,7 @@
     <div>
         <div class="blog-container col-md-10">
             <div class="row" v-if="form.filters.length">
-                <a class="label clear-filter">Clear Filters</a>
+                <a class="label clear-filter" @click="clearFilters">Clear Filters</a>
             </div>
 
             <blog-card :blog="blog" v-for="blog in blogs" :key="blog.id"></blog-card>
@@ -18,11 +18,9 @@
             <div class="row">
                 <hr>
                 <div class="col-sm-12 tags-area">
-                    <!--@foreach($tags as $tag)-->
-                    <!--@if(\Request::get('filter') != $tag->name)-->
-                    <!--<a style="background-color:#{{ $tag->color }}" class="label pull-right" href="{{ action('BlogController@getPublicIndex', ['filter' => $tag->name]) }}">{{ $tag->name }}</a>-->
-                    <!--@endif-->
-                    <!--@endforeach-->
+                    <template v-for="tag in tags">
+                        <input type="checkbox" :style="'background-color:'+tag.color" class="pull-right" v-model="form.filters" :value="tag.id">{{ tag.name }}
+                    </template>
                 </div>
             </div>
         </div>
@@ -42,10 +40,27 @@
               })
           }
         },
+        watch : {
+          'form.filters' : function() {
+              this.getBlogs()
+          }
+        },
         created() {
-            this.$store.dispatch('blogs/get')
+            this.$store.dispatch('tags/get')
+            this.getBlogs()
+        },
+        methods : {
+            getBlogs() {
+                this.$store.dispatch('blogs/get', this.form.filters.length ? this.form : null)
+            },
+            clearFilters() {
+                this.form.reset()
+            }
         },
         computed : {
+            tags() {
+                return this.$store.state.tags.tags
+            },
             blogs() {
                 return this.$store.state.blogs.blogs
             }

@@ -13,7 +13,7 @@ router.beforeResolve((to, from, next) => {
         to.matched.some((match) => {
             return match.meta.admin
         }) &&
-        store.state.auth.authed_user.role !== 'admin'
+        (!store.state.auth.authed_user || store.state.auth.authed_user.role !== 'admin')
     ) {
         return next('/login')
     }

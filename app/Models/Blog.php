@@ -8,4 +8,20 @@ class Blog extends Model
 {
     protected $guarded = ['id'];
 
+    protected $with = [
+        'tags'
+    ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relations
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
 }

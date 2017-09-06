@@ -3,7 +3,8 @@ export const set = (state, { response }) => {
 };
 
 export const setAll = (state, { response }) => {
-    state.blogs = response;
+    state.pagination = response;
+    state.blogs = response.data;
 };
 
 export const add = (state, { response }) => {
