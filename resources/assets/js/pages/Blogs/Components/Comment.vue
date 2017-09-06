@@ -1,15 +1,15 @@
 <template>
-    <div class="row comment-row">
-        <div class="cancel pull-right comment-post btn btn-danger">Cancel</div>
+    <div class="col-sm-12 comment-row">
+        <div class="cancel pull-right comment-post btn btn-danger" @click="reply = false" v-if="reply">Cancel</div>
         <div class="col-xs-1">
             <img class="pull-right img-responsive" src="">
         </div>
         <div class="col-xs-11 reply-area">
             <div class="row">
-            <span class="user-name">
-                {{ comment.user.name }}
-            </span>
-                <span class="timestamp">{{ comment.created_at }}</span>
+                <span class="user-name">
+                    {{ comment.user.name }}
+                </span>
+                    <span class="timestamp">{{ comment.created_at }}</span>
             </div>
             <div class="row comment">
                 {{ comment.comment }}
@@ -20,19 +20,17 @@
                     <i class="js-down-vote-count fa fa-thumbs-o-down down-vote"> down vote count</i>
                 </span>
                 <template v-if="isAuthed">
-                    &bull; <span class="btn-link reply">Reply</span>
+                    &bull; <span class="btn-link reply" @click="reply = true">Reply</span>
                     <span class="btn-link edit" v-if="isOwners">Edit</span>
                     <span v-if="isAdmin">
                         &bull; <span class="btn-link delete">Delete</span>
                     </span>
                 </template>
 
+                <comment-form :parentComment="comment" placeholder="Reply" :open.sync="reply"></comment-form>
+
+                <comment :comment="comment" v-for="comment in comment.children" :key="comment.id"></comment>
             </div>
-
-            <comment-form :parentComment="comment" placeholder="Reply"></comment-form>
-
-            <comment :comment="comment" v-for="comment in comment.descendants" :key="comment.id"></comment>
-
         </div>
     </div>
 </template>
@@ -44,6 +42,11 @@
         props : ['comment'],
         components : {
             CommentForm
+        },
+        data() {
+            return {
+                reply : false
+            }
         },
         computed : {
             user() {

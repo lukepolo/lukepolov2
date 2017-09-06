@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="postComment" class="comment-form form-horizontal">
+    <form @submit.prevent="postComment" class="row comment-form form-horizontal" v-if="open">
         <div class="form-group">
             <div class="col-xs-1">
                 <img class="pull-right user-image img-responsive" src="#">
@@ -14,7 +14,13 @@
 
 <script>
     export default {
-        props : ["parentComment", "placeholder"],
+        props : {
+            parentComment : Object,
+            placeholder : String,
+            open : {
+                default : false
+            }
+        },
         data() {
             return {
                 form : this.createForm({
@@ -32,7 +38,10 @@
                     form.parent_comment = this.parentComment.id
                 }
 
-                this.$store.dispatch('blog_comments/store', form)
+                this.$store.dispatch('blog_comments/store', form).then(() => {
+                    this.$emit('update:open', false)
+                })
+
             }
         },
         computed : {

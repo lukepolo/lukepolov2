@@ -14,7 +14,7 @@ class BlogComment extends Model
 
     protected $with = [
         'user',
-        'descendants'
+        'children'
     ];
 
     /*

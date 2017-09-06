@@ -44,7 +44,7 @@ class BlogCommentsController extends Controller
             'comment' => $request->get('comment')
         ], $parent);
 
-        return response()->json($blogComment);
+        return response()->json($blogComment->fresh());
     }
 
     /**
