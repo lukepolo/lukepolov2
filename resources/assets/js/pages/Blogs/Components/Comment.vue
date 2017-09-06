@@ -23,7 +23,7 @@
                     &bull; <span class="btn-link reply" @click="reply = true">Reply</span>
                     <span class="btn-link edit" v-if="isOwners">Edit</span>
                     <span v-if="isAdmin">
-                        &bull; <span class="btn-link delete">Delete</span>
+                        &bull; <span class="btn-link delete" @click="deleteComment">Delete</span>
                     </span>
                 </template>
 
@@ -46,6 +46,15 @@
         data() {
             return {
                 reply : false
+            }
+        },
+        methods : {
+            deleteComment() {
+                this.$store.dispatch('blog_comments/destroy', {
+                    comment : this.comment.id,
+                    parent : this.comment.parent_id,
+                    blog : this.$route.params.blog,
+                })
             }
         },
         computed : {

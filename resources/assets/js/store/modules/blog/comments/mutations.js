@@ -1,3 +1,48 @@
+export const setAll = (state, { response }) => {
+    if(response.length) {
+        Vue.set(state.comments, response[0].blog_id, response)
+    }
+};
+
+export const add = (state, { response }) => {
+    let blog = response.blog_id;
+
+    if(response.parent_id) {
+        let parentComment = findParentComment(state.comments[blog], response.parent_id)
+        if(parentComment) {
+            parentComment.children.push(response)
+        }
+    } else {
+        if(!state.comments[blog]) {
+            Vue.set(state.comments, blog, [])
+            state.comments[blog] = []
+        }
+        state.comments[blog].push(response)
+    }
+};
+
+export const update = (state, { response }) => {
+    if(requestData.parent) {
+        let parentComment = findParentComment(state.comments[requestData.blog], requestData.parent)
+        if(parentComment) {
+            Vue.set(parentComment.children, _.findKey(parentComment.children, { id: requestData.comment }), response)
+        }
+    } else {
+        Vue.set(state.comments[requestData.blog], _.findKey(state.comments[requestData.blog], { id : requestData.comment }), response)
+    }
+};
+
+export const remove = (state, { requestData }) => {
+    if(requestData.parent) {
+        let parentComment = findParentComment(state.comments[requestData.blog], requestData.parent)
+        if(parentComment) {
+            Vue.set(parentComment, 'children', _.reject(parentComment.children, { id: requestData.comment }))
+        }
+    } else {
+        Vue.set(state.comments, requestData.blog, _.reject(state.comments[requestData.blog], { id : requestData.comment }))
+    }
+};
+
 function findParentComment(comments, parentId) {
     for (let i = 0; i < comments.length; i++) {
         if(comments[i].id === parentId) {
@@ -9,43 +54,3 @@ function findParentComment(comments, parentId) {
         }
     }
 }
-
-export const setAll = (state, { response }) => {
-    if(response.length) {
-        Vue.set(state.comments, response[0].blog_id, response)
-    }
-};
-
-export const add = (state, { response }) => {
-    if(response.parent_id) {
-        let parentComment = findParentComment(state.comments[response.blog_id], response.parent_id)
-        if(parentComment) {
-            parentComment.children.push(response)
-        } else {
-            console.info('cant find parent')
-            console.info(response)
-        }
-
-    } else {
-        state.comments[response.blog_id].push(response)
-    }
-};
-
-export const update = (state, { response }) => {
-    // let key = parseInt(_.findKey(state.blogs, { id: response.id }));
-    // if(key) {
-    //     Vue.set(
-    //         state.blogs,
-    //         key,
-    //         response
-    //     );
-    // }
-};
-
-export const remove = (state, { requestData }) => {
-    // Vue.set(
-    //     state,
-    //     "blogs",
-    //     _.reject(state.blogs, { id: requestData.value })
-    // );
-};

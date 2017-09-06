@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogComment;
-use Illuminate\Http\Request;
+use App\Http\Requests\BlogCommentRequest;
 
 class BlogCommentsController extends Controller
 {
@@ -25,11 +25,11 @@ class BlogCommentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request $request
+     * @param  BlogCommentRequest $request
      * @param $blogId
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $blogId)
+    public function store(BlogCommentRequest $request, $blogId)
     {
         $parent = null;
 
@@ -48,28 +48,23 @@ class BlogCommentsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param $blogId
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($blogId, $id)
-    {
-
-    }
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param  Request $request
+     * @param  BlogCommentRequest $request
      * @param $blogId
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $blogId, $id)
+    public function update(BlogCommentRequest $request, $blogId, $id)
     {
+        $blogComment = BlogComment::where('blog_id', $blogId)
+            ->findOrFail($id);
 
+        $blogComment->update([
+            'comment' => $request->get('comment')
+        ]);
+
+        return response()->json($blogComment);
     }
 
     /**
@@ -81,6 +76,10 @@ class BlogCommentsController extends Controller
      */
     public function destroy($blogId, $id)
     {
+        BlogComment::where('blog_id', $blogId)
+            ->where('id', $id)
+            ->delete();
 
+        return response()->json('OK');
     }
 }
