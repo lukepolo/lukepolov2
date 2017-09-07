@@ -1,6 +1,7 @@
 localStorage.FEK = "AODOd2HLEBFZOTGHW==";
 
 window.moment = require('moment-timezone')
+moment.tz.setDefault("UTC");
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

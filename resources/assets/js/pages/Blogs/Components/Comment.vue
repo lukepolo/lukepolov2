@@ -8,7 +8,9 @@
                 <span class="user-name">
                     {{ comment.user.name }}
                 </span>
-                    <span class="timestamp">{{ comment.created_at }}</span>
+                    <span class="timestamp">
+                        <time-ago :time="comment.created_at"></time-ago>
+                    </span>
             </div>
             <div class="row comment">
                 <template v-if="!editing">

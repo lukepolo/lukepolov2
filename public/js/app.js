@@ -6602,6 +6602,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7413,6 +7415,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 localStorage.FEK = "AODOd2HLEBFZOTGHW==";
 
 window.moment = __webpack_require__(10);
+moment.tz.setDefault("UTC");
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -7514,6 +7517,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg___default.a);
 __webpack_require__(195);
 
 Vue.component('Footer', __webpack_require__(285));
+Vue.component('TimeAgo', __webpack_require__(370));
 Vue.component('Navigation', __webpack_require__(286));
 Vue.component('Pagination', __webpack_require__(289));
 Vue.component('Notifications', __webpack_require__(288));
@@ -14214,7 +14218,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "user-name"
   }, [_vm._v("\n                " + _vm._s(_vm.comment.user.name) + "\n            ")]), _vm._v(" "), _c('span', {
     staticClass: "timestamp"
-  }, [_vm._v(_vm._s(_vm.comment.created_at))])]), _vm._v(" "), _c('div', {
+  }, [_c('time-ago', {
+    attrs: {
+      "time": _vm.comment.created_at
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
     staticClass: "row comment"
   }, [(!_vm.editing) ? [_vm._v("\n                " + _vm._s(_vm.comment.comment) + "\n            ")] : [_c('form', {
     on: {
@@ -15778,6 +15786,141 @@ if (false) {
 __webpack_require__(144);
 module.exports = __webpack_require__(147);
 
+
+/***/ }),
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        time: {}
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        this.setCurrentTime();
+        setInterval(function () {
+            _this.update();
+        }, 60000);
+    },
+    data: function data() {
+        return {
+            currentTime: null
+        };
+    },
+
+    watch: {
+        time: function time() {
+            this.setCurrentTime();
+        }
+    },
+    methods: {
+        update: function update() {
+            Vue.set(this.currentTime, this.currentTime.add(-1, 'minute'));
+        },
+        setCurrentTime: function setCurrentTime() {
+
+            var time = this.time;
+
+            if (!moment.isMoment(time)) {
+                time = this.parseDate(time);
+            }
+
+            this.currentTime = time;
+        }
+    },
+    computed: {
+        text: function text() {
+            if (this.currentTime) {
+                return this.currentTime.fromNow().replace('ute', '');
+            }
+        }
+    }
+});
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+
+/***/ }),
+/* 370 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(369),
+  /* template */
+  __webpack_require__(371),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/LukePOLO/resources/assets/js/components/TimeAgo.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] TimeAgo.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-301e639a", Component.options)
+  } else {
+    hotAPI.reload("data-v-301e639a", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 371 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', [_vm._v(" " + _vm._s(_vm.text) + " ")])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-301e639a", module.exports)
+  }
+}
 
 /***/ })
 ],[341]);
