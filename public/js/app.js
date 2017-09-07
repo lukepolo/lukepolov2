@@ -6602,8 +6602,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6683,6 +6681,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -6700,8 +6714,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             })
         };
     },
+    mounted: function mounted() {
+        if (this.parentComment) {
+            this.$refs.comment_input.focus();
+        }
+    },
 
     methods: {
+        cancel: function cancel() {
+            this.$emit('update:open', false);
+        },
         postComment: function postComment() {
             var _this = this;
 
@@ -6716,6 +6738,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$store.dispatch('blog_comments/store', form).then(function () {
                 _this.$emit('update:open', false);
                 _this.$emit('updated', true);
+            }).then(function () {
+                _this.form.reset();
             });
         }
     },
@@ -6809,8 +6833,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         blogComments: function blogComments() {
             if (this.blog) {
-                return this.$store.state.blog_comments.comments[this.blog.id];
+                var comments = this.$store.state.blog_comments.comments[this.blog.id];
+                if (comments) {
+                    return comments;
+                }
             }
+
+            return [];
         }
     }
 });
@@ -14170,14 +14199,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-sm-12 comment-row"
-  }, [(_vm.reply) ? _c('div', {
-    staticClass: "cancel pull-right comment-post btn btn-danger",
-    on: {
-      "click": function($event) {
-        _vm.reply = false
-      }
-    }
-  }, [_vm._v("Cancel")]) : _vm._e(), _vm._v(" "), (_vm.comment.user.user_provider) ? _c('div', {
+  }, [(_vm.comment.user.user_provider) ? _c('div', {
     staticClass: "col-xs-1"
   }, [_c('img', {
     staticClass: "user-image img-responsive",
@@ -14250,7 +14272,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.deleteComment
     }
-  }, [_vm._v("Delete")])]) : _vm._e()] : _vm._e(), _vm._v(" "), _c('comment-form', {
+  }, [_vm._v("Delete")])]) : _vm._e()] : _vm._e(), _vm._v(" "), (_vm.reply) ? _c('comment-form', {
     attrs: {
       "blog_id": _vm.comment.blog_id,
       "parentComment": _vm.comment,
@@ -14263,14 +14285,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.reply = $event
       }
     }
-  }), _vm._v(" "), _vm._l((_vm.comment.children), function(comment) {
+  }) : _vm._e()], 2), _vm._v(" "), _vm._l((_vm.comment.children), function(comment) {
     return _c('comment', {
       key: comment.id,
       attrs: {
         "comment": comment
       }
     })
-  })], 2)])])
+  })], 2)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -15528,6 +15550,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.form.comment),
       expression: "form.comment"
     }],
+    ref: "comment_input",
     staticClass: "comment-text form-control",
     attrs: {
       "placeholder": _vm.placeholder
@@ -15536,14 +15559,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": (_vm.form.comment)
     },
     on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "esc", 27)) { return null; }
+        _vm.cancel($event)
+      },
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.form.comment = $event.target.value
       }
     }
-  })])]), _vm._v(" "), _c('button', {
-    staticClass: "pull-right comment-post btn btn-primary"
-  }, [_vm._v("Post")])]) : _vm._e()
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "pull-right"
+  }, [(_vm.parentComment) ? _c('span', {
+    staticClass: "comment-post btn btn-danger",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.cancel($event)
+      }
+    }
+  }, [_vm._v("Cancel")]) : _vm._e(), _vm._v(" "), _c('button', {
+    staticClass: "comment-post btn btn-primary"
+  }, [(_vm.parentComment) ? [_vm._v("\n                Reply\n            ")] : [_vm._v("\n                Post\n            ")]], 2)])]) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -15562,9 +15599,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-12 comment-area "
   }, [_c('nav', {
     staticClass: "navbar row"
-  }, [_vm._m(0), _vm._v(" "), _c('ul', {
+  }, [_c('ul', {
+    staticClass: "nav navbar-nav"
+  }, [_c('li', [_c('p', {
+    staticClass: "navbar-text"
+  }, [_c('span', {
+    staticClass: "total_count"
+  }, [_vm._v(_vm._s(_vm.blogComments.length))]), _vm._v(" Comments")])])]), _vm._v(" "), _c('ul', {
     staticClass: "nav navbar-nav navbar-right"
-  }, [(!_vm.isAuthed) ? [_vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4)] : _vm._e()], 2)]), _vm._v(" "), (_vm.isAuthed) ? [_c('comment-form', {
+  }, [(!_vm.isAuthed) ? [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3)] : _vm._e()], 2)]), _vm._v(" "), (_vm.isAuthed) ? [_c('comment-form', {
     attrs: {
       "placeholder": _vm.blogComments ? 'Join the discussion ...' : 'Start the discussion ...',
       "open": "true"
@@ -15580,14 +15623,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })
   }), _vm._v(" "), _c('hr')], 2)], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('ul', {
-    staticClass: "nav navbar-nav"
-  }, [_c('li', [_c('p', {
-    staticClass: "navbar-text"
-  }, [_c('span', {
-    staticClass: "total_count"
-  }), _vm._v(" Comments")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('div', {
     staticClass: "navbar-text"
   }, [_vm._v("\n                        Login to comment :\n                    ")])])

@@ -3,7 +3,7 @@
         <nav class="navbar row">
             <ul class="nav navbar-nav">
                 <li>
-                    <p class="navbar-text"><span class="total_count"></span> Comments</p>
+                    <p class="navbar-text"><span class="total_count">{{ blogComments.length }}</span> Comments</p>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -65,8 +65,13 @@
             },
             blogComments() {
                 if(this.blog) {
-                    return this.$store.state.blog_comments.comments[this.blog.id]
+                    let comments = this.$store.state.blog_comments.comments[this.blog.id]
+                    if(comments) {
+                        return comments
+                    }
                 }
+
+                return []
             }
         }
     }

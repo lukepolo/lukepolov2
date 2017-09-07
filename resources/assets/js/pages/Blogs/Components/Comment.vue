@@ -1,6 +1,5 @@
 <template>
     <div class="col-sm-12 comment-row">
-        <div class="cancel pull-right comment-post btn btn-danger" @click="reply = false" v-if="reply">Cancel</div>
         <div class="col-xs-1" v-if="comment.user.user_provider">
             <img class="user-image img-responsive" :src="comment.user.user_provider.avatar">
         </div>
@@ -40,10 +39,9 @@
                     </span>
                 </template>
 
-                <comment-form v-on:updated="emitUpdated" :blog_id="comment.blog_id" :parentComment="comment" placeholder="Reply" :open.sync="reply"></comment-form>
-
-                <comment :comment="comment" v-for="comment in comment.children" :key="comment.id"></comment>
+                <comment-form v-on:updated="emitUpdated" :blog_id="comment.blog_id" :parentComment="comment" placeholder="Reply" :open.sync="reply" v-if="reply"></comment-form>
             </div>
+            <comment :comment="comment" v-for="comment in comment.children" :key="comment.id"></comment>
         </div>
     </div>
 </template>
