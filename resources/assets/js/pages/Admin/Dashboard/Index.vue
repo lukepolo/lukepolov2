@@ -5,60 +5,53 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         User Comments
-                        <span class="pull-right unread label @if($comments->count() == 0) label-default @else label-warning @endif">
-                         <span class="count">-- $comments->count() --</span> Messages
+                        <span class="pull-right unread label" :class="{ 'label-warning' : comments.length > 0, 'label-default' : comments.length === 0 }">
+                         <span class="count">{{ comments.length }}</span> Messages
                     </span>
                     </h3>
                 </div>
                 <div class="panel-body">
-                    @if($comments->count()  == 0)
-                    <div class="text-center">
-                        Go Enjoy Your Day!
-                    </div>
-                    @else
-                    -- Form::open(['class' => 'comment-form form-horizontal hide']) --
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <img class="pull-right user-image img-responsive"
-                                 src="-- empty(\Auth::user()->profile_img) === false ?  \Auth::user()->profile_img : asset('/img/user.svg') --">
+                    <template v-if="comments.length === 0">
+                        <div class="text-center">
+                            Go Enjoy Your Day!
                         </div>
-                        <div class="col-sm-10">
-                            <div class="row">
-                                -- Form::text('comment', null, ['class'=> 'comment-text form-control','placeholder' =>'Reply . . . ']) --
+                    </template>
+                    <template v-for="comment in comments" v-else>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <comment :comment="comment"></comment>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="btn btn-primary">
+                                    Moderated
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    -- Form::submit('Post', ['class' => 'pull-right comment-post btn btn-primary']) --
-                    <div class="pull-right btn btn-danger cancel">Cancel</div>
-                    -- Form::close() --
-                    @foreach($comments->reverse() as $comment)
-                    @include('admin.comment', ['comment' => $comment])
-                    @endforeach
-                    @endif
+                    </template>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="row">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Active Users</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="active-users text-center"></div>
-                        <div class="active-user-locations">
-                            <table class="table table-striped">
-                                <thead>
-                                <th>Location</th>
-                                <th>User Count</th>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!--<div class="row">-->
+                <!--<div class="panel panel-default">-->
+                    <!--<div class="panel-heading">-->
+                        <!--<h3 class="panel-title">Active Users</h3>-->
+                    <!--</div>-->
+                    <!--<div class="panel-body">-->
+                        <!--<div class="active-users text-center"></div>-->
+                        <!--<div class="active-user-locations">-->
+                            <!--<table class="table table-striped">-->
+                                <!--<thead>-->
+                                <!--<th>Location</th>-->
+                                <!--<th>User Count</th>-->
+                                <!--</thead>-->
+                                <!--<tbody>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -84,9 +77,24 @@
 </template>
 
 <script>
+    import Comment from './../../Blogs/Components/Comment.vue'
     export default {
+        components : {
+          Comment,
+        },
         created() {
-
+            this.$store.dispatch('admin_blog_comments/get')
+        },
+        computed : {
+            user() {
+                return this.$store.state.auth.authed_user
+            },
+            comments() {
+                return this.$store.state.admin_blog_comments.comments
+            },
+            commentsPagination() {
+                return this.$store.state.admin_blog_comments.pagination
+            }
         }
     }
 </script>

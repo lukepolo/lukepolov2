@@ -15,8 +15,9 @@
 <script>
     export default {
         props : {
-            parentComment : Object,
+            blog_id : Number,
             placeholder : String,
+            parentComment : Object,
             open : {
                 default : false
             }
@@ -49,6 +50,9 @@
                 return this.$store.state.auth.authed_user
             },
             blogId() {
+                if(this.blog_id) {
+                    return this.blog_id
+                }
                 return this.$route.params.blog
             },
         }

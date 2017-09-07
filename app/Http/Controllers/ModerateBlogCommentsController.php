@@ -15,7 +15,8 @@ class ModerateBlogCommentsController extends Controller
     {
         return response()->json(
             BlogComment::where('been_moderated', false)
-                ->pagination(5)
+                ->without('children')
+                ->paginate(5)
         );
     }
 

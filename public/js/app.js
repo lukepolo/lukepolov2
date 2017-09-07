@@ -5374,13 +5374,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Blogs_Components_Comment_vue__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Blogs_Components_Comment_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Blogs_Components_Comment_vue__);
 //
 //
 //
@@ -5460,8 +5455,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    created: function created() {}
+    components: {
+        Comment: __WEBPACK_IMPORTED_MODULE_0__Blogs_Components_Comment_vue___default.a
+    },
+    created: function created() {
+        this.$store.dispatch('admin_blog_comments/get');
+    },
+
+    computed: {
+        user: function user() {
+            return this.$store.state.auth.authed_user;
+        },
+        comments: function comments() {
+            return this.$store.state.admin_blog_comments.comments;
+        },
+        commentsPagination: function commentsPagination() {
+            return this.$store.state.admin_blog_comments.pagination;
+        }
+    }
 });
 
 /***/ }),
@@ -6361,10 +6374,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         update: function update() {
             var _this = this;
 
+            console.info(this.comment);
             this.$store.dispatch('blog_comments/update', {
                 form: this.form,
                 comment: this.comment.id,
-                blog: this.$route.params.blog
+                blog: this.comment.blog_id
             }).then(function () {
                 _this.editing = false;
             });
@@ -6413,8 +6427,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
-        parentComment: Object,
+        blog_id: Number,
         placeholder: String,
+        parentComment: Object,
         open: {
             default: false
         }
@@ -6449,6 +6464,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$store.state.auth.authed_user;
         },
         blogId: function blogId() {
+            if (this.blog_id) {
+                return this.blog_id;
+            }
             return this.$route.params.blog;
         }
     }
@@ -7827,54 +7845,64 @@ var add = function add(state, _ref2) {
 
     var blog = response.blog_id;
 
+    var comments = state.comments[blog];
+
     if (response.parent_id) {
-        var parentComment = findParentComment(state.comments[blog], response.parent_id);
+        var parentComment = findParentComment(comments, response.parent_id);
         if (parentComment) {
             parentComment.children.push(response);
         }
     } else {
-        if (!state.comments[blog]) {
+        if (!comments) {
             Vue.set(state.comments, blog, []);
-            state.comments[blog] = [];
+            comments = state.comments[blog] = [];
         }
-        state.comments[blog].push(response);
+        comments.push(response);
     }
 };
 
 var update = function update(state, _ref3) {
     var response = _ref3.response;
 
+
+    var comments = state.comments[response.blog_id];
+
     if (response.parent_id) {
-        var parentComment = findParentComment(state.comments[response.blog_id], response.parent_id);
+        var parentComment = findParentComment(comments, response.parent_id);
         if (parentComment) {
             Vue.set(parentComment.children, _.findKey(parentComment.children, { id: response.id }), response);
         }
     } else {
-        Vue.set(state.comments[response.blog_id], _.findKey(state.comments[response.blog_id], { id: response.id }), response);
+        Vue.set(comments, _.findKey(comments, { id: response.id }), response);
     }
 };
 
 var remove = function remove(state, _ref4) {
     var requestData = _ref4.requestData;
 
-    if (requestData.parent) {
-        var parentComment = findParentComment(state.comments[requestData.blog], requestData.parent);
-        if (parentComment) {
-            Vue.set(parentComment, 'children', _.reject(parentComment.children, { id: requestData.comment }));
+    var comments = state.comments[requestData.blog];
+    if (comments) {
+        if (requestData.parent) {
+            var parentComment = findParentComment(comments, requestData.parent);
+            if (parentComment) {
+                Vue.set(parentComment, 'children', _.reject(parentComment.children, { id: requestData.comment }));
+            }
+        } else {
+            Vue.set(state.comments, requestData.blog, _.reject(comments, { id: requestData.comment }));
         }
-    } else {
-        Vue.set(state.comments, requestData.blog, _.reject(state.comments[requestData.blog], { id: requestData.comment }));
     }
 };
 
 function findParentComment(comments, parentId) {
-    for (var i = 0; i < comments.length; i++) {
-        if (comments[i].id === parentId) {
-            return comments[i];
-        }
-        var parentComment = findParentComment(comments[i].children, parentId);
-        if (parentComment) {
-            return parentComment;
+    if (comments) {
+        for (var i = 0; i < comments.length; i++) {
+            if (comments[i].id === parentId) {
+                return comments[i];
+            }
+            var parentComment = findParentComment(comments[i].children, parentId);
+            if (parentComment) {
+                return parentComment;
+            }
         }
     }
 }
@@ -13766,6 +13794,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Delete")])]) : _vm._e()] : _vm._e(), _vm._v(" "), _c('comment-form', {
     attrs: {
+      "blog_id": _vm.comment.blog_id,
       "parentComment": _vm.comment,
       "placeholder": "Reply",
       "open": _vm.reply
@@ -13821,8 +13850,6 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('section', [_c('div', {
     staticClass: "col-md-6 admin-comments"
   }, [_c('div', {
@@ -13832,47 +13859,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h3', {
     staticClass: "panel-title"
   }, [_vm._v("\n                    User Comments\n                    "), _c('span', {
-    staticClass: "pull-right unread label @if($comments->count() == 0) label-default @else label-warning @endif"
+    staticClass: "pull-right unread label",
+    class: {
+      'label-warning': _vm.comments.length > 0, 'label-default': _vm.comments.length === 0
+    }
   }, [_c('span', {
     staticClass: "count"
-  }, [_vm._v("-- $comments->count() --")]), _vm._v(" Messages\n                ")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.comments.length))]), _vm._v(" Messages\n                ")])])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [_vm._v("\n                @if($comments->count()  == 0)\n                "), _c('div', {
+  }, [(_vm.comments.length === 0) ? [_c('div', {
     staticClass: "text-center"
-  }, [_vm._v("\n                    Go Enjoy Your Day!\n                ")]), _vm._v("\n                @else\n                -- Form::open(['class' => 'comment-form form-horizontal hide']) --\n                "), _c('div', {
-    staticClass: "form-group"
+  }, [_vm._v("\n                        Go Enjoy Your Day!\n                    ")])] : _vm._l((_vm.comments), function(comment) {
+    return [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-sm-9"
+    }, [_c('comment', {
+      attrs: {
+        "comment": comment
+      }
+    })], 1), _vm._v(" "), _vm._m(0, true)])]
+  })], 2)])]), _vm._v(" "), _vm._m(1)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-sm-3"
   }, [_c('div', {
-    staticClass: "col-sm-2"
-  }, [_c('img', {
-    staticClass: "pull-right user-image img-responsive",
-    attrs: {
-      "src": "-- empty(\\Auth::user()->profile_img) === false ?  \\Auth::user()->profile_img : asset('/img/user.svg') --"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-10"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_vm._v("\n                            -- Form::text('comment', null, ['class'=> 'comment-text form-control','placeholder' =>'Reply . . . ']) --\n                        ")])])]), _vm._v("\n                -- Form::submit('Post', ['class' => 'pull-right comment-post btn btn-primary']) --\n                "), _c('div', {
-    staticClass: "pull-right btn btn-danger cancel"
-  }, [_vm._v("Cancel")]), _vm._v("\n                -- Form::close() --\n                @foreach($comments->reverse() as $comment)\n                @include('admin.comment', ['comment' => $comment])\n                @endforeach\n                @endif\n            ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "btn btn-primary"
+  }, [_vm._v("\n                                Moderated\n                            ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "col-md-6"
   }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_c('h3', {
-    staticClass: "panel-title"
-  }, [_vm._v("Active Users")])]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_c('div', {
-    staticClass: "active-users text-center"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "active-user-locations"
-  }, [_c('table', {
-    staticClass: "table table-striped"
-  }, [_c('thead', [_c('th', [_vm._v("Location")]), _vm._v(" "), _c('th', [_vm._v("User Count")])]), _vm._v(" "), _c('tbody')])])])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "panel panel-default"
@@ -13890,7 +13907,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "popular-pages"
   }, [_c('table', {
     staticClass: "table table-striped"
-  }, [_c('thead', [_c('th', [_vm._v("URL")]), _vm._v(" "), _c('th', [_vm._v("Views")])]), _vm._v(" "), _c('tbody')])])])])])])
+  }, [_c('thead', [_c('th', [_vm._v("URL")]), _vm._v(" "), _c('th', [_vm._v("Views")])]), _vm._v(" "), _c('tbody')])])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -15393,18 +15410,11 @@ var update = function update(_ref2, data) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAll", function() { return setAll; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
 var setAll = function setAll(state, _ref) {
     var response = _ref.response;
 
     Vue.set(state, 'pagination', response);
     Vue.set(state, 'comments', response.data);
-};
-
-var update = function update(state, _ref2) {
-    // remove from moderation
-
-    var response = _ref2.response;
 };
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
