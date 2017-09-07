@@ -5700,9 +5700,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         Comment: __WEBPACK_IMPORTED_MODULE_0__Blogs_Components_Comment_vue___default.a
     },
     created: function created() {
-        this.$store.dispatch('admin_blog_comments/get');
+        this.fetchComments();
     },
 
+    methods: {
+        fetchComments: function fetchComments() {
+            this.$store.dispatch('admin_blog_comments/get');
+        },
+        moderatedComment: function moderatedComment(comment) {
+            var _this = this;
+
+            this.$store.dispatch('admin_blog_comments/update', {
+                comment: comment
+            }).then(function () {
+                _this.fetchComments();
+            });
+        }
+    },
     computed: {
         user: function user() {
             return this.$store.state.auth.authed_user;
@@ -7951,7 +7965,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.request = function (data) {
 /* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
 var logout = function logout() {
-    Vue.request().post('/logout').then(function () {
+    return Vue.request().post('/logout').then(function () {
         window.location.reload();
     });
 };
@@ -8005,13 +8019,13 @@ function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("
 var get = function get(_ref, queryString) {
     _objectDestructuringEmpty(_ref);
 
-    Vue.request(queryString).get('/api/admin/blog-comments', 'admin_blog_comments/setAll');
+    return Vue.request(queryString).get('/api/admin/blog-comments', 'admin_blog_comments/setAll');
 };
 
 var update = function update(_ref2, data) {
     _objectDestructuringEmpty(_ref2);
 
-    Vue.request(data.form).patch('/api/blog-comments/' + data.comment, 'admin_blog_comments/update');
+    return Vue.request(data.form).patch('/api/admin/blog-comments/' + data.comment);
 };
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
@@ -8074,25 +8088,25 @@ function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("
 var get = function get(_ref, blog) {
     _objectDestructuringEmpty(_ref);
 
-    Vue.request().get('/api/blogs/' + blog + '/comments', 'blog_comments/setAll');
+    return Vue.request().get('/api/blogs/' + blog + '/comments', 'blog_comments/setAll');
 };
 
 var store = function store(_ref2, form) {
     _objectDestructuringEmpty(_ref2);
 
-    Vue.request(form).post('/api/blogs/' + form.blog + '/comments', 'blog_comments/add');
+    return Vue.request(form).post('/api/blogs/' + form.blog + '/comments', 'blog_comments/add');
 };
 
 var update = function update(_ref3, data) {
     _objectDestructuringEmpty(_ref3);
 
-    Vue.request(data.form).patch('/api/blogs/' + data.blog + '/comments/' + data.comment, 'blog_comments/update');
+    return Vue.request(data.form).patch('/api/blogs/' + data.blog + '/comments/' + data.comment, 'blog_comments/update');
 };
 
 var destroy = function destroy(_ref4, data) {
     _objectDestructuringEmpty(_ref4);
 
-    Vue.request(data).delete('/api/blogs/' + data.blog + '/comments/' + data.comment, 'blog_comments/remove');
+    return Vue.request(data).delete('/api/blogs/' + data.blog + '/comments/' + data.comment, 'blog_comments/remove');
 };
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
@@ -8226,13 +8240,13 @@ function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("
 var get = function get(_ref, filters) {
     _objectDestructuringEmpty(_ref);
 
-    Vue.request(filters).get('/api/blogs', 'blogs/setAll');
+    return Vue.request(filters).get('/api/blogs', 'blogs/setAll');
 };
 
 var store = function store(_ref2, form) {
     _objectDestructuringEmpty(_ref2);
 
-    Vue.request(form).post('/api/blogs', 'blogs/add').then(function () {
+    return Vue.request(form).post('/api/blogs', 'blogs/add').then(function () {
         app.showSuccess('You have created a new blog');
         app.$router.push({ name: 'admin-blogs' });
     });
@@ -8241,13 +8255,13 @@ var store = function store(_ref2, form) {
 var show = function show(_ref3, blog) {
     _objectDestructuringEmpty(_ref3);
 
-    Vue.request().get('/api/blogs/' + blog, 'blogs/set');
+    return Vue.request().get('/api/blogs/' + blog, 'blogs/set');
 };
 
 var update = function update(_ref4, form) {
     _objectDestructuringEmpty(_ref4);
 
-    Vue.request(form).post('/api/blogs/' + form.blog, 'blogs/update').then(function () {
+    return Vue.request(form).post('/api/blogs/' + form.blog, 'blogs/update').then(function () {
         app.showSuccess('You have updated the blog');
         app.$router.push({ name: 'admin-blogs' });
     });
@@ -8256,7 +8270,7 @@ var update = function update(_ref4, form) {
 var destroy = function destroy(_ref5, blog) {
     _objectDestructuringEmpty(_ref5);
 
-    Vue.request(blog).delete('/api/blogs/' + blog, 'blogs/remove').then(function () {
+    return Vue.request(blog).delete('/api/blogs/' + blog, 'blogs/remove').then(function () {
         app.showSuccess('You have deleted the blog');
         app.$router.push({ name: 'admin-blogs' });
     });
@@ -8456,13 +8470,13 @@ var remove = function remove(state, notification) {
 function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
 
 var get = function get() {
-    Vue.request().get('/api/projects', 'projects/setAll');
+    return Vue.request().get('/api/projects', 'projects/setAll');
 };
 
 var store = function store(_ref, form) {
     _objectDestructuringEmpty(_ref);
 
-    Vue.request(form).post('/api/projects', 'projects/add').then(function () {
+    return Vue.request(form).post('/api/projects', 'projects/add').then(function () {
         app.showSuccess('You have created a new project');
         app.$router.push({ name: 'admin-projects' });
     });
@@ -8471,13 +8485,13 @@ var store = function store(_ref, form) {
 var show = function show(_ref2, project) {
     _objectDestructuringEmpty(_ref2);
 
-    Vue.request().get('/api/projects/' + project, 'projects/set');
+    return Vue.request().get('/api/projects/' + project, 'projects/set');
 };
 
 var update = function update(_ref3, data) {
     _objectDestructuringEmpty(_ref3);
 
-    Vue.request(data).post('/api/projects/' + data.project, 'projects/update').then(function () {
+    return Vue.request(data).post('/api/projects/' + data.project, 'projects/update').then(function () {
         app.showSuccess('You have updated the project');
         app.$router.push({ name: 'admin-projects' });
     });
@@ -8486,7 +8500,7 @@ var update = function update(_ref3, data) {
 var destroy = function destroy(_ref4, project) {
     _objectDestructuringEmpty(_ref4);
 
-    Vue.request(project).delete('/api/projects/' + project, 'projects/remove').then(function () {
+    return Vue.request(project).delete('/api/projects/' + project, 'projects/remove').then(function () {
         app.showSuccess('You have deleted the project');
         app.$router.push({ name: 'admin-projects' });
     });
@@ -8581,14 +8595,13 @@ var remove = function remove(state, _ref5) {
 function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
 
 var get = function get() {
-    Vue.request().get('/api/tags', 'tags/setAll');
+    return Vue.request().get('/api/tags', 'tags/setAll');
 };
 
 var store = function store(_ref, form) {
     _objectDestructuringEmpty(_ref);
 
-    console.info(form);
-    Vue.request(form).post('/api/tags', 'tags/add').then(function () {
+    return Vue.request(form).post('/api/tags', 'tags/add').then(function () {
         app.showSuccess('You have created a new tag');
         app.$router.push({ name: 'admin-tags' });
     });
@@ -8597,13 +8610,13 @@ var store = function store(_ref, form) {
 var show = function show(_ref2, tag) {
     _objectDestructuringEmpty(_ref2);
 
-    Vue.request().get('/api/tags/' + tag, 'tags/set');
+    return Vue.request().get('/api/tags/' + tag, 'tags/set');
 };
 
 var update = function update(_ref3, form) {
     _objectDestructuringEmpty(_ref3);
 
-    Vue.request(form).put('/api/tags/' + form.tag, 'tags/update').then(function () {
+    return Vue.request(form).put('/api/tags/' + form.tag, 'tags/update').then(function () {
         app.showSuccess('You have updated the tag');
         app.$router.push({ name: 'admin-tags' });
     });
@@ -8612,7 +8625,7 @@ var update = function update(_ref3, form) {
 var destroy = function destroy(_ref4, tag) {
     _objectDestructuringEmpty(_ref4);
 
-    Vue.request(tag).delete('/api/tags/' + tag, 'tags/remove').then(function () {
+    return Vue.request(tag).delete('/api/tags/' + tag, 'tags/remove').then(function () {
         app.showSuccess('You have deleted the tag');
         app.$router.push({ name: 'admin-tags' });
     });
@@ -8707,13 +8720,13 @@ var remove = function remove(state, _ref5) {
 function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
 
 var get = function get() {
-    Vue.request().get('/api/technologies', 'technologies/setAll');
+    return Vue.request().get('/api/technologies', 'technologies/setAll');
 };
 
 var store = function store(_ref, form) {
     _objectDestructuringEmpty(_ref);
 
-    Vue.request(form).post('/api/technologies', 'technologies/add').then(function () {
+    return Vue.request(form).post('/api/technologies', 'technologies/add').then(function () {
         app.showSuccess('You have created a new technologies');
         app.$router.push({ name: 'admin-technologies' });
     });
@@ -8722,13 +8735,13 @@ var store = function store(_ref, form) {
 var show = function show(_ref2, technology) {
     _objectDestructuringEmpty(_ref2);
 
-    Vue.request().get('/api/technologies/' + technology, 'technologies/set');
+    return Vue.request().get('/api/technologies/' + technology, 'technologies/set');
 };
 
 var update = function update(_ref3, form) {
     _objectDestructuringEmpty(_ref3);
 
-    Vue.request(form).put('/api/technologies/' + form.technology, 'technologies/update').then(function () {
+    return Vue.request(form).put('/api/technologies/' + form.technology, 'technologies/update').then(function () {
         app.showSuccess('You have updated the technologies');
         app.$router.push({ name: 'admin-technologies' });
     });
@@ -8737,7 +8750,7 @@ var update = function update(_ref3, form) {
 var destroy = function destroy(_ref4, technologies) {
     _objectDestructuringEmpty(_ref4);
 
-    Vue.request(technologies).delete('/api/technologies/' + technologies, 'technologies/remove').then(function () {
+    return Vue.request(technologies).delete('/api/technologies/' + technologies, 'technologies/remove').then(function () {
         app.showSuccess('You have deleted the technologies');
         app.$router.push({ name: 'admin-technologies' });
     });
@@ -8832,13 +8845,13 @@ var remove = function remove(state, _ref5) {
 function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
 
 var get = function get() {
-    Vue.request().get('/api/timelines', 'timelines/setAll');
+    return Vue.request().get('/api/timelines', 'timelines/setAll');
 };
 
 var store = function store(_ref, data) {
     _objectDestructuringEmpty(_ref);
 
-    Vue.request(data).post('/api/timelines', 'timelines/add').then(function () {
+    return Vue.request(data).post('/api/timelines', 'timelines/add').then(function () {
         app.showSuccess('You have created a new timeline');
         app.$router.push({ name: 'admin-timelines' });
     });
@@ -8847,13 +8860,13 @@ var store = function store(_ref, data) {
 var show = function show(_ref2, timeline) {
     _objectDestructuringEmpty(_ref2);
 
-    Vue.request().get('/api/timelines/' + timeline, 'timelines/set');
+    return Vue.request().get('/api/timelines/' + timeline, 'timelines/set');
 };
 
 var update = function update(_ref3, form) {
     _objectDestructuringEmpty(_ref3);
 
-    Vue.request(form).put('/api/timelines/' + form.timeline, 'timelines/update').then(function () {
+    return Vue.request(form).put('/api/timelines/' + form.timeline, 'timelines/update').then(function () {
         app.showSuccess('You have updated the timeline');
         app.$router.push({ name: 'admin-timelines' });
     });
@@ -8862,7 +8875,7 @@ var update = function update(_ref3, form) {
 var destroy = function destroy(_ref4, timeline) {
     _objectDestructuringEmpty(_ref4);
 
-    Vue.request(timeline).delete('/api/timelines/' + timeline, 'timelines/remove').then(function () {
+    return Vue.request(timeline).delete('/api/timelines/' + timeline, 'timelines/remove').then(function () {
         app.showSuccess('You have deleted the timeline');
         app.$router.push({ name: 'admin-timelines' });
     });
@@ -14347,15 +14360,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "comment": comment
       }
-    })], 1), _vm._v(" "), _vm._m(0, true)])]
-  })], 2)])]), _vm._v(" "), _vm._m(1)])
+    })], 1), _vm._v(" "), _c('div', {
+      staticClass: "col-sm-3"
+    }, [_c('div', {
+      staticClass: "btn btn-primary",
+      on: {
+        "click": function($event) {
+          _vm.moderatedComment(comment.id)
+        }
+      }
+    }, [_vm._v("\n                                Moderated\n                            ")])])])]
+  })], 2)])]), _vm._v(" "), _vm._m(0)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-sm-3"
-  }, [_c('div', {
-    staticClass: "btn btn-primary"
-  }, [_vm._v("\n                                Moderated\n                            ")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-md-6"
   }, [_c('div', {

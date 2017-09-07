@@ -22,7 +22,7 @@
                                 <comment :comment="comment"></comment>
                             </div>
                             <div class="col-sm-3">
-                                <div class="btn btn-primary">
+                                <div class="btn btn-primary" @click="moderatedComment(comment.id)">
                                     Moderated
                                 </div>
                             </div>
@@ -83,7 +83,19 @@
           Comment,
         },
         created() {
-            this.$store.dispatch('admin_blog_comments/get')
+            this.fetchComments()
+        },
+        methods : {
+            fetchComments() {
+                this.$store.dispatch('admin_blog_comments/get')
+            },
+            moderatedComment(comment) {
+                this.$store.dispatch('admin_blog_comments/update', {
+                    comment : comment
+                }).then(() => {
+                    this.fetchComments()
+                })
+            }
         },
         computed : {
             user() {

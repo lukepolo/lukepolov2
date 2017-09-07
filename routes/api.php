@@ -17,7 +17,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('technologies', 'TechnologiesController');
     Route::apiResource('blogs.comments', 'BlogCommentsController');
     Route::get('admin/blog-comments', 'ModerateBlogCommentsController@index');
-    Route::patch('admin/blog-comments', 'ModerateBlogCommentsController@update');
+    Route::patch('admin/blog-comments/{comment}', 'ModerateBlogCommentsController@update');
 });
 
 
