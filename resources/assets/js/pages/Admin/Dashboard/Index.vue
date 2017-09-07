@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <div class="row">
         <div class="col-md-6 admin-comments">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </template>
 
 <script>
