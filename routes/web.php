@@ -10,8 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
-
 Route::get('/oauth/{provider}', 'Auth\OAuthController@redirect');
 Route::get('/oauth/callback/{provider}', 'Auth\OAuthController@callback');
 

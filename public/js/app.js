@@ -7574,8 +7574,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Home_routes__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Admin_routes__ = __webpack_require__(208);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Blogs_routes__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Resume_vue__ = __webpack_require__(303);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Resume_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Resume_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Login_vue__ = __webpack_require__(359);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Login_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Login_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Resume_vue__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Resume_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Resume_vue__);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 
@@ -7584,8 +7586,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 
+
 var routes = [].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_0__Home_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_1__Admin_routes__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_2__Blogs_routes__["a" /* default */]), [{
-    path: '/resume', component: __WEBPACK_IMPORTED_MODULE_3__Resume_vue___default.a, name: 'resume'
+    path: '/login', component: __WEBPACK_IMPORTED_MODULE_3__Login_vue___default.a, name: 'login'
+}, {
+    path: '/resume', component: __WEBPACK_IMPORTED_MODULE_4__Resume_vue___default.a, name: 'resume'
 }]);
 
 /* harmony default export */ __webpack_exports__["a"] = (routes);
@@ -15182,6 +15187,112 @@ if (false) {
 __webpack_require__(142);
 module.exports = __webpack_require__(145);
 
+
+/***/ }),
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  null,
+  /* template */
+  __webpack_require__(360),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/LukePOLO/PhpstormProjects/lukepolo/resources/assets/js/pages/Login.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Login.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-613ef37e", Component.options)
+  } else {
+    hotAPI.reload("data-v-613ef37e", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 360 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row login-buttons"
+  }, [_c('div', {
+    staticClass: "col-sm-12"
+  }, [_vm._v("\n        Login\n    ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-4"
+  }, [_c('a', {
+    attrs: {
+      "href": "/oauth/google"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-google"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-4"
+  }, [_c('a', {
+    attrs: {
+      "href": "/oauth/github"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-github"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-4"
+  }, [_c('a', {
+    attrs: {
+      "href": "/oauth/twitter"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-twitter"
+  })])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-613ef37e", module.exports)
+  }
+}
 
 /***/ })
 ],[331]);
