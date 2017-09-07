@@ -7337,9 +7337,9 @@ var handleApiError = function handleApiError(response) {
         if (_.isSet(response.errors)) {
             message = response.errors;
         } else if (_.isObject(response.data)) {
-            message = '';
-            _.each(response.data, function (error) {
-                message += error + '<br>';
+            message = "";
+            _.each(response.data.errors, function (error) {
+                message += error + "<br>";
             });
         } else {
             message = response.data;
@@ -7349,8 +7349,7 @@ var handleApiError = function handleApiError(response) {
     if (_.isString(message)) {
         this.showError(message);
     } else {
-        console.warn('UNABLE TO PARSE ERROR');
-        console.info(message);
+        console.warn("UNABLE TO PARSE ERROR");
     }
 };
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
@@ -14536,7 +14535,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "notification",
     class: _vm.notification.class
   }, [_c('button', {
-    staticClass: "notification-close",
+    staticClass: "notification-close btn",
     attrs: {
       "type": "button"
     },

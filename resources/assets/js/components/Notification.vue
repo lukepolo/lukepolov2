@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <div class="notification" :class="notification.class">
-            <button @click="close(notification)" class="notification-close" type="button">
+            <button @click="close(notification)" class="notification-close btn" type="button">
                 <span>&times;</span>
             </button>
             <h4 class="notification-heading" v-if="notification.title">{{notification.title}}</h4>
