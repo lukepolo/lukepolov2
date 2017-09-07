@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-2">
             <div class="row">
-                <div class="form-group">
+                <div class="form-group">row panel-links`
                     <input class="form-control" placeholder="Search for a blog ..." v-model="form.search">
                 </div>
             </div>
