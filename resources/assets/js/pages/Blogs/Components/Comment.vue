@@ -40,7 +40,7 @@
                     </span>
                 </template>
 
-                <comment-form :blog_id="comment.blog_id" :parentComment="comment" placeholder="Reply" :open.sync="reply"></comment-form>
+                <comment-form v-on:updated="emitUpdated" :blog_id="comment.blog_id" :parentComment="comment" placeholder="Reply" :open.sync="reply"></comment-form>
 
                 <comment :comment="comment" v-for="comment in comment.children" :key="comment.id"></comment>
             </div>
@@ -67,13 +67,13 @@
         },
         methods : {
             update() {
-                console.info(this.comment)
               this.$store.dispatch('blog_comments/update', {
                   form : this.form,
                   comment : this.comment.id,
                   blog : this.comment.blog_id,
               }).then(() => {
                   this.editing = false
+                  this.emitUpdated()
               })
             },
             deleteComment() {
@@ -81,7 +81,12 @@
                     comment : this.comment.id,
                     parent : this.comment.parent_id,
                     blog : this.$route.params.blog,
+                }).then(() => {
+                    this.emitUpdated()
                 })
+            },
+            emitUpdated() {
+                this.$emit('updated', true)
             }
         },
         computed : {

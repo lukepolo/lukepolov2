@@ -41,6 +41,7 @@
 
                 this.$store.dispatch('blog_comments/store', form).then(() => {
                     this.$emit('update:open', false)
+                    this.$emit('updated', true)
                 })
 
             }

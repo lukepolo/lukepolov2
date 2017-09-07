@@ -19,7 +19,7 @@
                     <template v-for="comment in comments" v-else>
                         <div class="row">
                             <div class="col-sm-9">
-                                <comment :comment="comment"></comment>
+                                <comment v-on:updated="fetchComments" :comment="comment"></comment>
                             </div>
                             <div class="col-sm-3">
                                 <div class="btn btn-primary" @click="moderatedComment(comment.id)">

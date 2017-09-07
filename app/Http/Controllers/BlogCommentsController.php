@@ -36,12 +36,19 @@ class BlogCommentsController extends Controller
         if($request->has('parent_comment')) {
             $parent = BlogComment::where('blog_id', $blogId)
                 ->findOrFail($request->get('parent_comment'));
+
+            if($request->user()->isAdmin() && !$parent->been_moderated) {
+                $parent->update([
+                    'been_moderated' => true
+                ]);
+            }
         }
 
         $blogComment = BlogComment::create([
             'blog_id' => $blogId,
             'user_id' => \Auth::user()->id,
-            'comment' => $request->get('comment')
+            'comment' => $request->get('comment'),
+            'been_moderated' => $request->user()->isAdmin()
         ], $parent);
 
         return response()->json($blogComment->fresh());

@@ -6626,21 +6626,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         update: function update() {
             var _this = this;
 
-            console.info(this.comment);
             this.$store.dispatch('blog_comments/update', {
                 form: this.form,
                 comment: this.comment.id,
                 blog: this.comment.blog_id
             }).then(function () {
                 _this.editing = false;
+                _this.emitUpdated();
             });
         },
         deleteComment: function deleteComment() {
+            var _this2 = this;
+
             this.$store.dispatch('blog_comments/destroy', {
                 comment: this.comment.id,
                 parent: this.comment.parent_id,
                 blog: this.$route.params.blog
+            }).then(function () {
+                _this2.emitUpdated();
             });
+        },
+        emitUpdated: function emitUpdated() {
+            this.$emit('updated', true);
         }
     },
     computed: {
@@ -6708,6 +6715,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$store.dispatch('blog_comments/store', form).then(function () {
                 _this.$emit('update:open', false);
+                _this.$emit('updated', true);
             });
         }
     },
@@ -8171,16 +8179,17 @@ var add = function add(state, _ref2) {
 var update = function update(state, _ref3) {
     var response = _ref3.response;
 
-
     var comments = state.comments[response.blog_id];
 
-    if (response.parent_id) {
-        var parentComment = findParentComment(comments, response.parent_id);
-        if (parentComment) {
-            Vue.set(parentComment.children, _.findKey(parentComment.children, { id: response.id }), response);
+    if (comments) {
+        if (response.parent_id) {
+            var parentComment = findParentComment(comments, response.parent_id);
+            if (parentComment) {
+                Vue.set(parentComment.children, _.findKey(parentComment.children, { id: response.id }), response);
+            }
+        } else {
+            Vue.set(comments, _.findKey(comments, { id: response.id }), response);
         }
-    } else {
-        Vue.set(comments, _.findKey(comments, { id: response.id }), response);
     }
 };
 
@@ -14249,6 +14258,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "open": _vm.reply
     },
     on: {
+      "updated": _vm.emitUpdated,
       "update:open": function($event) {
         _vm.reply = $event
       }
@@ -14359,6 +14369,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('comment', {
       attrs: {
         "comment": comment
+      },
+      on: {
+        "updated": _vm.fetchComments
       }
     })], 1), _vm._v(" "), _c('div', {
       staticClass: "col-sm-3"

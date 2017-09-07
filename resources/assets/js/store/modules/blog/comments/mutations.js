@@ -24,16 +24,17 @@ export const add = (state, { response }) => {
 };
 
 export const update = (state, { response }) => {
-
     let comments = state.comments[response.blog_id];
 
-    if(response.parent_id) {
-        let parentComment = findParentComment(comments, response.parent_id)
-        if(parentComment) {
-            Vue.set(parentComment.children, _.findKey(parentComment.children, { id: response.id }), response)
+    if(comments) {
+        if(response.parent_id) {
+            let parentComment = findParentComment(comments, response.parent_id)
+            if(parentComment) {
+                Vue.set(parentComment.children, _.findKey(parentComment.children, { id: response.id }), response)
+            }
+        } else {
+            Vue.set(comments, _.findKey(comments, { id : response.id }), response)
         }
-    } else {
-        Vue.set(comments, _.findKey(comments, { id : response.id }), response)
     }
 };
 

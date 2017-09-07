@@ -4,14 +4,13 @@ namespace App\Events;
 
 use App\Models\BlogComment;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
 class CommentUpdated implements ShouldBroadcastNow
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithSockets;
 
     public $comment;
 
@@ -22,7 +21,7 @@ class CommentUpdated implements ShouldBroadcastNow
      */
     public function __construct(BlogComment $blogComment)
     {
-        $this->comment = $blogComment;
+        $this->comment = BlogComment::without('children')->findOrFail($blogComment->id);
     }
 
     /**
