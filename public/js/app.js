@@ -6684,7 +6684,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         CommentsArea: __WEBPACK_IMPORTED_MODULE_0__Components_CommentsArea_vue___default.a
     },
     created: function created() {
-        this.$store.dispatch('blogs/show', this.$route.params.blog);
+        var _this = this;
+
+        var blog = this.$route.params.blog;
+
+        Echo.leave('blog.*');
+
+        Echo.channel('blog.' + blog).listen('CommentCreated', function (data) {
+            _this.$store.commit('blog_comments/add', {
+                response: data.comment
+            });
+        }).listen('CommentUpdated', function (data) {
+            _this.$store.commit('blog_comments/update', {
+                response: data.comment
+            });
+        }).listen('CommentDeleted', function (data) {
+            _this.$store.commit('blog_comments/remove', {
+                requestData: {
+                    comment: data.comment.id,
+                    blog: data.comment.blog_id,
+                    parent: data.comment.parent_id
+                }
+            });
+        });
+        this.$store.dispatch('blogs/show', blog);
     },
 
     computed: {
@@ -7133,6 +7156,8 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_1_laravel_echo___default.a({
     broadcaster: 'pusher',
     key: window.Laravel.pusherKey
 });
+
+window.Echo.join("general");
 
 /***/ }),
 /* 192 */

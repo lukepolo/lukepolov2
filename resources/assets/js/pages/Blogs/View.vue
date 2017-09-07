@@ -33,7 +33,32 @@
             CommentsArea
         },
         created() {
-          this.$store.dispatch('blogs/show', this.$route.params.blog)
+            let blog = this.$route.params.blog
+
+            Echo.leave('blog.*');
+
+            Echo
+                .channel('blog.'+blog)
+                .listen('CommentCreated', (data) => {
+                    this.$store.commit('blog_comments/add', {
+                        response : data.comment
+                    })
+                })
+                .listen('CommentUpdated', (data) => {
+                    this.$store.commit('blog_comments/update', {
+                        response : data.comment
+                    })
+                })
+                .listen('CommentDeleted', (data) => {
+                    this.$store.commit('blog_comments/remove', {
+                        requestData : {
+                            comment : data.comment.id,
+                            blog : data.comment.blog_id,
+                            parent : data.comment.parent_id,
+                        }
+                    })
+                })
+            this.$store.dispatch('blogs/show', blog)
         },
         computed : {
             blog() {

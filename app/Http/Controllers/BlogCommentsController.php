@@ -77,7 +77,7 @@ class BlogCommentsController extends Controller
     public function destroy($blogId, $id)
     {
         BlogComment::where('blog_id', $blogId)
-            ->where('id', $id)
+            ->findOrFail($id)
             ->delete();
 
         return response()->json('OK');

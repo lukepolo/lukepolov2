@@ -23,5 +23,6 @@ Route::group(['middleware' => 'api'], function () {
     Route::get('projects', 'ProjectsController@index');
     Route::get('blogs/{blog}', 'BlogsController@show');
     Route::get('timelines', 'TimelinesController@index');
+    Route::get('blogs/{blog}/comments', 'BlogCommentsController@index');
 });
 
