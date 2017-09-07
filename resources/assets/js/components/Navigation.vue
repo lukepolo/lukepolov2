@@ -32,12 +32,16 @@
                                     <li><a href="#">Users</a></li>
                                     <li><a href="#">Settings</a></li>
                                     <li class="divider"></li>
-                                    <li><a @click.prevent="logout">LOGOUT</a></li>
+                                    <li>
+                                        <a href="#" @click.prevent="logout">LOGOUT</a>
+                                    </li>
                                 </ul>
                             </li>
                         </template>
                         <template v-else>
-                            <li><a @click.prevent="logout">LOGOUT</a></li>
+                            <l>
+                                <a href="#" @click.prevent="logout">LOGOUT</a>
+                            </l>
                         </template>
                     </template>
                 </ul>

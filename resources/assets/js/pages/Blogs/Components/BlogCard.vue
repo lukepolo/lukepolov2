@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-12">
                 <a>
-                    <img class="img-responsive blog-image center-block" :src="blog.image">
+                    <img class="img-responsive blog-image center-block" :src="blog.blog_image">
                 </a>
             </div>
             <div class="col-md-12">

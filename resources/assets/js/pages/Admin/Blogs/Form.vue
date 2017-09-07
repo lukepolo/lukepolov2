@@ -23,12 +23,11 @@
                 <div class="form-group">
                     <label>Blog Image</label>
                     <div class="dropzone">
-                        <!--<div class="@if(!isset($blog)) hide @endif js-preview-reset btn btn-xs btn-primary">Reset</div>-->
-                        <!--<h4 class="@if(isset($blog)) hide @endif  dropzone-text">Drop files here or click to upload.</h4>-->
-                        <!--<input type="file" name="blog_image" id="js-image-upload" accept="image/jpeg">-->
-                        <!--<img id="image-preview" class="img-responsive"/>-->
+                        <div class="js-preview-reset btn btn-xs btn-primary" v-if="blogImage" @click="resetblogImage">Reset</div>
+                        <h4 class="dropzone-text" v-if="!blogImage">Drop files here or click to upload.</h4>
+                        <input type="file" name="blog_image" @change="onFileChange">
+                        <img id="image-preview" class="img-responsive" :src="blogImage"/>
                     </div>
-
                 </div>
                 <div class="form-group">
                     <label>Tags</label>
@@ -62,11 +61,13 @@
                     name : null,
                     draft : null,
                     link_name : null,
-                    image : null,
                     tags : [],
                     html : null,
                     preview_text : null,
-                })
+                    blog_image : null,
+                    remove_blog_image : null,
+                }),
+                blogImageBase64 : null,
             }
         },
         created() {
@@ -82,16 +83,28 @@
         } ,
         methods : {
             submit() {
+
+                let formData = new FormData();
+
+                _.each(this.form, function(value, key) {
+                    if(!_.isNull(value) && typeof value !== 'undefined') {
+                        formData.append(key, value);
+                    }
+                })
+
                 if(this.blog) {
-                    return this.update()
+                    return this.update(formData)
                 }
-                this.create()
+                this.create(formData)
             },
-            create() {
-                this.$store.dispatch('blogs/store', this.form)
+            create(formData) {
+                this.$store.dispatch('blogs/store', formData)
             },
-            update() {
-                this.$store.dispatch('blogs/update', _.merge(this.form, { blog : this.blog.id }))
+            update(formData) {
+                this.$store.dispatch('blogs/update', {
+                    blog : this.blog.id,
+                    formData : formData,
+                })
             },
             fetchData() {
                 this.$store.dispatch('tags/get')
@@ -99,6 +112,29 @@
                 if(blog) {
                     this.$store.dispatch('blogs/show', blog)
                 }
+            },
+            resetblogImage() {
+                Vue.set(this.form, 'blog_image', null)
+                Vue.set(this, 'blogImageBase64', null)
+                Vue.set(this.form, 'remove_blog_image', true)
+            },
+            onFileChange(e) {
+                const files = e.target.files || e.dataTransfer.files;
+                if (!files.length) {
+                    return;
+                }
+
+                let file = files[0];
+                let reader = new FileReader();
+
+                reader.onload = (e) => {
+                    Vue.set(this, 'blogImageBase64', e.target.result)
+                }
+
+                reader.readAsDataURL(file)
+
+                Vue.set(this.form, 'blog_image', file)
+                Vue.set(this.form, 'remove_blog_image', false)
             },
         },
         computed : {
@@ -117,6 +153,16 @@
                 let config = _.clone(this.froalaConfig)
                 config.heightMin = 200
                 return config
+            },
+            blogImage() {
+                if(this.blogImageBase64) {
+                    return this.blogImageBase64
+                }
+
+                if(_.isString(this.form.blog_image)) {
+                    return this.form.blog_image
+                }
+
             }
         }
     }

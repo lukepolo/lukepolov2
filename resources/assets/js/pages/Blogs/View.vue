@@ -16,9 +16,8 @@
                 </template>
             </div>
             <hr>
-            <div>
-                <froalaView v-model="blog.html"></froalaView>
-            </div>
+            <img class="img-responsive blog-image center-block" :src="blog.blog_image">
+            <froalaView v-model="blog.html"></froalaView>
         </div>
         <comments-area :blog="blog"></comments-area>
     </div>

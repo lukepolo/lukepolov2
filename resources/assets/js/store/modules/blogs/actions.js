@@ -14,7 +14,7 @@ export const show = ({}, blog) => {
 }
 
 export const update = ({}, form) => {
-    Vue.request(form).put('/api/blogs/' + form.blog, 'blogs/update').then(() => {
+    Vue.request(form).post('/api/blogs/' + form.blog, 'blogs/update').then(() => {
         app.showSuccess('You have updated the blog')
         app.$router.push({ name : 'admin-blogs' })
     })

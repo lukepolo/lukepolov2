@@ -5,15 +5,22 @@ namespace App\Http\Controllers\Auth;
 use Socialite;
 use App\Models\User;
 use App\Models\UserProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
-class OAuthController
+class OAuthController extends Controller
 {
     /**
+     * @param Request $request
      * @param $provider
      * @return mixed
      */
-    public function redirect($provider)
+    public function redirect(Request $request, $provider)
     {
+        Session::put('url.intended', $request->headers->get('referer'));
+
         return Socialite::driver($provider)->redirect();
     }
 
@@ -62,4 +69,20 @@ class OAuthController
 
         return redirect()->intended('/');
     }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        Auth::guard()->logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/');
+    }
+
 }

@@ -1,7 +1,15 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+| Override Auth Routes
+|--------------------------------------------------------------------------
+|
+*/
+
 Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('tags', 'TagsController');
+    Route::post('blogs/{blog}', 'BlogsController@update');
     Route::apiResource('blogs', 'BlogsController');
     Route::post('projects/{project}', 'ProjectsController@update');
     Route::apiResource('projects', 'ProjectsController');
@@ -12,19 +20,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('admin/blog-comments', 'ModerateBlogCommentsController@update');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Override Auth Routes
-|--------------------------------------------------------------------------
-|
-*/
 
-Route::group(['middleware' => 'api'], function () {
-    Route::get('tags', 'TagsController@index');
-    Route::get('blogs', 'BlogsController@index');
-    Route::get('projects', 'ProjectsController@index');
-    Route::get('blogs/{blog}', 'BlogsController@show');
-    Route::get('timelines', 'TimelinesController@index');
-    Route::get('blogs/{blog}/comments', 'BlogCommentsController@index');
-});
 

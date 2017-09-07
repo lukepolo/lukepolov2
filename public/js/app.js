@@ -5014,6 +5014,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     methods: {
@@ -5268,10 +5272,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(_) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(_, Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg__);
-//
 //
 //
 //
@@ -5335,11 +5338,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 name: null,
                 draft: null,
                 link_name: null,
-                image: null,
                 tags: [],
                 html: null,
-                preview_text: null
-            })
+                preview_text: null,
+                blog_image: null,
+                remove_blog_image: null
+            }),
+            blogImageBase64: null
         };
     },
     created: function created() {
@@ -5356,16 +5361,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         submit: function submit() {
+
+            var formData = new FormData();
+
+            _.each(this.form, function (value, key) {
+                if (!_.isNull(value) && typeof value !== 'undefined') {
+                    formData.append(key, value);
+                }
+            });
+
             if (this.blog) {
-                return this.update();
+                return this.update(formData);
             }
-            this.create();
+            this.create(formData);
         },
-        create: function create() {
-            this.$store.dispatch('blogs/store', this.form);
+        create: function create(formData) {
+            this.$store.dispatch('blogs/store', formData);
         },
-        update: function update() {
-            this.$store.dispatch('blogs/update', _.merge(this.form, { blog: this.blog.id }));
+        update: function update(formData) {
+            this.$store.dispatch('blogs/update', {
+                blog: this.blog.id,
+                formData: formData
+            });
         },
         fetchData: function fetchData() {
             this.$store.dispatch('tags/get');
@@ -5373,6 +5390,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (blog) {
                 this.$store.dispatch('blogs/show', blog);
             }
+        },
+        resetblogImage: function resetblogImage() {
+            Vue.set(this.form, 'blog_image', null);
+            Vue.set(this, 'blogImageBase64', null);
+            Vue.set(this.form, 'remove_blog_image', true);
+        },
+        onFileChange: function onFileChange(e) {
+            var _this = this;
+
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length) {
+                return;
+            }
+
+            var file = files[0];
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                Vue.set(_this, 'blogImageBase64', e.target.result);
+            };
+
+            reader.readAsDataURL(file);
+
+            Vue.set(this.form, 'blog_image', file);
+            Vue.set(this.form, 'remove_blog_image', false);
         }
     },
     computed: {
@@ -5391,10 +5433,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var config = _.clone(this.froalaConfig);
             config.heightMin = 200;
             return config;
+        },
+        blogImage: function blogImage() {
+            if (this.blogImageBase64) {
+                return this.blogImageBase64;
+            }
+
+            if (_.isString(this.form.blog_image)) {
+                return this.form.blog_image;
+            }
         }
     }
 });
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4), __webpack_require__(2)))
 
 /***/ }),
 /* 174 */
@@ -5402,6 +5453,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -5671,7 +5724,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(Vue, _) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg__);
-//
 //
 //
 //
@@ -6715,17 +6767,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -6865,7 +6906,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Components_CommentsArea_vue__ = __webpack_require__(304);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Components_CommentsArea_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Components_CommentsArea_vue__);
-//
 //
 //
 //
@@ -8207,7 +8247,7 @@ var show = function show(_ref3, blog) {
 var update = function update(_ref4, form) {
     _objectDestructuringEmpty(_ref4);
 
-    Vue.request(form).put('/api/blogs/' + form.blog, 'blogs/update').then(function () {
+    Vue.request(form).post('/api/blogs/' + form.blog, 'blogs/update').then(function () {
         app.showSuccess('You have updated the blog');
         app.$router.push({ name: 'admin-blogs' });
     });
@@ -13806,13 +13846,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Dashboard")])], 1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('li', {
     staticClass: "divider"
   }), _vm._v(" "), _c('li', [_c('a', {
+    attrs: {
+      "href": "#"
+    },
     on: {
       "click": function($event) {
         $event.preventDefault();
         _vm.logout($event)
       }
     }
-  }, [_vm._v("LOGOUT")])])])])] : [_c('li', [_c('a', {
+  }, [_vm._v("LOGOUT")])])])])] : [_c('l', [_c('a', {
+    attrs: {
+      "href": "#"
+    },
     on: {
       "click": function($event) {
         $event.preventDefault();
@@ -14163,13 +14209,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "comment-post btn btn-primary"
   }, [_vm._v("Update")])])]], 2), _vm._v(" "), _c('div', {
     staticClass: "row comment-footer"
-  }, [(!_vm.isOwners) ? _c('span', {
-    staticClass: "voting"
-  }, [_c('i', {
-    staticClass: "js-up-vote-count fa fa-thumbs-o-up up-vote"
-  }, [_vm._v(" up vote count ")]), _vm._v(" |\n                "), _c('i', {
-    staticClass: "js-down-vote-count fa fa-thumbs-o-down down-vote"
-  }, [_vm._v(" down vote count")])]) : _vm._e(), _vm._v(" "), (_vm.isAuthed) ? [_vm._v("\n                • "), _c('span', {
+  }, [(_vm.isAuthed) ? [_vm._v("\n                • "), _c('span', {
     staticClass: "btn-link reply",
     on: {
       "click": function($event) {
@@ -14363,7 +14403,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }
       }
-    }, [_vm._v("\n                        " + _vm._s(blog.name) + "\n                    ")])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(blog.draft))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(blog.created_at))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(blog.updated_at))]), _vm._v(" "), _c('td', [_vm._v("preview")]), _vm._v(" "), _c('td', [_c('div', {
+    }, [_vm._v("\n                        " + _vm._s(blog.name) + "\n                    ")])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(blog.draft))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(blog.created_at))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(blog.updated_at))]), _vm._v(" "), _c('td', [_c('router-link', {
+      attrs: {
+        "to": {
+          name: 'blog',
+          params: {
+            blog: blog.id
+          }
+        }
+      }
+    }, [_vm._v("preview")])], 1), _vm._v(" "), _c('td', [_c('div', {
       staticClass: "btn-link confirm",
       on: {
         "click": function($event) {
@@ -14431,7 +14480,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('a', [_c('img', {
     staticClass: "img-responsive blog-image center-block",
     attrs: {
-      "src": _vm.blog.image
+      "src": _vm.blog.blog_image
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
@@ -14845,7 +14894,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": "#"
       }
     }, [_vm._v("\n                    " + _vm._s(tag.name) + "\n                ")])]
-  })], 2), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', [_c('froalaView', {
+  })], 2), _vm._v(" "), _c('hr'), _vm._v(" "), _c('img', {
+    staticClass: "img-responsive blog-image center-block",
+    attrs: {
+      "src": _vm.blog.blog_image
+    }
+  }), _vm._v(" "), _c('froalaView', {
     model: {
       value: (_vm.blog.html),
       callback: function($$v) {
@@ -14853,7 +14907,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "blog.html"
     }
-  })], 1)]) : _vm._e(), _vm._v(" "), _c('comments-area', {
+  })], 1) : _vm._e(), _vm._v(" "), _c('comments-area', {
     attrs: {
       "blog": _vm.blog
     }
@@ -15282,7 +15336,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.form.link_name = $event.target.value
       }
     }
-  })]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Blog Image")]), _vm._v(" "), _c('div', {
+    staticClass: "dropzone"
+  }, [(_vm.blogImage) ? _c('div', {
+    staticClass: "js-preview-reset btn btn-xs btn-primary",
+    on: {
+      "click": _vm.resetblogImage
+    }
+  }, [_vm._v("Reset")]) : _vm._e(), _vm._v(" "), (!_vm.blogImage) ? _c('h4', {
+    staticClass: "dropzone-text"
+  }, [_vm._v("Drop files here or click to upload.")]) : _vm._e(), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "file",
+      "name": "blog_image"
+    },
+    on: {
+      "change": _vm.onFileChange
+    }
+  }), _vm._v(" "), _c('img', {
+    staticClass: "img-responsive",
+    attrs: {
+      "id": "image-preview",
+      "src": _vm.blogImage
+    }
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', [_vm._v("Tags")]), _vm._v(" "), _c('select', {
     directives: [{
@@ -15315,13 +15394,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary"
   }, [(_vm.blog) ? [_vm._v("\n                    Update\n                ")] : [_vm._v("\n                    Create\n                ")]], 2)])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', [_vm._v("Blog Image")]), _vm._v(" "), _c('div', {
-    staticClass: "dropzone"
-  })])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -15462,17 +15535,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "navbar row"
   }, [_vm._m(0), _vm._v(" "), _c('ul', {
     staticClass: "nav navbar-nav navbar-right"
-  }, [(_vm.isAuthed) ? [_c('li', {
-    staticClass: "dropdown"
-  }, [_c('a', {
-    staticClass: "dropdown-toggle",
-    attrs: {
-      "href": "#",
-      "data-toggle": "dropdown"
-    }
-  }, [_vm._v("\n                        " + _vm._s(_vm.user.name) + "\n                        "), _c('span', {
-    staticClass: "caret"
-  })]), _vm._v(" "), _vm._m(1)])] : [_vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5)]], 2)]), _vm._v(" "), (_vm.isAuthed) ? [_c('comment-form', {
+  }, [(!_vm.isAuthed) ? [_vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4)] : _vm._e()], 2)]), _vm._v(" "), (_vm.isAuthed) ? [_c('comment-form', {
     attrs: {
       "placeholder": _vm.blogComments ? 'Join the discussion ...' : 'Start the discussion ...',
       "open": "true"
@@ -15495,13 +15558,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "total_count"
   }), _vm._v(" Comments")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('ul', {
-    staticClass: "dropdown-menu",
-    attrs: {
-      "role": "menu"
-    }
-  }, [_c('li', [_vm._v("Logout")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('div', {
     staticClass: "navbar-text"

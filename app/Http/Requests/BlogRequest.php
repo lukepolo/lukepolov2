@@ -26,7 +26,6 @@ class BlogRequest extends FormRequest
         return [
             'html' => 'required',
             'name' => 'required',
-            'draft' => 'required',
             'link_name' => 'required',
             'preview_text' => 'required',
         ];

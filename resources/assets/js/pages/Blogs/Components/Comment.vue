@@ -26,10 +26,10 @@
                 </template>
             </div>
             <div class="row comment-footer">
-                <span class="voting" v-if="!isOwners">
-                    <i class="js-up-vote-count fa fa-thumbs-o-up up-vote"> up vote count </i> |
-                    <i class="js-down-vote-count fa fa-thumbs-o-down down-vote"> down vote count</i>
-                </span>
+                <!--<span class="voting" v-if="!isOwners">-->
+                    <!--<i class="js-up-vote-count fa fa-thumbs-o-up up-vote"> up vote count </i> |-->
+                    <!--<i class="js-down-vote-count fa fa-thumbs-o-down down-vote"> down vote count</i>-->
+                <!--</span>-->
                 <template v-if="isAuthed">
                     &bull; <span class="btn-link reply" @click="reply = true">Reply</span>
                     <template v-if="isOwners" >

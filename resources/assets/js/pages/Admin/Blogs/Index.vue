@@ -21,7 +21,9 @@
                     <td>{{ blog.draft }}</td>
                     <td>{{ blog.created_at }}</td>
                     <td>{{ blog.updated_at }}</td>
-                    <td>preview</td>
+                    <td>
+                        <router-link :to="{ name : 'blog', params : { blog : blog.id } }">preview</router-link>
+                    </td>
                     <td>
                         <div class="btn-link confirm" @click="deleteBlog(blog)">Delete</div>
                     </td>

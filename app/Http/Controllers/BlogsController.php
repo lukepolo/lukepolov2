@@ -25,6 +25,9 @@ class BlogsController extends Controller
                 ->when($request->has('search'), function($query) use($request) {
                     $query->where('name', 'LIKE', '%'.$request->get('search').'%');
                 })
+                ->when(!$request->user() || !$request->user()->isAdmin(), function($query) use($request) {
+                    $query->where('draft', 0);
+                })
                 ->paginate(5)
         );
     }
@@ -44,13 +47,17 @@ class BlogsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         return response()->json(
-            Blog::findOrFail($id)
+            Blog::when(!$request->user() || !$request->user()->isAdmin(), function($query) use($request) {
+                    $query->where('draft', 0);
+                })
+                ->findOrFail($id)
         );
     }
 
@@ -89,9 +96,19 @@ class BlogsController extends Controller
 
         $blog->tags()->sync($request->get('tags'));
 
-        // todo - update image to model as well
+        if($request->hasFile('blog_image')) {
+            $blog->fill([
+                'blog_image' => \Storage::url(
+                    $request->file('blog_image')->store('public/blog-images')
+                )
+            ]);
+        }
 
-//        'blog_image' => $request->get('blog_image'),
+        if($request->get('remove_blog_image') == 'true') {
+            $blog->fill([
+                'blog_image' => null
+            ]);
+        }
 
         $blog->save();
 

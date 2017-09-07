@@ -22,7 +22,6 @@
                             <input type="file" name="project_image" @change="onFileChange">
                             <img id="image-preview" class="img-responsive" :src="projectImage"/>
                         </div>
-
                     </div>
                     <div class="form-group">
                         <label>Start Date</label>
