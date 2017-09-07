@@ -25,7 +25,7 @@ class CreateBlogsTable extends Migration
         });
 
         Schema::create('blog_tag', function(Blueprint $table) {
-            $table->integer('tag_ig');
+            $table->integer('tag_id');
             $table->integer('blog_id');
         });
     }

@@ -8,7 +8,7 @@
                         Edit
                     </router-link>
                 </h1>
-                <small>{{ parseDate(blog.created_at) }}</small><br>
+                <small>{{ parseDate(blog.created_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }}</small><br>
                 <div class="technologies">
                     <template v-for="tag in blog.tags">
                         <a href="#" class="label" :style="'background-color:'+tag.color">

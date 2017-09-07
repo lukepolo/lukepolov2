@@ -1,37 +1,39 @@
 <template>
-   <div class="blog">
-       <div class="row">
-           <h1 class="blog-name">
-               <router-link class="pull-right continue-reading" :to="{ name : 'blog', params : { blog : blog.id } }">
-                   { {{ blog.name }}
-               </router-link>
-           </h1>
-           <small>{{ parseDate(blog.created_at) }}</small>
-           <div class="technologies">
-                <template v-for="tag in blog.tags">
+    <section>
+        <div class="blog row">
+            <div class="col-md-12">
+                <h1 class="blog-name">
+                    <router-link :to="{ name : 'blog', params : { blog : blog.id } }">
+                        { {{ blog.name }}
+                    </router-link>
+                </h1>
+                <small>{{ parseDate(blog.created_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }}</small>
+                <div class="technologies">
+                    <template v-for="tag in blog.tags">
                     <span class="label" :style="'background-color:' + tag.color">
                         {{ tag.name }}
                     </span>
-                </template>
-           </div>
-       </div>
-       <div class="row">
-           <a>
-               <img class="img-responsive blog-image center-block" :src="blog.image">
-           </a>
-       </div>
-       <div class="row">
-           <p>
-               <froalaView v-model="blog.preview_text"></froalaView>
-           </p>
-       </div>
-       <div class="row">
-           <router-link class="pull-right continue-reading" :to="{ name : 'blog', params : { blog : blog.id } }">
-               Continue Reading ...
-           </router-link>
-       </div>
-       <hr>
-   </div>
+                    </template>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <a>
+                    <img class="img-responsive blog-image center-block" :src="blog.image">
+                </a>
+            </div>
+            <div class="col-md-12">
+                <p>
+                    <froalaView v-model="blog.preview_text"></froalaView>
+                </p>
+            </div>
+            <div class="col-md-12">
+                <router-link class="pull-right" :to="{ name : 'blog', params : { blog : blog.id } }">
+                    Continue Reading ...
+                </router-link>
+            </div>
+        </div>
+        <hr>
+    </section>
 </template>
 
 <script>

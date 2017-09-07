@@ -1,8 +1,8 @@
 <template>
     <form @submit.prevent="postComment" class="row comment-form form-horizontal" v-if="open">
         <div class="form-group">
-            <div class="col-xs-1">
-                <img class="pull-right user-image img-responsive" src="#">
+            <div class="col-xs-1" v-if="user.user_provider">
+                <img class="user-image img-responsive" :src="user.user_provider.avatar">
             </div>
             <div class="col-xs-11">
                 <input class="comment-text form-control" :placeholder="placeholder" v-model="form.comment">
@@ -45,6 +45,9 @@
             }
         },
         computed : {
+            user() {
+                return this.$store.state.auth.authed_user
+            },
             blogId() {
                 return this.$route.params.blog
             },

@@ -18,11 +18,14 @@ class BlogsController extends Controller
     {
         return response()->json(
             Blog::when($request->has('filters'), function($query) use($request) {
-                $query->whereHas('tags', function($query)  use($request) {
-                    $query->whereIn('id', explode(',', $request->get('filters')));
-                });
-            })
-            ->paginate(5)
+                        $query->whereHas('tags', function($query)  use($request) {
+                        $query->whereIn('id', explode(',', $request->get('filters')));
+                    });
+                })
+                ->when($request->has('search'), function($query) use($request) {
+                    $query->where('name', 'LIKE', '%'.$request->get('search').'%');
+                })
+                ->paginate(5)
         );
     }
 

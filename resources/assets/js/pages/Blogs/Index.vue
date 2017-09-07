@@ -8,19 +8,29 @@
             <blog-card :blog="blog" v-for="blog in blogs" :key="blog.id"></blog-card>
 
             <div class="row" v-if="blogs.length === 0">
-                <h2>Oh no, there are no blogs with that filter . . .</h2>
+                <template>
+                    <h2>Oh no, there are no blogs ...</h2>
+                </template>
+                <template v-if="form.filters.length">
+                    <h2>Oh no, there are no blogs with that filter ...</h2>
+                </template>
             </div>
-
         </div>
         <div class="col-md-2">
             <div class="row">
-                <input class="form-group"> // turn into searching
+                <div class="form-group">
+                    <input class="form-control" placeholder="Search for a blog ..." v-model="form.search">
+                </div>
             </div>
             <div class="row">
                 <hr>
                 <div class="col-sm-12 tags-area">
                     <template v-for="tag in tags">
-                        <input type="checkbox" :style="'background-color:'+tag.color" class="pull-right" v-model="form.filters" :value="tag.id">{{ tag.name }}
+                        <div class="checkbox">
+                            <label class="label pull-right" :style="'background-color:'+tag.color">
+                                <input type="checkbox"  class="hidden" v-model="form.filters" :value="tag.id">{{ tag.name }}
+                            </label>
+                        </div>
                     </template>
                 </div>
             </div>
@@ -37,13 +47,17 @@
         data() {
           return {
               form: this.createForm({
-                  filters: []
+                  filters: [],
+                  search : null,
               })
           }
         },
         watch : {
-          'form.filters' : function() {
-              this.getBlogs()
+          'form' : {
+              deep : true,
+              handler : function() {
+                  this.getBlogs()
+              }
           }
         },
         created() {
@@ -52,7 +66,7 @@
         },
         methods : {
             getBlogs() {
-                this.$store.dispatch('blogs/get', this.form.filters.length ? this.form : null)
+                this.$store.dispatch('blogs/get', _.omitBy(this.form.data(), _.isEmpty))
             },
             clearFilters() {
                 this.form.reset()

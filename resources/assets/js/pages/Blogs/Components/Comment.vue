@@ -2,7 +2,7 @@
     <div class="col-sm-12 comment-row">
         <div class="cancel pull-right comment-post btn btn-danger" @click="reply = false" v-if="reply">Cancel</div>
         <div class="col-xs-1" v-if="comment.user.user_provider">
-            <img class="pull-right img-responsive" :src="comment.user.user_provider.avatar">
+            <img class="user-image img-responsive" :src="comment.user.user_provider.avatar">
         </div>
         <div class="col-xs-11 reply-area">
             <div class="row">
@@ -17,7 +17,9 @@
                 </template>
                 <template v-else>
                     <form @submit.prevent="update">
-                        <input v-model="form.comment">
+                        <div class="form-group">
+                            <input class="form-control" v-model="form.comment">
+                        </div>
                         <div class="cancel comment-post btn btn-danger" @click="editing = false">Cancel</div>
                         <button class="comment-post btn btn-primary">Update</button>
                     </form>
