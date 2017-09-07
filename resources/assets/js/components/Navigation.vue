@@ -33,7 +33,7 @@
                                     <li><a href="#">Settings</a></li>
                                     <li class="divider"></li>
                                     <li>
-                                        <a href="#" @click.prevent="logout">LOGOUT</a>
+                                        <a href="#" @click.prevent="logout">Logout</a>
                                     </li>
                                 </ul>
                             </li>

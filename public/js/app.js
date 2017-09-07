@@ -13855,7 +13855,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.logout($event)
       }
     }
-  }, [_vm._v("LOGOUT")])])])])] : [_c('l', [_c('a', {
+  }, [_vm._v("Logout")])])])])] : [_c('l', [_c('a', {
     attrs: {
       "href": "#"
     },
