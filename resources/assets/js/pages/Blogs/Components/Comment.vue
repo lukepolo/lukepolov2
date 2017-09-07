@@ -1,6 +1,6 @@
 <template>
     <div class="col-sm-12 comment-row">
-        <div class="col-xs-1" v-if="comment.user.user_provider">
+        <div class="col-xs-1 hidden-md" v-if="comment.user.user_provider">
             <img class="user-image img-responsive" :src="comment.user.user_provider.avatar">
         </div>
         <div class="col-xs-11 reply-area">

@@ -14204,7 +14204,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "col-sm-12 comment-row"
   }, [(_vm.comment.user.user_provider) ? _c('div', {
-    staticClass: "col-xs-1"
+    staticClass: "col-xs-1 hidden-md"
   }, [_c('img', {
     staticClass: "user-image img-responsive",
     attrs: {
