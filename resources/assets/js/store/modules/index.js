@@ -7,6 +7,7 @@ import notifications from './notifications';
 
 import blogs from './blogs';
 import blog_comments from './blog/comments'
+import admin_blog_comments from './blog/admin-comments'
 
 export default {
     auth,
@@ -18,4 +19,5 @@ export default {
 
     blogs,
     blog_comments,
+    admin_blog_comments,
 }

@@ -49,5 +49,3 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: window.Laravel.pusherKey
 })
-
-window.Echo.join(`general`)

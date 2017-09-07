@@ -15,6 +15,8 @@
                     <h2>Oh no, there are no blogs with that filter ...</h2>
                 </template>
             </div>
+
+            <pagination :pagination="blogPagination" commit="blogs/setAll"></pagination>
         </div>
         <div class="col-md-2">
             <div class="row">
@@ -78,6 +80,9 @@
             },
             blogs() {
                 return this.$store.state.blogs.blogs
+            },
+            blogPagination() {
+                return this.$store.state.blogs.pagination
             }
         }
     }
