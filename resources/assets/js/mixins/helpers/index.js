@@ -1,6 +1,7 @@
 import { parseDate } from './time'
-import { createForm, getDefaultColors } from './form'
+import { scrollToTop } from './window'
 import { isAdmin, isAuthed } from './permissions'
+import { createForm, getDefaultColors } from './form'
 import { showError, showSuccess, handleApiError } from './notifications'
 
 Vue.mixin({
@@ -13,6 +14,8 @@ Vue.mixin({
         showError,
         showSuccess,
         handleApiError,
+
+        scrollToTop,
     },
 
     computed: {

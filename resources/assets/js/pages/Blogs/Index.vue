@@ -30,7 +30,8 @@
                     <template v-for="tag in tags">
                         <div class="checkbox">
                             <label class="label pull-right" :style="'background-color:'+tag.color">
-                                <input type="checkbox"  class="hidden" v-model="form.filters" :value="tag.id">{{ tag.name }}
+                                <input type="checkbox" class="hidden" v-model="form.filters" :value="tag.id">{{ tag.name
+                                }}
                             </label>
                         </div>
                     </template>
@@ -42,31 +43,35 @@
 
 <script>
     import BlogCard from './Components/BlogCard.vue'
+
     export default {
-        components : {
+        components: {
             BlogCard
         },
         data() {
-          return {
-              form: this.createForm({
-                  filters: [],
-                  search : null,
-              })
-          }
+            return {
+                form: this.createForm({
+                    filters: [],
+                    search: null,
+                })
+            }
         },
-        watch : {
-          'form' : {
-              deep : true,
-              handler : function() {
-                  this.getBlogs()
-              }
-          }
+        watch: {
+            'form': {
+                deep: true,
+                handler: function () {
+                    this.getBlogs()
+                }
+            },
+            'blogPagination': function () {
+                this.scrollToTop(200);
+            }
         },
         created() {
             this.$store.dispatch('tags/get')
             this.getBlogs()
         },
-        methods : {
+        methods: {
             getBlogs() {
                 this.$store.dispatch('blogs/get', _.omitBy(this.form.data(), _.isEmpty))
             },
@@ -74,7 +79,7 @@
                 this.form.reset()
             }
         },
-        computed : {
+        computed: {
             tags() {
                 return this.$store.state.tags.tags
             },

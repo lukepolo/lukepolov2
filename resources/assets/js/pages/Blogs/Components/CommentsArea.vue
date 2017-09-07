@@ -1,5 +1,5 @@
 <template>
-    <div class="comment-area container-fluid">
+    <div class="col-md-12 comment-area ">
         <nav class="navbar row">
             <ul class="nav navbar-nav">
                 <li>

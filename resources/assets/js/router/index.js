@@ -1,6 +1,8 @@
 import VueRouter from 'vue-router'
 import routes from './../pages/routes'
 
+import { scrollToTop } from "../mixins/helpers/window/index"
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -17,6 +19,8 @@ router.beforeResolve((to, from, next) => {
     ) {
         return next('/login')
     }
+
+    scrollToTop(200);
 
     next()
 })
