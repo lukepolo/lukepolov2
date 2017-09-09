@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-md-6 admin-comments">
+        <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -32,34 +32,33 @@
             </div>
         </div>
         <div class="col-md-6">
-            <!--<div class="row">-->
-                <!--<div class="panel panel-default">-->
-                    <!--<div class="panel-heading">-->
-                        <!--<h3 class="panel-title">Active Users</h3>-->
-                    <!--</div>-->
-                    <!--<div class="panel-body">-->
-                        <!--<div class="active-users text-center"></div>-->
-                        <!--<div class="active-user-locations">-->
-                            <!--<table class="table table-striped">-->
-                                <!--<thead>-->
-                                <!--<th>Location</th>-->
-                                <!--<th>User Count</th>-->
-                                <!--</thead>-->
-                                <!--<tbody>-->
-                                <!--</tbody>-->
-                            <!--</table>-->
-                        <!--</div>-->
+            <!--<div class="panel panel-default">-->
+                <!--<div class="panel-heading">-->
+                    <!--<h3 class="panel-title">Active Users</h3>-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+                    <!--<div class="active-users text-center"></div>-->
+                    <!--<div class="active-user-locations">-->
+                        <!--<table class="table table-striped">-->
+                            <!--<thead>-->
+                            <!--<th>Location</th>-->
+                            <!--<th>User Count</th>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
                     <!--</div>-->
                 <!--</div>-->
             <!--</div>-->
-            <div class="row">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Visitors</h3>
-                    </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Visitors</h3>
+                </div>
+                <div class="panel-body">
                     <div class="visitor-chart">
-                        <canvas id="chart"></canvas>
+                        <canvas ref="chart"></canvas>
                     </div>
+
                     <div class="popular-pages">
                         <table class="table table-striped">
                             <thead>
@@ -67,9 +66,14 @@
                             <th>Views</th>
                             </thead>
                             <tbody>
+                            <tr v-for="datum in popularData">
+                                <td>{{ datum.url }}</td>
+                                <td>{{ datum.pageViews }} </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -82,8 +86,17 @@
         components : {
           Comment,
         },
+        data() {
+            return {
+                popularData : {}
+            }
+        },
         created() {
+            this.createChart()
             this.fetchComments()
+            Vue.request().get('/api/admin/most-visited-pages').then((data) => {
+                this.popularData = data
+            });
         },
         methods : {
             fetchComments() {
@@ -94,6 +107,41 @@
                     comment : comment
                 }).then(() => {
                     this.fetchComments()
+                })
+            },
+            createChart() {
+                Vue.request().get('/api/admin/visitors-and-page-views').then((data) => {
+                    new Chart(this.$refs.chart.getContext("2d"), {
+                        type: 'line',
+                        data : {
+                            labels: data.labels,
+                            datasets: [
+                                {
+                                    label: "Visitors",
+                                    backgroundColor: "rgba(151,187,205,1)",
+                                    borderColor: "rgba(151,187,205,1)",
+                                    data: data.visitors
+                                },
+                                {
+                                    label: "Views",
+                                    fill: false,
+                                    borderDash: [5, 5],
+                                    data: data.views
+                                }
+                            ]
+                        },
+                        options :  {
+                            responsive: true,
+                            tooltips: {
+                                mode: 'index',
+                                intersect: false,
+                            },
+                            hover: {
+                                mode: 'nearest',
+                                intersect: true
+                            },
+                        }
+                    })
                 })
             }
         },
