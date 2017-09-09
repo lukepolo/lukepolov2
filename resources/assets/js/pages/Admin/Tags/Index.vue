@@ -17,7 +17,7 @@
                     </td>
                     <td>{{ tag.color }}</td>
                     <td>
-                        <div class="btn-link confirm" @click="deletetag(tag)">Delete</div>
+                        <div class="btn-link confirm" @click="deleteTag(tag)">Delete</div>
                     </td>
                 </tr>
                 </tbody>
@@ -42,7 +42,7 @@
             this.$store.dispatch('tags/get')
         },
         methods : {
-            deletetag(tag) {
+            deleteTag(tag) {
                 this.$store.dispatch('tags/destroy', tag.id)
             }
         },

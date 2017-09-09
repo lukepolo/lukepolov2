@@ -12,6 +12,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('blogs/{blog}', 'BlogsController@update');
     Route::apiResource('blogs', 'BlogsController');
     Route::post('projects/{project}', 'ProjectsController@update');
+    Route::apiResource('users', 'UsersController');
     Route::apiResource('projects', 'ProjectsController');
     Route::apiResource('timelines', 'TimelinesController');
     Route::apiResource('technologies', 'TechnologiesController');
@@ -21,7 +22,6 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('admin/most-visited-pages', 'PopularPagesController@index');
     Route::get('admin/visitors-and-page-views', 'VisitorsController@index');
-
 });
 
 

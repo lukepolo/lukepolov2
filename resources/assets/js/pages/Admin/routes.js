@@ -1,5 +1,6 @@
 import Tags from './Tags/routes'
 import Blogs from './Blogs/routes'
+import Users from './Users/routes'
 import AdminArea from './AdminArea.vue'
 import Projects from './Projects/routes'
 import Dashboard from './Dashboard/routes'
@@ -13,6 +14,7 @@ export default [
         children: [
             ...Tags,
             ...Blogs,
+            ...Users,
             ...Projects,
             ...Dashboard,
             ...Timelines,

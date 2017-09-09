@@ -29,8 +29,9 @@
                                     <li>
                                         <router-link :to="{ name : 'admin-dashboard' }">Dashboard</router-link>
                                     </li>
-                                    <li><a href="#">Users</a></li>
-                                    <li><a href="#">Settings</a></li>
+                                    <li>
+                                        <router-link :to="{ name : 'admin-users' }">Users</router-link>
+                                    </li>
                                     <li class="divider"></li>
                                     <li>
                                         <a href="#" @click.prevent="logout">Logout</a>
@@ -39,9 +40,9 @@
                             </li>
                         </template>
                         <template v-else>
-                            <l>
+                            <li>
                                 <a href="#" @click.prevent="logout">LOGOUT</a>
-                            </l>
+                            </li>
                         </template>
                     </template>
                 </ul>

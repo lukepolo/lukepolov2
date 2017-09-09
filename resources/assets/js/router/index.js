@@ -11,13 +11,20 @@ const router = new VueRouter({
 })
 
 router.beforeResolve((to, from, next) => {
+
+    let authedUser = store.state.auth.authed_user;
+
     if(
         to.matched.some((match) => {
             return match.meta.admin
         }) &&
-        (!store.state.auth.authed_user || store.state.auth.authed_user.role !== 'admin')
+        (!authedUser || store.state.auth.authed_user.role !== 'admin')
     ) {
         return next('/login')
+    }
+
+    if(to.meta.redirectIfAuthed && authedUser) {
+        return next('/')
     }
 
     scrollToTop(200);

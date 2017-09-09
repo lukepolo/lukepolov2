@@ -1,5 +1,6 @@
 import auth from './auth';
 import tags from './tags';
+import users from './users';
 import projects from './projects';
 import timelines from './timelines';
 import technologies from './technologies';
@@ -12,6 +13,7 @@ import admin_blog_comments from './blog/admin-comments'
 export default {
     auth,
     tags,
+    users,
     projects,
     timelines,
     technologies,
