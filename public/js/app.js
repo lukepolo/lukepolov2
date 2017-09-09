@@ -1601,6 +1601,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1616,30 +1619,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         this.createChart();
-        this.fetchComments();
+        this.$store.dispatch('admin_blog_comments/get');
         Vue.request().get('/api/admin/most-visited-pages').then(function (data) {
             _this.popularData = data;
         });
     },
 
     methods: {
-        fetchComments: function fetchComments() {
-            this.$store.dispatch('admin_blog_comments/get');
-        },
         moderatedComment: function moderatedComment(comment) {
-            var _this2 = this;
-
             this.$store.dispatch('admin_blog_comments/update', {
                 comment: comment
             }).then(function () {
-                _this2.fetchComments();
+                // TODO - we need to refresh
             });
         },
         createChart: function createChart() {
-            var _this3 = this;
+            var _this2 = this;
 
             Vue.request().get('/api/admin/visitors-and-page-views').then(function (data) {
-                new Chart(_this3.$refs.chart.getContext("2d"), {
+                new Chart(_this2.$refs.chart.getContext("2d"), {
                     type: 'line',
                     data: {
                         labels: data.labels,
@@ -6757,7 +6755,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  return (_vm.comment.user) ? _c('div', {
     staticClass: "col-sm-12 comment-row"
   }, [(_vm.comment.user.user_provider) ? _c('div', {
     staticClass: "col-xs-1 hidden-md"
@@ -6856,7 +6854,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "comment": comment
       }
     })
-  })], 2)])
+  })], 2)]) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -6968,7 +6966,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.moderatedComment(comment.id)
         }
       }
-    }, [_vm._v("\n                                Moderated\n                            ")])])])]
+    }, [_vm._v("\n                                Moderated\n                            ")])])]), _vm._v(" "), _c('div', {
+      staticClass: "row"
+    }, [_c('pagination', {
+      attrs: {
+        "pagination": _vm.commentsPagination,
+        "commit": "admin_blog_comments/setAll"
+      }
+    })], 1)]
   })], 2)])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-6"
   }, [_c('div', {

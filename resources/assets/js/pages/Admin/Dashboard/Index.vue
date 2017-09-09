@@ -27,6 +27,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <pagination :pagination="commentsPagination" commit="admin_blog_comments/setAll"></pagination>
+                        </div>
                     </template>
                 </div>
             </div>
@@ -93,20 +96,17 @@
         },
         created() {
             this.createChart()
-            this.fetchComments()
+            this.$store.dispatch('admin_blog_comments/get')
             Vue.request().get('/api/admin/most-visited-pages').then((data) => {
                 this.popularData = data
             });
         },
         methods : {
-            fetchComments() {
-                this.$store.dispatch('admin_blog_comments/get')
-            },
             moderatedComment(comment) {
                 this.$store.dispatch('admin_blog_comments/update', {
                     comment : comment
                 }).then(() => {
-                    this.fetchComments()
+                    // TODO - we need to refresh
                 })
             },
             createChart() {

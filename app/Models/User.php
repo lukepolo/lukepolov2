@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->belongsTo(UserProvider::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(BlogComment::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Helpers
@@ -57,5 +62,18 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->role ===  self::ADMIN_ROLE;
+    }
+
+    /**
+     * Since we did not setup cascade deletes in mysql we have to do it manually
+     *
+     * @return bool|null
+     */
+    public function delete()
+    {
+        $this->comments()->delete();
+        $this->userProvider()->delete();
+
+        return parent::delete();
     }
 }
