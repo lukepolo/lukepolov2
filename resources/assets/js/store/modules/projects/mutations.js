@@ -1,5 +1,5 @@
-export const set = (state, { response }) => {
-    state.project = response;
+export const set = (state, project) => {
+    state.project = project;
 };
 
 export const setAll = (state, { response }) => {

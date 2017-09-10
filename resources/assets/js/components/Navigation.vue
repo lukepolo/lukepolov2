@@ -8,7 +8,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <router-link class="navbar-brand" to="/">LukePOLO</router-link>
+                <span @click="resetViewingProject">
+                    <router-link class="navbar-brand" to="/" >LukePOLO</router-link>
+                </span>
             </div>
             <div id="main-menu" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -56,6 +58,9 @@
         methods : {
             logout() {
                 this.$store.dispatch('auth/logout')
+            },
+            resetViewingProject() {
+                this.$store.commit('projects/set', null)
             }
         }
     }

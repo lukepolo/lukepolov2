@@ -14,7 +14,7 @@ class TechnologiesController extends Controller
      */
     public function index()
     {
-        return response()->json(Technology::all());
+        return response()->json(Technology::orderBy('name')->get());
     }
 
     /**

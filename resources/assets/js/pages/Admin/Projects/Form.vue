@@ -41,12 +41,18 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Technologies</label>
-                        <select class="form-control" multiple v-model="form.technologies" v-if="technologies">
-                            <option v-for="technology in technologies" :value="technology.id">
-                                {{ technology.name }}
-                            </option>
-                        </select>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label>Technologies</label>
+                            </div>
+                            <template v-if="technologies" v-for="technology in technologies">
+                                <div class="checkbox col-xs-6">
+                                    <label>
+                                        <input type="checkbox" v-model="form.technologies" :value="technology.id"> {{ technology.name }}
+                                    </label>
+                                </div>
+                            </template>
+                        </div>
                     </div>
                     <br>
                     <button class="btn btn-primary">

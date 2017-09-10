@@ -89,7 +89,7 @@ class BlogsController extends Controller
         $blog->fill([
             'html' => $request->get('html'),
             'name' => $request->get('name'),
-            'draft' => $request->get('draft', 0) == 'true' ? true : false,
+            'draft' => $request->get('draft', 'false') == 'true' ? true : false,
             'link_name' => $request->get('link_name'),
             'preview_text' => $request->get('preview_text'),
         ]);

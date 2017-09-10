@@ -863,11 +863,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     methods: {
         logout: function logout() {
             this.$store.dispatch('auth/logout');
+        },
+        resetViewingProject: function resetViewingProject() {
+            this.$store.commit('projects/set', null);
         }
     }
 });
@@ -1788,6 +1793,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1927,6 +1938,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -3321,7 +3336,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Vue) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(_) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -3375,21 +3391,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.open(url);
         },
         viewProject: function viewProject() {
-            // need to emit others to close
-            Vue.set(this, 'viewing', true);
+
+            this.$store.commit('projects/set', this.project);
         },
         closeProject: function closeProject() {
-            Vue.set(this, 'viewing', false);
+            this.$store.commit('projects/set', null);
         }
     },
     computed: {
         technologies: function technologies() {
-            //T TODO - sort by name
-            return this.project.technologies;
+            return _.sortBy(this.project.technologies, 'name');
+        },
+        setProject: function setProject() {
+            return this.$store.state.projects.project;
+        },
+        viewingProject: function viewingProject() {
+            if (this.setProject && this.setProject.id === this.project.id) {
+                return true;
+            }
+            return false;
         }
     }
 });
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
 /* 200 */
@@ -3401,20 +3425,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Components_GitTree_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Components_GitTree_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Components_Project_vue__ = __webpack_require__(366);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Components_Project_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Components_Project_vue__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -3581,7 +3591,8 @@ Vue.component('Notifications', __webpack_require__(344));
                 heightMin: 745,
                 pastePlain: false,
                 pasteAllowedStyleProps: ['.*'],
-                pasteDeniedAttrs: []
+                pasteDeniedAttrs: [],
+                fontSizeDefaultSelection: '18'
             }
         };
     }
@@ -4662,26 +4673,24 @@ var destroy = function destroy(_ref4, project) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "add", function() { return add; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "update", function() { return update; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "remove", function() { return remove; });
-var set = function set(state, _ref) {
-    var response = _ref.response;
-
-    state.project = response;
+var set = function set(state, project) {
+    state.project = project;
 };
 
-var setAll = function setAll(state, _ref2) {
-    var response = _ref2.response;
+var setAll = function setAll(state, _ref) {
+    var response = _ref.response;
 
     state.projects = response;
 };
 
-var add = function add(state, _ref3) {
-    var response = _ref3.response;
+var add = function add(state, _ref2) {
+    var response = _ref2.response;
 
     state.projects.push(response);
 };
 
-var update = function update(state, _ref4) {
-    var response = _ref4.response;
+var update = function update(state, _ref3) {
+    var response = _ref3.response;
 
     var key = parseInt(_.findKey(state.projects, { id: response.id }));
     if (key) {
@@ -4689,8 +4698,8 @@ var update = function update(state, _ref4) {
     }
 };
 
-var remove = function remove(state, _ref5) {
-    var requestData = _ref5.requestData;
+var remove = function remove(state, _ref4) {
+    var requestData = _ref4.requestData;
 
     Vue.set(state, "projects", _.reject(state.projects, { id: requestData.value }));
 };
@@ -6668,12 +6677,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "container"
   }, [_c('div', {
     staticClass: "navbar-header"
-  }, [_vm._m(0), _vm._v(" "), _c('router-link', {
+  }, [_vm._m(0), _vm._v(" "), _c('span', {
+    on: {
+      "click": _vm.resetViewingProject
+    }
+  }, [_c('router-link', {
     staticClass: "navbar-brand",
     attrs: {
       "to": "/"
     }
-  }, [_vm._v("LukePOLO")])], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("LukePOLO")])], 1)]), _vm._v(" "), _c('div', {
     staticClass: "collapse navbar-collapse",
     attrs: {
       "id": "main-menu"
@@ -7633,35 +7646,45 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                            " + _vm._s(timeline.name) + "\n                        ")])
   })], 2)]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
-  }, [_c('label', [_vm._v("Technologies")]), _vm._v(" "), (_vm.technologies) ? _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.form.technologies),
-      expression: "form.technologies"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "multiple": ""
-    },
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.form.technologies = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  }, _vm._l((_vm.technologies), function(technology) {
-    return _c('option', {
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.technologies), function(technology) {
+    return (_vm.technologies) ? [_c('div', {
+      staticClass: "checkbox col-xs-6"
+    }, [_c('label', [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.form.technologies),
+        expression: "form.technologies"
+      }],
+      attrs: {
+        "type": "checkbox"
+      },
       domProps: {
-        "value": technology.id
+        "value": technology.id,
+        "checked": Array.isArray(_vm.form.technologies) ? _vm._i(_vm.form.technologies, technology.id) > -1 : (_vm.form.technologies)
+      },
+      on: {
+        "__c": function($event) {
+          var $$a = _vm.form.technologies,
+            $$el = $event.target,
+            $$c = $$el.checked ? (true) : (false);
+          if (Array.isArray($$a)) {
+            var $$v = technology.id,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && (_vm.form.technologies = $$a.concat($$v))
+            } else {
+              $$i > -1 && (_vm.form.technologies = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            }
+          } else {
+            _vm.form.technologies = $$c
+          }
+        }
       }
-    }, [_vm._v("\n                            " + _vm._s(technology.name) + "\n                        ")])
-  })) : _vm._e()]), _vm._v(" "), _c('br'), _vm._v(" "), _c('button', {
+    }), _vm._v(" " + _vm._s(technology.name) + "\n                                ")])])] : _vm._e()
+  })], 2)]), _vm._v(" "), _c('br'), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary"
   }, [(_vm.projectId) ? [_vm._v("\n                        Update\n                    ")] : [_vm._v("\n                        Create\n                    ")]], 2)])])] : [_c('div', {
     staticClass: "alert alert-warning"
@@ -7672,7 +7695,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v("timeline")]), _vm._v("!\n        ")], 1)]], 2)
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-xs-12"
+  }, [_c('label', [_vm._v("Technologies")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -7948,7 +7975,13 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', [(!_vm.viewing) ? _c('div', {
+  return _c('section', [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (!_vm.setProject),
+      expression: "!setProject"
+    }],
     staticClass: "project",
     on: {
       "click": _vm.viewProject
@@ -7963,7 +7996,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": _vm.project.project_image
     }
-  })])]) : _vm._e(), _vm._v(" "), (_vm.viewing) ? _c('div', {
+  })])]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.viewingProject),
+      expression: "viewingProject"
+    }],
     staticClass: "project-details",
     attrs: {
       "id": "project->id"
@@ -7983,7 +8022,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('h2', [_vm._v("\n                " + _vm._s(_vm.project.name) + "\n                "), _c('small', [_c('a', {
     attrs: {
       "target": "_blank",
-      "href": ""
+      "href": _vm.project.url
     }
   }, [_vm._v(_vm._s(_vm.project.url))])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
     staticClass: "row panel-links"
@@ -8006,7 +8045,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "pull-right fa fa-arrow-right",
       style: ('color:' + technology.color)
     })])])])])
-  })), _vm._v(" "), _c('div', {
+  })), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
     staticClass: "project-html"
   }, [_c('froalaView', {
     model: {
@@ -8016,7 +8055,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "project.html"
     }
-  })], 1)]) : _vm._e()])
+  })], 1)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -8106,7 +8145,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "target": "_blank",
         "href": project.url
       }
-    }, [_vm._v("\n                            " + _vm._s(project.url) + "\n                        ")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(project.timeline.name) + " ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(project.end_date))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(project.start_date))]), _vm._v(" "), _c('td', [_c('div', {
+    }, [_vm._v("\n                            " + _vm._s(project.url) + "\n                        ")])]), _vm._v(" "), _c('td', [(project.timeline) ? [_vm._v("\n                            " + _vm._s(project.timeline.name) + "\n                        ")] : _vm._e()], 2), _vm._v(" "), _c('td', [_vm._v(_vm._s(project.start_date))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(project.end_date))]), _vm._v(" "), _c('td', [_c('div', {
       staticClass: "btn-link confirm",
       on: {
         "click": function($event) {
@@ -8147,28 +8186,23 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
     staticClass: "col-md-3 visible-md visible-lg"
   }, [(_vm.projects) ? _c('git-tree') : _vm._e()], 1), _vm._v(" "), _c('div', {
     staticClass: "col-md-9"
-  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.projects), function(project) {
-    return [_c('project', {
+  }, _vm._l((_vm.projects), function(project) {
+    return _c('project', {
+      key: project.id,
       attrs: {
         "project": project
       }
-    })]
-  })], 2)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "select-title"
-  }, [_c('h1', [_vm._v("Projects")]), _vm._v(" "), _c('div', [_c('small', [_c('span', {
-    staticClass: "visible-md visible-lg"
-  }, [_c('i', {
-    staticClass: "fa fa-long-arrow-left"
-  }), _vm._v(" You can navigate my site using my \"git tree\" just click / hover over them\n                    ")]), _vm._v(" "), _c('span', {
-    staticClass: "visible-sm visible-xs"
-  }, [_vm._v("\n                        Click on the images to find out more\n                    ")])])]), _vm._v(" "), _c('hr')])
-}]}
+    })
+  }))])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

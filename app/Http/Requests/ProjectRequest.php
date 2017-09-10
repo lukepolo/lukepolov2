@@ -27,7 +27,6 @@ class ProjectRequest extends FormRequest
             'url' => 'url',
             'html' => 'required',
             'name' => 'required',
-            'timeline_id' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'date|after:start_date',
         ];

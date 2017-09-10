@@ -25,6 +25,7 @@
         <div id="app">
             <notifications></notifications>
             <navigation></navigation>
+            <div class="col-md-12 text-center mini-bar"></div>
             @yield('content')
             <footer></footer>
         </div>

@@ -1,18 +1,18 @@
 <template>
     <section>
-        <div class="project" @click="viewProject" v-if="!viewing">
+        <div class="project" @click="viewProject" v-show="!setProject">
             <div class="col-md-6 img-holder" data-project_id="project_id">
                 <img class="img-responsive" :src="project.project_image">
             </div>
         </div>
-        <div class="project-details" id="project->id" v-if="viewing">
+        <div class="project-details" id="project->id" v-show="viewingProject">
             <div class="show-projects">
                 <span class="btn btn-info" @click.stop="closeProject()">
                     <i class="fa fa-arrow-left"></i>
                 </span>
                 <h2>
                     {{ project.name }}
-                    <small><a target="_blank" href="">{{ project.url }}</a></small>
+                    <small><a target="_blank" :href="project.url">{{ project.url }}</a></small>
                 </h2>
             </div>
             <hr>
@@ -30,6 +30,7 @@
                     </div>
                 </div>
             </div>
+            <hr>
             <div class="project-html">
                 <froalaView v-model="project.html"></froalaView>
             </div>
@@ -50,18 +51,26 @@
                 window.open(url)
             },
             viewProject() {
-                // need to emit others to close
-                Vue.set(this, 'viewing', true)
+
+                this.$store.commit('projects/set', this.project)
             },
             closeProject() {
-                Vue.set(this, 'viewing', false)
+                this.$store.commit('projects/set', null)
             }
         },
         computed : {
             technologies() {
-                //T TODO - sort by name
-                return this.project.technologies
-            }
+                return _.sortBy(this.project.technologies, 'name')
+            },
+            setProject() {
+                return this.$store.state.projects.project
+            },
+            viewingProject() {
+                if(this.setProject && this.setProject.id === this.project.id) {
+                    return true
+                }
+                return false
+            },
         }
     }
 </script>

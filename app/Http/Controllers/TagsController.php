@@ -15,7 +15,7 @@ class TagsController extends Controller
      */
     public function index()
     {
-        return response()->json(Tag::get());
+        return response()->json(Tag::orderBy('name')->get());
     }
 
     /**

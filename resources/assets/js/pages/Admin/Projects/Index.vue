@@ -23,9 +23,13 @@
                                 {{ project.url }}
                             </a>
                         </td>
-                        <td>{{ project.timeline.name }} </td>
-                        <td>{{ project.end_date }}</td>
+                        <td>
+                            <template v-if="project.timeline">
+                                {{ project.timeline.name }}
+                            </template>
+                        </td>
                         <td>{{ project.start_date }}</td>
+                        <td>{{ project.end_date }}</td>
                         <td>
                             <div class="btn-link confirm" @click="deleteProject(project)">Delete</div>
                         </td>

@@ -6,6 +6,7 @@ Vue.mixin({
                 pastePlain : false,
                 pasteAllowedStyleProps : ['.*'],
                 pasteDeniedAttrs : [],
+                fontSizeDefaultSelection: '18'
             }
         }
     }

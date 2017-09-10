@@ -15,7 +15,7 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        return response()->json(Project::all());
+        return response()->json(Project::orderBy('start_date', 'desc')->get());
     }
 
     /**
