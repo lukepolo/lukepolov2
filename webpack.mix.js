@@ -47,6 +47,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
         jquery: ['$', 'jQuery'],
     })
     .sourceMaps()
+    .version()
 mix.browserSync({
     open: 'external',
     host : 'lukepolo.dev',
