@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="project" @click="viewProject" v-show="!setProject">
-            <div class="col-md-6 img-holder" data-project_id="project_id">
+            <div class="col-md-6 img-holder" :data-project_id="project.id">
                 <img class="img-responsive" :src="project.project_image">
             </div>
         </div>

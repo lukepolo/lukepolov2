@@ -22,7 +22,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
         'select2',
         'chart.js',
         'nprogress',
-        'tinycolor',
+        'tinycolor2',
         'vue-color',
         'pusher-js',
         'vue-router',
@@ -42,9 +42,10 @@ mix.js('resources/assets/js/app.js', 'public/js')
         'chart.js' : 'Chart',
         'pusher-js' : 'Pusher',
         'snapsvg-cjs' : 'snap',
-        tinycolor : 'tinycolor',
+        'tinycolor2' : 'tinycolor',
         jquery: ['$', 'jQuery'],
     })
+    .sourceMaps()
 mix.browserSync({
     open: 'external',
     host : 'lukepolo.dev',

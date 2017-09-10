@@ -14,7 +14,7 @@ class TimelinesController extends Controller
      */
     public function index()
     {
-        return response()->json(Timeline::all());
+        return response()->json(Timeline::orderBy('start_date')->get());
     }
 
     /**
