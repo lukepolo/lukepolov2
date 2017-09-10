@@ -19,7 +19,7 @@
                     <template v-for="comment in comments" v-else>
                         <div class="row">
                             <div class="col-sm-9">
-                                <comment v-on:updated="fetchComments" :comment="comment"></comment>
+                                <comment v-on:updated="refreshPagination" :comment="comment"></comment>
                             </div>
                             <div class="col-sm-3">
                                 <div class="btn btn-primary" @click="moderatedComment(comment.id)">
@@ -27,10 +27,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <pagination :pagination="commentsPagination" commit="admin_blog_comments/setAll"></pagination>
-                        </div>
                     </template>
+                    <div class="row">
+                        <pagination :pagination="commentsPagination" commit="admin_blog_comments/setAll" :refresh.sync="refresh"></pagination>
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,6 +91,7 @@
         },
         data() {
             return {
+                refresh : false,
                 popularData : {}
             }
         },
@@ -106,7 +107,7 @@
                 this.$store.dispatch('admin_blog_comments/update', {
                     comment : comment
                 }).then(() => {
-                    // TODO - we need to refresh
+                    this.refreshPagination()
                 })
             },
             createChart() {
@@ -143,6 +144,9 @@
                         }
                     })
                 })
+            },
+            refreshPagination() {
+                Vue.set(this, 'refresh', true)
             }
         },
         computed : {

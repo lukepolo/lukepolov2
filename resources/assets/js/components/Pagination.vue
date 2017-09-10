@@ -43,6 +43,7 @@
     export default {
         props : [
             'commit',
+            'refresh',
             'pagination',
         ],
         watch : {
@@ -56,6 +57,7 @@
                     let page = this.currentPage > 0 ? this.currentPage : 1
                     this.goToPage(page)
                 }
+                this.$emit('update.refresh', false)
             }
         },
         methods: {

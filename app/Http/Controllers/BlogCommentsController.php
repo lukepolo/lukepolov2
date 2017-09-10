@@ -68,7 +68,8 @@ class BlogCommentsController extends Controller
             ->findOrFail($id);
 
         $blogComment->update([
-            'comment' => $request->get('comment')
+            'comment' => $request->get('comment'),
+            'been_moderated' => $request->user()->isAdmin(),
         ]);
 
         return response()->json($blogComment);
