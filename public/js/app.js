@@ -2487,6 +2487,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
@@ -6880,10 +6886,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', [_c('h3', [_vm._v("Users")]), _vm._v(" "), _c('table', {
+  return _c('section', [(_vm.users.length) ? [_c('h3', [_vm._v("Users")]), _vm._v(" "), _c('table', {
     staticClass: "table table-striped"
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.users), function(user) {
-    return _c('tr', [_c('td', [_vm._v("\n                " + _vm._s(user.name) + "\n            ")]), _vm._v(" "), _c('td', [_c('div', {
+    return _c('tr', [_c('td', [_vm._v("\n                        " + _vm._s(user.name) + "\n                    ")]), _vm._v(" "), _c('td', [_c('div', {
       staticClass: "btn-link confirm",
       on: {
         "click": function($event) {
@@ -6896,7 +6902,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "pagination": _vm.usersPagination,
       "commit": "users/setAll"
     }
-  })], 1)
+  })] : [_c('h3', {
+    staticClass: "text-center"
+  }, [_vm._v("\n            Sorry no users have registered yet.\n        ")])]], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('th', [_vm._v("Name")]), _vm._v(" "), _c('th')])
 }]}

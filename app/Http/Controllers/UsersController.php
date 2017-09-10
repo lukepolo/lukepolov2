@@ -10,11 +10,12 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(User::paginate(5));
+        return response()->json(User::where('id',  '!=', $request->user()->id)->paginate(5));
     }
 
     /**
