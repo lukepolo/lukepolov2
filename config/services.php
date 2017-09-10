@@ -31,5 +31,7 @@ return [
         'redirect' => env('APP_URL').'/oauth/callback/twitter'
     ],
 
+    'sentry' => env('SENTRY_JS_DSN')
+
 
 ];

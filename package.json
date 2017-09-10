@@ -25,6 +25,7 @@
     "moment-timezone": "^0.5.13",
     "nprogress": "^0.2.0",
     "pusher-js": "^4.0.0",
+    "raven-js": "^3.17.0",
     "select2": "^4.0.3",
     "snapsvg-cjs": "^0.0.4",
     "tinycolor2": "^1.4.1",

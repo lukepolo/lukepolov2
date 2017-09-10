@@ -16,8 +16,10 @@
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
+            'env' => config('app.env'),
             'csrfToken' => csrf_token(),
             'pusherKey' => config('broadcasting.connections.pusher.key'),
+            'sentryUrl' => config('services.sentryDSN')
         ]) !!};
     </script>
 </head>

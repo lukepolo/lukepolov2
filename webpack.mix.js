@@ -21,6 +21,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
         'jquery',
         'select2',
         'chart.js',
+        'raven-js',
         'nprogress',
         'tinycolor2',
         'vue-color',
