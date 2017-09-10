@@ -5,7 +5,7 @@
             <table class="table table-striped">
                 <thead>
                     <th>Name</th>
-                    <th>Draft</th>
+                    <th>Status</th>
                     <th>Created At</th>
                     <th>Updated At</th>
                     <th>Preview</th>
@@ -18,7 +18,14 @@
                             {{ blog.name }}
                         </router-link>
                     </td>
-                    <td>{{ blog.draft }}</td>
+                    <td>
+                        <template v-if="blog.draft">
+                            draft
+                        </template>
+                        <template v-else>
+                            published
+                        </template>
+                    </td>
                     <td>{{ blog.created_at }}</td>
                     <td>{{ blog.updated_at }}</td>
                     <td>
@@ -33,6 +40,7 @@
 
             <router-link class="btn btn-primary" :to="{ name : 'admin-blogs-create' }">Create</router-link>
 
+            <pagination :pagination="blogPagination" commit="blogs/setAll"></pagination>
         </template>
         <template v-else>
             <h3 class="text-center">
@@ -45,7 +53,9 @@
 <script>
     export default {
         created() {
-            this.$store.dispatch('blogs/get')
+            this.$store.dispatch('blogs/get', {
+                perPage : 20
+            })
         },
         methods : {
             deleteBlog(blog) {
@@ -55,6 +65,9 @@
         computed : {
             blogs() {
                 return this.$store.state.blogs.blogs
+            },
+            blogPagination() {
+                return this.$store.state.blogs.pagination
             }
         }
     }

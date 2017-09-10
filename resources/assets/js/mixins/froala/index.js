@@ -3,6 +3,9 @@ Vue.mixin({
         return {
             froalaConfig: {
                 heightMin: 745,
+                pastePlain : false,
+                pasteAllowedStyleProps : ['.*'],
+                pasteDeniedAttrs : [],
             }
         }
     }

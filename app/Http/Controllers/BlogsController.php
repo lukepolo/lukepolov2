@@ -28,7 +28,7 @@ class BlogsController extends Controller
                 ->when(!$request->user() || !$request->user()->isAdmin(), function($query) use($request) {
                     $query->where('draft', 0);
                 })
-                ->paginate(5)
+                ->paginate($request->get('perPage', 5))
         );
     }
 
@@ -89,12 +89,11 @@ class BlogsController extends Controller
         $blog->fill([
             'html' => $request->get('html'),
             'name' => $request->get('name'),
-            'draft' => $request->get('draft', 0),
+            'draft' => $request->get('draft', 0) == 'true' ? true : false,
             'link_name' => $request->get('link_name'),
             'preview_text' => $request->get('preview_text'),
         ]);
 
-        $blog->tags()->sync($request->get('tags'));
 
         if($request->hasFile('blog_image')) {
             $blog->fill([
@@ -111,6 +110,8 @@ class BlogsController extends Controller
         }
 
         $blog->save();
+
+        $blog->tags()->sync($request->get('tags'));
 
         return $blog->fresh();
 

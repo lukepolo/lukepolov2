@@ -39,12 +39,7 @@
                 </div>
                 <br>
                 <button class="btn btn-primary">
-                    <template v-if="blog">
-                        Update
-                    </template>
-                    <template v-else>
-                        Create
-                    </template>
+                    {{ actionStatus }}
                 </button>
             </form>
         </div>
@@ -76,9 +71,10 @@
         watch : {
             '$route' : 'fetchData',
             'blog' : function() {
-                this.form.fill(this.blog)
-                console.info(this.blog.tags)
-                this.form.tags = _.map(this.blog.tags, 'id')
+                if(this.blogId && this.blog) {
+                    this.form.fill(this.blog)
+                    this.form.tags = _.map(this.blog.tags, 'id')
+                }
             }
         } ,
         methods : {
@@ -88,11 +84,17 @@
 
                 _.each(this.form, function(value, key) {
                     if(!_.isNull(value) && typeof value !== 'undefined') {
-                        formData.append(key, value);
+                        if(_.isArray(value)) {
+                            _.each(value, (tempValue) => {
+                                formData.append(key+'[]', tempValue);
+                            })
+                        } else {
+                            formData.append(key, value);
+                        }
                     }
                 })
 
-                if(this.blog) {
+                if(this.blogId) {
                     return this.update(formData)
                 }
                 this.create(formData)
@@ -102,15 +104,14 @@
             },
             update(formData) {
                 this.$store.dispatch('blogs/update', {
-                    blog : this.blog.id,
+                    blog : this.blogId,
                     formData : formData,
                 })
             },
             fetchData() {
                 this.$store.dispatch('tags/get')
-                let blog = this.$route.params.blog
-                if(blog) {
-                    this.$store.dispatch('blogs/show', blog)
+                if(this.blogId) {
+                    this.$store.dispatch('blogs/show', this.blogId)
                 }
             },
             resetblogImage() {
@@ -141,6 +142,9 @@
             blog() {
                 return this.$store.state.blogs.blog
             },
+            blogId() {
+                return this.$route.params.blog
+            },
             tags() {
                 return this.$store.state.tags.tags
             },
@@ -163,6 +167,9 @@
                     return this.form.blog_image
                 }
 
+            },
+            actionStatus() {
+                return this.blogId ? 'Updating' : 'Creating'
             }
         }
     }

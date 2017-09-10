@@ -93,7 +93,7 @@
                 return this.$route.params.technology
             },
             actionStatus() {
-                return this.technology ? 'Updating' : 'Creating'
+                return this.technologyId ? 'Updating' : 'Creating'
             }
         }
     }

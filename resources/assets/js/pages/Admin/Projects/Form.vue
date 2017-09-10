@@ -114,7 +114,13 @@
 
                 _.each(this.form, function(value, key) {
                     if(!_.isNull(value) && typeof value !== 'undefined') {
-                        formData.append(key, value);
+                        if(_.isArray(value)) {
+                            _.each(value, (tempValue) => {
+                                formData.append(key+'[]', tempValue);
+                            })
+                        } else {
+                            formData.append(key, value);
+                        }
                     }
                 })
 

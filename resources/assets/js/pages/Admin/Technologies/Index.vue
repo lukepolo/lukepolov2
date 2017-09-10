@@ -16,7 +16,11 @@
                             {{ technology.name }}
                         </router-link>
                     </td>
-                    <td>{{ technology.url }}</td>
+                    <td>
+                        <a target="_blank" :href="technology.url">
+                            {{ technology.url }}
+                        </a>
+                    </td>
                     <td>{{ technology.color }}</td>
                     <td>
                         <div class="btn-link confirm" @click="deleteTechnology(technology)">Delete</div>

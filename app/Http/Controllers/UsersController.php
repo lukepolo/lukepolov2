@@ -15,7 +15,10 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json(User::where('id',  '!=', $request->user()->id)->paginate(5));
+        return response()->json(
+            User::where('id',  '!=', $request->user()->id)
+                ->paginate($request->get('perPage', 20))
+        );
     }
 
     /**
