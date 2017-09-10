@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-09-07.
+    * Generated on 2017-09-10.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -50,6 +50,9 @@ namespace PHPSTORM_META {
         'hashids.factory' => \Vinkla\Hashids\HashidsFactory::class,
         'hashids' => \Vinkla\Hashids\HashidsManager::class,
         'hashids.connection' => \Hashids\Hashids::class,
+        'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
+        'sentry' => \Raven_Client::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -194,6 +197,9 @@ namespace PHPSTORM_META {
         'hashids.factory' => \Vinkla\Hashids\HashidsFactory::class,
         'hashids' => \Vinkla\Hashids\HashidsManager::class,
         'hashids.connection' => \Hashids\Hashids::class,
+        'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
+        'sentry' => \Raven_Client::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -338,6 +344,9 @@ namespace PHPSTORM_META {
         'hashids.factory' => \Vinkla\Hashids\HashidsFactory::class,
         'hashids' => \Vinkla\Hashids\HashidsManager::class,
         'hashids.connection' => \Hashids\Hashids::class,
+        'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
+        'sentry' => \Raven_Client::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -482,6 +491,9 @@ namespace PHPSTORM_META {
         'hashids.factory' => \Vinkla\Hashids\HashidsFactory::class,
         'hashids' => \Vinkla\Hashids\HashidsManager::class,
         'hashids.connection' => \Hashids\Hashids::class,
+        'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
+        'sentry' => \Raven_Client::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -626,6 +638,9 @@ namespace PHPSTORM_META {
         'hashids.factory' => \Vinkla\Hashids\HashidsFactory::class,
         'hashids' => \Vinkla\Hashids\HashidsManager::class,
         'hashids.connection' => \Hashids\Hashids::class,
+        'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
+        'sentry' => \Raven_Client::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -770,6 +785,9 @@ namespace PHPSTORM_META {
         'hashids.factory' => \Vinkla\Hashids\HashidsFactory::class,
         'hashids' => \Vinkla\Hashids\HashidsManager::class,
         'hashids.connection' => \Hashids\Hashids::class,
+        'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
+        'sentry' => \Raven_Client::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -914,6 +932,9 @@ namespace PHPSTORM_META {
         'hashids.factory' => \Vinkla\Hashids\HashidsFactory::class,
         'hashids' => \Vinkla\Hashids\HashidsManager::class,
         'hashids.connection' => \Hashids\Hashids::class,
+        'Spatie\Analytics\AnalyticsClient' => \Spatie\Analytics\AnalyticsClient::class,
+        'Spatie\Analytics\Analytics' => \Spatie\Analytics\Analytics::class,
+        'sentry' => \Raven_Client::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
