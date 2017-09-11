@@ -1,4 +1,7 @@
 export const set = (state, project) => {
+    if(project.response) {
+       return state.project = project.response
+    }
     state.project = project;
 };
 
