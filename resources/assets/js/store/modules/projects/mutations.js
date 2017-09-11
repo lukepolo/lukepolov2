@@ -1,5 +1,5 @@
 export const set = (state, project) => {
-    if(project.response) {
+    if(project && project.response) {
        return state.project = project.response
     }
     state.project = project;
