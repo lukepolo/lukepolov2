@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.5.3 on 2017-09-10.
+ * Generated for Laravel 5.5.3 on 2017-09-11.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -12148,210 +12148,6 @@ namespace Illuminate\Support\Facades {
  
 }
 
-namespace Intervention\Image\Facades { 
-
-    class Image {
-        
-        /**
-         * Overrides configuration settings
-         *
-         * @param array $config
-         * @static 
-         */ 
-        public static function configure($config = array())
-        {
-            return \Intervention\Image\ImageManager::configure($config);
-        }
-        
-        /**
-         * Initiates an Image instance from different input types
-         *
-         * @param mixed $data
-         * @return \Intervention\Image\Image 
-         * @static 
-         */ 
-        public static function make($data)
-        {
-            return \Intervention\Image\ImageManager::make($data);
-        }
-        
-        /**
-         * Creates an empty image canvas
-         *
-         * @param integer $width
-         * @param integer $height
-         * @param mixed $background
-         * @return \Intervention\Image\Image 
-         * @static 
-         */ 
-        public static function canvas($width, $height, $background = null)
-        {
-            return \Intervention\Image\ImageManager::canvas($width, $height, $background);
-        }
-        
-        /**
-         * Create new cached image and run callback
-         * (requires additional package intervention/imagecache)
-         *
-         * @param \Closure $callback
-         * @param integer $lifetime
-         * @param boolean $returnObj
-         * @return \Image 
-         * @static 
-         */ 
-        public static function cache($callback, $lifetime = null, $returnObj = false)
-        {
-            return \Intervention\Image\ImageManager::cache($callback, $lifetime, $returnObj);
-        }
-         
-    }
- 
-}
-
-namespace Laravel\Socialite\Facades { 
-
-    class Socialite {
-        
-        /**
-         * Get a driver instance.
-         *
-         * @param string $driver
-         * @return mixed 
-         * @static 
-         */ 
-        public static function with($driver)
-        {
-            return \Laravel\Socialite\SocialiteManager::with($driver);
-        }
-        
-        /**
-         * Build an OAuth 2 provider instance.
-         *
-         * @param string $provider
-         * @param array $config
-         * @return \Laravel\Socialite\Two\AbstractProvider 
-         * @static 
-         */ 
-        public static function buildProvider($provider, $config)
-        {
-            return \Laravel\Socialite\SocialiteManager::buildProvider($provider, $config);
-        }
-        
-        /**
-         * Format the server configuration.
-         *
-         * @param array $config
-         * @return array 
-         * @static 
-         */ 
-        public static function formatConfig($config)
-        {
-            return \Laravel\Socialite\SocialiteManager::formatConfig($config);
-        }
-        
-        /**
-         * Get the default driver name.
-         *
-         * @throws \InvalidArgumentException
-         * @return string 
-         * @static 
-         */ 
-        public static function getDefaultDriver()
-        {
-            return \Laravel\Socialite\SocialiteManager::getDefaultDriver();
-        }
-        
-        /**
-         * Get a driver instance.
-         *
-         * @param string $driver
-         * @return mixed 
-         * @static 
-         */ 
-        public static function driver($driver = null)
-        {
-            //Method inherited from \Illuminate\Support\Manager            
-            return \Laravel\Socialite\SocialiteManager::driver($driver);
-        }
-        
-        /**
-         * Register a custom driver creator Closure.
-         *
-         * @param string $driver
-         * @param \Closure $callback
-         * @return $this 
-         * @static 
-         */ 
-        public static function extend($driver, $callback)
-        {
-            //Method inherited from \Illuminate\Support\Manager            
-            return \Laravel\Socialite\SocialiteManager::extend($driver, $callback);
-        }
-        
-        /**
-         * Get all of the created "drivers".
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function getDrivers()
-        {
-            //Method inherited from \Illuminate\Support\Manager            
-            return \Laravel\Socialite\SocialiteManager::getDrivers();
-        }
-         
-    }
- 
-}
-
-namespace Spatie\Glide { 
-
-    class GlideImageFacade {
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function create($sourceFile)
-        {
-            return \Spatie\Glide\GlideImage::create($sourceFile);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function setSourceFile($sourceFile)
-        {
-            return \Spatie\Glide\GlideImage::setSourceFile($sourceFile);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function modify($modificationParameters)
-        {
-            return \Spatie\Glide\GlideImage::modify($modificationParameters);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function save($outputFile)
-        {
-            return \Spatie\Glide\GlideImage::save($outputFile);
-        }
-         
-    }
- 
-}
-
 namespace Barryvdh\Debugbar { 
 
     class Facade {
@@ -12900,266 +12696,156 @@ namespace Barryvdh\Debugbar {
  
 }
 
-namespace Vinkla\Hashids\Facades { 
+namespace Intervention\Image\Facades { 
 
-    class Hashids {
+    class Image {
         
         /**
-         * Get the factory instance.
+         * Overrides configuration settings
          *
-         * @return \Vinkla\Hashids\HashidsFactory 
+         * @param array $config
          * @static 
          */ 
-        public static function getFactory()
+        public static function configure($config = array())
         {
-            return \Vinkla\Hashids\HashidsManager::getFactory();
+            return \Intervention\Image\ImageManager::configure($config);
         }
         
         /**
-         * Get a connection instance.
+         * Initiates an Image instance from different input types
          *
-         * @param string|null $name
-         * @return object 
+         * @param mixed $data
+         * @return \Intervention\Image\Image 
          * @static 
          */ 
-        public static function connection($name = null)
+        public static function make($data)
         {
-            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
-            return \Vinkla\Hashids\HashidsManager::connection($name);
+            return \Intervention\Image\ImageManager::make($data);
         }
         
         /**
-         * Reconnect to the given connection.
+         * Creates an empty image canvas
          *
-         * @param string|null $name
-         * @return object 
+         * @param integer $width
+         * @param integer $height
+         * @param mixed $background
+         * @return \Intervention\Image\Image 
          * @static 
          */ 
-        public static function reconnect($name = null)
+        public static function canvas($width, $height, $background = null)
         {
-            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
-            return \Vinkla\Hashids\HashidsManager::reconnect($name);
+            return \Intervention\Image\ImageManager::canvas($width, $height, $background);
         }
         
         /**
-         * Disconnect from the given connection.
+         * Create new cached image and run callback
+         * (requires additional package intervention/imagecache)
          *
-         * @param string|null $name
-         * @return void 
+         * @param \Closure $callback
+         * @param integer $lifetime
+         * @param boolean $returnObj
+         * @return \Image 
          * @static 
          */ 
-        public static function disconnect($name = null)
+        public static function cache($callback, $lifetime = null, $returnObj = false)
         {
-            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
-            \Vinkla\Hashids\HashidsManager::disconnect($name);
-        }
-        
-        /**
-         * Get the configuration for a connection.
-         *
-         * @param string|null $name
-         * @throws \InvalidArgumentException
-         * @return array 
-         * @static 
-         */ 
-        public static function getConnectionConfig($name = null)
-        {
-            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
-            return \Vinkla\Hashids\HashidsManager::getConnectionConfig($name);
-        }
-        
-        /**
-         * Get the default connection name.
-         *
-         * @return string 
-         * @static 
-         */ 
-        public static function getDefaultConnection()
-        {
-            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
-            return \Vinkla\Hashids\HashidsManager::getDefaultConnection();
-        }
-        
-        /**
-         * Set the default connection name.
-         *
-         * @param string $name
-         * @return void 
-         * @static 
-         */ 
-        public static function setDefaultConnection($name)
-        {
-            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
-            \Vinkla\Hashids\HashidsManager::setDefaultConnection($name);
-        }
-        
-        /**
-         * Register an extension connection resolver.
-         *
-         * @param string $name
-         * @param callable $resolver
-         * @return void 
-         * @static 
-         */ 
-        public static function extend($name, $resolver)
-        {
-            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
-            \Vinkla\Hashids\HashidsManager::extend($name, $resolver);
-        }
-        
-        /**
-         * Return all of the created connections.
-         *
-         * @return object[] 
-         * @static 
-         */ 
-        public static function getConnections()
-        {
-            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
-            return \Vinkla\Hashids\HashidsManager::getConnections();
-        }
-        
-        /**
-         * Get the config instance.
-         *
-         * @return \Illuminate\Contracts\Config\Repository 
-         * @static 
-         */ 
-        public static function getConfig()
-        {
-            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
-            return \Vinkla\Hashids\HashidsManager::getConfig();
+            return \Intervention\Image\ImageManager::cache($callback, $lifetime, $returnObj);
         }
          
     }
  
 }
 
-namespace Spatie\Analytics { 
+namespace Laravel\Socialite\Facades { 
 
-    class AnalyticsFacade {
+    class Socialite {
         
         /**
-         * 
+         * Get a driver instance.
          *
-         * @param string $viewId
+         * @param string $driver
+         * @return mixed 
+         * @static 
+         */ 
+        public static function with($driver)
+        {
+            return \Laravel\Socialite\SocialiteManager::with($driver);
+        }
+        
+        /**
+         * Build an OAuth 2 provider instance.
+         *
+         * @param string $provider
+         * @param array $config
+         * @return \Laravel\Socialite\Two\AbstractProvider 
+         * @static 
+         */ 
+        public static function buildProvider($provider, $config)
+        {
+            return \Laravel\Socialite\SocialiteManager::buildProvider($provider, $config);
+        }
+        
+        /**
+         * Format the server configuration.
+         *
+         * @param array $config
+         * @return array 
+         * @static 
+         */ 
+        public static function formatConfig($config)
+        {
+            return \Laravel\Socialite\SocialiteManager::formatConfig($config);
+        }
+        
+        /**
+         * Get the default driver name.
+         *
+         * @throws \InvalidArgumentException
+         * @return string 
+         * @static 
+         */ 
+        public static function getDefaultDriver()
+        {
+            return \Laravel\Socialite\SocialiteManager::getDefaultDriver();
+        }
+        
+        /**
+         * Get a driver instance.
+         *
+         * @param string $driver
+         * @return mixed 
+         * @static 
+         */ 
+        public static function driver($driver = null)
+        {
+            //Method inherited from \Illuminate\Support\Manager            
+            return \Laravel\Socialite\SocialiteManager::driver($driver);
+        }
+        
+        /**
+         * Register a custom driver creator Closure.
+         *
+         * @param string $driver
+         * @param \Closure $callback
          * @return $this 
          * @static 
          */ 
-        public static function setViewId($viewId)
+        public static function extend($driver, $callback)
         {
-            return \Spatie\Analytics\Analytics::setViewId($viewId);
+            //Method inherited from \Illuminate\Support\Manager            
+            return \Laravel\Socialite\SocialiteManager::extend($driver, $callback);
         }
         
         /**
-         * 
+         * Get all of the created "drivers".
          *
+         * @return array 
          * @static 
          */ 
-        public static function fetchVisitorsAndPageViews($period)
+        public static function getDrivers()
         {
-            return \Spatie\Analytics\Analytics::fetchVisitorsAndPageViews($period);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function fetchTotalVisitorsAndPageViews($period)
-        {
-            return \Spatie\Analytics\Analytics::fetchTotalVisitorsAndPageViews($period);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function fetchMostVisitedPages($period, $maxResults = 20)
-        {
-            return \Spatie\Analytics\Analytics::fetchMostVisitedPages($period, $maxResults);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function fetchTopReferrers($period, $maxResults = 20)
-        {
-            return \Spatie\Analytics\Analytics::fetchTopReferrers($period, $maxResults);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function fetchTopBrowsers($period, $maxResults = 10)
-        {
-            return \Spatie\Analytics\Analytics::fetchTopBrowsers($period, $maxResults);
-        }
-        
-        /**
-         * Call the query method on the authenticated client.
-         *
-         * @param \Spatie\Analytics\Period $period
-         * @param string $metrics
-         * @param array $others
-         * @return array|null 
-         * @static 
-         */ 
-        public static function performQuery($period, $metrics, $others = array())
-        {
-            return \Spatie\Analytics\Analytics::performQuery($period, $metrics, $others);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getAnalyticsService()
-        {
-            return \Spatie\Analytics\Analytics::getAnalyticsService();
-        }
-        
-        /**
-         * Register a custom macro.
-         *
-         * @param string $name
-         * @param object|callable $macro
-         * @return void 
-         * @static 
-         */ 
-        public static function macro($name, $macro)
-        {
-            \Spatie\Analytics\Analytics::macro($name, $macro);
-        }
-        
-        /**
-         * Mix another object into the class.
-         *
-         * @param object $mixin
-         * @return void 
-         * @static 
-         */ 
-        public static function mixin($mixin)
-        {
-            \Spatie\Analytics\Analytics::mixin($mixin);
-        }
-        
-        /**
-         * Checks if macro is registered.
-         *
-         * @param string $name
-         * @return bool 
-         * @static 
-         */ 
-        public static function hasMacro($name)
-        {
-            return \Spatie\Analytics\Analytics::hasMacro($name);
+            //Method inherited from \Illuminate\Support\Manager            
+            return \Laravel\Socialite\SocialiteManager::getDrivers();
         }
          
     }
@@ -13725,6 +13411,189 @@ namespace Sentry\SentryLaravel {
         public static function close_curl_resource()
         {
             return \Raven_Client::close_curl_resource();
+        }
+         
+    }
+ 
+}
+
+namespace Spatie\Glide { 
+
+    class GlideImageFacade {
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function create($sourceFile)
+        {
+            return \Spatie\Glide\GlideImage::create($sourceFile);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function setSourceFile($sourceFile)
+        {
+            return \Spatie\Glide\GlideImage::setSourceFile($sourceFile);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function modify($modificationParameters)
+        {
+            return \Spatie\Glide\GlideImage::modify($modificationParameters);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function save($outputFile)
+        {
+            return \Spatie\Glide\GlideImage::save($outputFile);
+        }
+         
+    }
+ 
+}
+
+namespace Vinkla\Hashids\Facades { 
+
+    class Hashids {
+        
+        /**
+         * Get the factory instance.
+         *
+         * @return \Vinkla\Hashids\HashidsFactory 
+         * @static 
+         */ 
+        public static function getFactory()
+        {
+            return \Vinkla\Hashids\HashidsManager::getFactory();
+        }
+        
+        /**
+         * Get a connection instance.
+         *
+         * @param string|null $name
+         * @return object 
+         * @static 
+         */ 
+        public static function connection($name = null)
+        {
+            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
+            return \Vinkla\Hashids\HashidsManager::connection($name);
+        }
+        
+        /**
+         * Reconnect to the given connection.
+         *
+         * @param string|null $name
+         * @return object 
+         * @static 
+         */ 
+        public static function reconnect($name = null)
+        {
+            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
+            return \Vinkla\Hashids\HashidsManager::reconnect($name);
+        }
+        
+        /**
+         * Disconnect from the given connection.
+         *
+         * @param string|null $name
+         * @return void 
+         * @static 
+         */ 
+        public static function disconnect($name = null)
+        {
+            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
+            \Vinkla\Hashids\HashidsManager::disconnect($name);
+        }
+        
+        /**
+         * Get the configuration for a connection.
+         *
+         * @param string|null $name
+         * @throws \InvalidArgumentException
+         * @return array 
+         * @static 
+         */ 
+        public static function getConnectionConfig($name = null)
+        {
+            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
+            return \Vinkla\Hashids\HashidsManager::getConnectionConfig($name);
+        }
+        
+        /**
+         * Get the default connection name.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getDefaultConnection()
+        {
+            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
+            return \Vinkla\Hashids\HashidsManager::getDefaultConnection();
+        }
+        
+        /**
+         * Set the default connection name.
+         *
+         * @param string $name
+         * @return void 
+         * @static 
+         */ 
+        public static function setDefaultConnection($name)
+        {
+            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
+            \Vinkla\Hashids\HashidsManager::setDefaultConnection($name);
+        }
+        
+        /**
+         * Register an extension connection resolver.
+         *
+         * @param string $name
+         * @param callable $resolver
+         * @return void 
+         * @static 
+         */ 
+        public static function extend($name, $resolver)
+        {
+            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
+            \Vinkla\Hashids\HashidsManager::extend($name, $resolver);
+        }
+        
+        /**
+         * Return all of the created connections.
+         *
+         * @return object[] 
+         * @static 
+         */ 
+        public static function getConnections()
+        {
+            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
+            return \Vinkla\Hashids\HashidsManager::getConnections();
+        }
+        
+        /**
+         * Get the config instance.
+         *
+         * @return \Illuminate\Contracts\Config\Repository 
+         * @static 
+         */ 
+        public static function getConfig()
+        {
+            //Method inherited from \GrahamCampbell\Manager\AbstractManager            
+            return \Vinkla\Hashids\HashidsManager::getConfig();
         }
          
     }
@@ -15846,19 +15715,17 @@ namespace  {
 
     class View extends \Illuminate\Support\Facades\View {}
 
+    class Debugbar extends \Barryvdh\Debugbar\Facade {}
+
     class Image extends \Intervention\Image\Facades\Image {}
 
     class Socialite extends \Laravel\Socialite\Facades\Socialite {}
 
+    class Sentry extends \Sentry\SentryLaravel\SentryFacade {}
+
     class GlideImage extends \Spatie\Glide\GlideImageFacade {}
 
-    class Debugbar extends \Barryvdh\Debugbar\Facade {}
-
     class Hashids extends \Vinkla\Hashids\Facades\Hashids {}
-
-    class Analytics extends \Spatie\Analytics\AnalyticsFacade {}
-
-    class Sentry extends \Sentry\SentryLaravel\SentryFacade {}
  
 }
 
