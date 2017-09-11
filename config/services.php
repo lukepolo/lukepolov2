@@ -31,6 +31,12 @@ return [
         'redirect' => env('APP_URL').'/oauth/callback/twitter'
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT'),
+        'client_secret' => env('GOOGLE_SECRET'),
+        'redirect' => env('APP_URL').'/oauth/callback/google'
+    ],
+
     'sentry' => env('SENTRY_JS_DSN')
 
 
