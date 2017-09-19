@@ -1,4 +1,4 @@
 export default {
-    technology : null,
-    technologies : [],
-}
+  technology: null,
+  technologies: []
+};

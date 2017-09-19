@@ -1,11 +1,11 @@
-import Form from './../../../classes/Form'
+import Form from "./../../../classes/Form";
 
 export const createForm = (data, reset) => {
-    return new Form(data, reset)
-}
+  return new Form(data, reset);
+};
 
 export const getDefaultColors = () => {
-    return {
-        hex: '#00000',
-    };
-}
+  return {
+    hex: "#00000"
+  };
+};

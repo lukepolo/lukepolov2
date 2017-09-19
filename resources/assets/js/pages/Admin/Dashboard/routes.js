@@ -1,9 +1,9 @@
-import Index from './Index.vue'
+import Index from "./Index.vue";
 
 export default [
-    {
-        path: 'dashboard',
-        component: Index,
-        name : 'admin-dashboard',
-    },
-]
+  {
+    path: "dashboard",
+    component: Index,
+    name: "admin-dashboard"
+  }
+];

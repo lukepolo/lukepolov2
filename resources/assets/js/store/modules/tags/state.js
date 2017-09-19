@@ -1,4 +1,4 @@
 export default {
-    tags : [],
-    tag : null,
-}
+  tags: [],
+  tag: null
+};
