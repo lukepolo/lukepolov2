@@ -1,9 +1,9 @@
-import Index from './Index.vue'
+import Index from "./Index.vue";
 
 export default [
-    {
-        path: 'users',
-        component: Index,
-        name : 'admin-users',
-    },
-]
+  {
+    path: "users",
+    component: Index,
+    name: "admin-users"
+  }
+];

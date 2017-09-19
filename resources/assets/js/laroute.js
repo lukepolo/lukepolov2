@@ -1,195 +1,388 @@
-(function () {
+(function() {
+  var laroute = function() {
+    var routes = {
+      absolute: true,
+      rootUrl: "http://lukepolo.dev",
+      routes: [
+        {
+          host: null,
+          methods: ["GET", "HEAD"],
+          uri: "oauth/authorize",
+          name: null,
+          action:
+            "LaravelPassportHttpControllersAuthorizationController@authorize"
+        },
+        {
+          host: null,
+          methods: ["POST"],
+          uri: "oauth/authorize",
+          name: null,
+          action:
+            "LaravelPassportHttpControllersApproveAuthorizationController@approve"
+        },
+        {
+          host: null,
+          methods: ["DELETE"],
+          uri: "oauth/authorize",
+          name: null,
+          action:
+            "LaravelPassportHttpControllersDenyAuthorizationController@deny"
+        },
+        {
+          host: null,
+          methods: ["POST"],
+          uri: "oauth/token",
+          name: null,
+          action:
+            "LaravelPassportHttpControllersAccessTokenController@issueToken"
+        },
+        {
+          host: null,
+          methods: ["GET", "HEAD"],
+          uri: "oauth/tokens",
+          name: null,
+          action:
+            "LaravelPassportHttpControllersAuthorizedAccessTokenController@forUser"
+        },
+        {
+          host: null,
+          methods: ["DELETE"],
+          uri: "oauth/tokens/{token_id}",
+          name: null,
+          action:
+            "LaravelPassportHttpControllersAuthorizedAccessTokenController@destroy"
+        },
+        {
+          host: null,
+          methods: ["POST"],
+          uri: "oauth/token/refresh",
+          name: null,
+          action:
+            "LaravelPassportHttpControllersTransientTokenController@refresh"
+        },
+        {
+          host: null,
+          methods: ["GET", "HEAD"],
+          uri: "oauth/clients",
+          name: null,
+          action: "LaravelPassportHttpControllersClientController@forUser"
+        },
+        {
+          host: null,
+          methods: ["POST"],
+          uri: "oauth/clients",
+          name: null,
+          action: "LaravelPassportHttpControllersClientController@store"
+        },
+        {
+          host: null,
+          methods: ["PUT"],
+          uri: "oauth/clients/{client_id}",
+          name: null,
+          action: "LaravelPassportHttpControllersClientController@update"
+        },
+        {
+          host: null,
+          methods: ["DELETE"],
+          uri: "oauth/clients/{client_id}",
+          name: null,
+          action: "LaravelPassportHttpControllersClientController@destroy"
+        },
+        {
+          host: null,
+          methods: ["GET", "HEAD"],
+          uri: "oauth/scopes",
+          name: null,
+          action: "LaravelPassportHttpControllersScopeController@all"
+        },
+        {
+          host: null,
+          methods: ["GET", "HEAD"],
+          uri: "oauth/personal-access-tokens",
+          name: null,
+          action:
+            "LaravelPassportHttpControllersPersonalAccessTokenController@forUser"
+        },
+        {
+          host: null,
+          methods: ["POST"],
+          uri: "oauth/personal-access-tokens",
+          name: null,
+          action:
+            "LaravelPassportHttpControllersPersonalAccessTokenController@store"
+        },
+        {
+          host: null,
+          methods: ["DELETE"],
+          uri: "oauth/personal-access-tokens/{token_id}",
+          name: null,
+          action:
+            "LaravelPassportHttpControllersPersonalAccessTokenController@destroy"
+        },
+        {
+          host: null,
+          methods: ["POST"],
+          uri: "broadcasting/auth",
+          name: null,
+          action: "IlluminateBroadcastingBroadcastController@authenticate"
+        },
+        {
+          host: null,
+          methods: ["GET", "HEAD"],
+          uri: "login",
+          name: "login",
+          action: "AppHttpControllersAuthLoginController@showLoginForm"
+        },
+        {
+          host: null,
+          methods: ["POST"],
+          uri: "login",
+          name: null,
+          action: "AppHttpControllersAuthLoginController@login"
+        },
+        {
+          host: null,
+          methods: ["POST"],
+          uri: "logout",
+          name: "logout",
+          action: "AppHttpControllersAuthLoginController@logout"
+        },
+        {
+          host: null,
+          methods: ["GET", "HEAD"],
+          uri: "register",
+          name: "register",
+          action:
+            "AppHttpControllersAuthRegisterController@showRegistrationForm"
+        },
+        {
+          host: null,
+          methods: ["POST"],
+          uri: "register",
+          name: null,
+          action: "AppHttpControllersAuthRegisterController@register"
+        },
+        {
+          host: null,
+          methods: ["GET", "HEAD"],
+          uri: "password/reset",
+          name: "password.request",
+          action:
+            "AppHttpControllersAuthForgotPasswordController@showLinkRequestForm"
+        },
+        {
+          host: null,
+          methods: ["POST"],
+          uri: "password/email",
+          name: "password.email",
+          action:
+            "AppHttpControllersAuthForgotPasswordController@sendResetLinkEmail"
+        },
+        {
+          host: null,
+          methods: ["GET", "HEAD"],
+          uri: "password/reset/{token}",
+          name: "password.reset",
+          action: "AppHttpControllersAuthResetPasswordController@showResetForm"
+        },
+        {
+          host: null,
+          methods: ["POST"],
+          uri: "password/reset",
+          name: null,
+          action: "AppHttpControllersAuthResetPasswordController@reset"
+        },
+        {
+          host: null,
+          methods: ["GET", "HEAD"],
+          uri: "{any}",
+          name: null,
+          action: "AppHttpControllersController@app"
+        }
+      ],
+      prefix: "",
 
-    var laroute = (function () {
+      route: function(name, parameters, route) {
+        route = route || this.getByName(name);
 
-        var routes = {
+        if (!route) {
+          return undefined;
+        }
 
-            absolute: true,
-            rootUrl: 'http://lukepolo.dev',
-            routes : [{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/authorize","name":null,"action":"\Laravel\Passport\Http\Controllers\AuthorizationController@authorize"},{"host":null,"methods":["POST"],"uri":"oauth\/authorize","name":null,"action":"\Laravel\Passport\Http\Controllers\ApproveAuthorizationController@approve"},{"host":null,"methods":["DELETE"],"uri":"oauth\/authorize","name":null,"action":"\Laravel\Passport\Http\Controllers\DenyAuthorizationController@deny"},{"host":null,"methods":["POST"],"uri":"oauth\/token","name":null,"action":"\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/tokens","name":null,"action":"\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@forUser"},{"host":null,"methods":["DELETE"],"uri":"oauth\/tokens\/{token_id}","name":null,"action":"\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@destroy"},{"host":null,"methods":["POST"],"uri":"oauth\/token\/refresh","name":null,"action":"\Laravel\Passport\Http\Controllers\TransientTokenController@refresh"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/clients","name":null,"action":"\Laravel\Passport\Http\Controllers\ClientController@forUser"},{"host":null,"methods":["POST"],"uri":"oauth\/clients","name":null,"action":"\Laravel\Passport\Http\Controllers\ClientController@store"},{"host":null,"methods":["PUT"],"uri":"oauth\/clients\/{client_id}","name":null,"action":"\Laravel\Passport\Http\Controllers\ClientController@update"},{"host":null,"methods":["DELETE"],"uri":"oauth\/clients\/{client_id}","name":null,"action":"\Laravel\Passport\Http\Controllers\ClientController@destroy"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/scopes","name":null,"action":"\Laravel\Passport\Http\Controllers\ScopeController@all"},{"host":null,"methods":["GET","HEAD"],"uri":"oauth\/personal-access-tokens","name":null,"action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@forUser"},{"host":null,"methods":["POST"],"uri":"oauth\/personal-access-tokens","name":null,"action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@store"},{"host":null,"methods":["DELETE"],"uri":"oauth\/personal-access-tokens\/{token_id}","name":null,"action":"\Laravel\Passport\Http\Controllers\PersonalAccessTokenController@destroy"},{"host":null,"methods":["POST"],"uri":"broadcasting\/auth","name":null,"action":"Illuminate\Broadcasting\BroadcastController@authenticate"},{"host":null,"methods":["GET","HEAD"],"uri":"login","name":"login","action":"App\Http\Controllers\Auth\LoginController@showLoginForm"},{"host":null,"methods":["POST"],"uri":"login","name":null,"action":"App\Http\Controllers\Auth\LoginController@login"},{"host":null,"methods":["POST"],"uri":"logout","name":"logout","action":"App\Http\Controllers\Auth\LoginController@logout"},{"host":null,"methods":["GET","HEAD"],"uri":"register","name":"register","action":"App\Http\Controllers\Auth\RegisterController@showRegistrationForm"},{"host":null,"methods":["POST"],"uri":"register","name":null,"action":"App\Http\Controllers\Auth\RegisterController@register"},{"host":null,"methods":["GET","HEAD"],"uri":"password\/reset","name":"password.request","action":"App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm"},{"host":null,"methods":["POST"],"uri":"password\/email","name":"password.email","action":"App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail"},{"host":null,"methods":["GET","HEAD"],"uri":"password\/reset\/{token}","name":"password.reset","action":"App\Http\Controllers\Auth\ResetPasswordController@showResetForm"},{"host":null,"methods":["POST"],"uri":"password\/reset","name":null,"action":"App\Http\Controllers\Auth\ResetPasswordController@reset"},{"host":null,"methods":["GET","HEAD"],"uri":"{any}","name":null,"action":"App\Http\Controllers\Controller@app"}],
-            prefix: '',
+        return this.toRoute(route, parameters);
+      },
 
-            route : function (name, parameters, route) {
-                route = route || this.getByName(name);
+      url: function(url, parameters) {
+        parameters = parameters || [];
 
-                if ( ! route ) {
-                    return undefined;
-                }
+        var uri = url + "/" + parameters.join("/");
 
-                return this.toRoute(route, parameters);
-            },
+        return this.getCorrectUrl(uri);
+      },
 
-            url: function (url, parameters) {
-                parameters = parameters || [];
+      toRoute: function(route, parameters) {
+        var uri = this.replaceNamedParameters(route.uri, parameters);
+        var qs = this.getRouteQueryString(parameters);
 
-                var uri = url + '/' + parameters.join('/');
+        if (this.absolute && this.isOtherHost(route)) {
+          return "//" + route.host + "/" + uri + qs;
+        }
 
-                return this.getCorrectUrl(uri);
-            },
+        return this.getCorrectUrl(uri + qs);
+      },
 
-            toRoute : function (route, parameters) {
-                var uri = this.replaceNamedParameters(route.uri, parameters);
-                var qs  = this.getRouteQueryString(parameters);
+      isOtherHost: function(route) {
+        return route.host && route.host != window.location.hostname;
+      },
 
-                if (this.absolute && this.isOtherHost(route)){
-                    return "//" + route.host + "/" + uri + qs;
-                }
+      replaceNamedParameters: function(uri, parameters) {
+        uri = uri.replace(/\{(.*?)\??\}/g, function(match, key) {
+          if (parameters.hasOwnProperty(key)) {
+            var value = parameters[key];
+            delete parameters[key];
+            return value;
+          } else {
+            return match;
+          }
+        });
 
-                return this.getCorrectUrl(uri + qs);
-            },
+        // Strip out any optional parameters that were not given
+        uri = uri.replace(/\/\{.*?\?\}/g, "");
 
-            isOtherHost: function (route){
-                return route.host && route.host != window.location.hostname;
-            },
+        return uri;
+      },
 
-            replaceNamedParameters : function (uri, parameters) {
-                uri = uri.replace(/\{(.*?)\??\}/g, function(match, key) {
-                    if (parameters.hasOwnProperty(key)) {
-                        var value = parameters[key];
-                        delete parameters[key];
-                        return value;
-                    } else {
-                        return match;
-                    }
-                });
+      getRouteQueryString: function(parameters) {
+        var qs = [];
+        for (var key in parameters) {
+          if (parameters.hasOwnProperty(key)) {
+            qs.push(key + "=" + parameters[key]);
+          }
+        }
 
-                // Strip out any optional parameters that were not given
-                uri = uri.replace(/\/\{.*?\?\}/g, '');
+        if (qs.length < 1) {
+          return "";
+        }
 
-                return uri;
-            },
+        return "?" + qs.join("&");
+      },
 
-            getRouteQueryString : function (parameters) {
-                var qs = [];
-                for (var key in parameters) {
-                    if (parameters.hasOwnProperty(key)) {
-                        qs.push(key + '=' + parameters[key]);
-                    }
-                }
+      getByName: function(name) {
+        for (var key in this.routes) {
+          if (
+            this.routes.hasOwnProperty(key) &&
+            this.routes[key].name === name
+          ) {
+            return this.routes[key];
+          }
+        }
+      },
 
-                if (qs.length < 1) {
-                    return '';
-                }
+      getByAction: function(action) {
+        for (var key in this.routes) {
+          if (
+            this.routes.hasOwnProperty(key) &&
+            this.routes[key].action === action
+          ) {
+            return this.routes[key];
+          }
+        }
+      },
 
-                return '?' + qs.join('&');
-            },
+      getCorrectUrl: function(uri) {
+        var url = this.prefix + "/" + uri.replace(/^\/?/, "");
 
-            getByName : function (name) {
-                for (var key in this.routes) {
-                    if (this.routes.hasOwnProperty(key) && this.routes[key].name === name) {
-                        return this.routes[key];
-                    }
-                }
-            },
+        if (!this.absolute) {
+          return url;
+        }
 
-            getByAction : function(action) {
-                for (var key in this.routes) {
-                    if (this.routes.hasOwnProperty(key) && this.routes[key].action === action) {
-                        return this.routes[key];
-                    }
-                }
-            },
+        return this.rootUrl.replace("//?$/", "") + url;
+      }
+    };
 
-            getCorrectUrl: function (uri) {
-                var url = this.prefix + '/' + uri.replace(/^\/?/, '');
+    var getLinkAttributes = function(attributes) {
+      if (!attributes) {
+        return "";
+      }
 
-                if ( ! this.absolute) {
-                    return url;
-                }
+      var attrs = [];
+      for (var key in attributes) {
+        if (attributes.hasOwnProperty(key)) {
+          attrs.push(key + '="' + attributes[key] + '"');
+        }
+      }
 
-                return this.rootUrl.replace('/\/?$/', '') + url;
-            }
-        };
+      return attrs.join(" ");
+    };
 
-        var getLinkAttributes = function(attributes) {
-            if ( ! attributes) {
-                return '';
-            }
+    var getHtmlLink = function(url, title, attributes) {
+      title = title || url;
+      attributes = getLinkAttributes(attributes);
 
-            var attrs = [];
-            for (var key in attributes) {
-                if (attributes.hasOwnProperty(key)) {
-                    attrs.push(key + '="' + attributes[key] + '"');
-                }
-            }
+      return '<a href="' + url + '" ' + attributes + ">" + title + "</a>";
+    };
 
-            return attrs.join(' ');
-        };
+    return {
+      // Generate a url for a given controller action.
+      // laroute.action('HomeController@getIndex', [params = {}])
+      action: function(name, parameters) {
+        parameters = parameters || {};
 
-        var getHtmlLink = function (url, title, attributes) {
-            title      = title || url;
-            attributes = getLinkAttributes(attributes);
+        return routes.route(name, parameters, routes.getByAction(name));
+      },
 
-            return '<a href="' + url + '" ' + attributes + '>' + title + '</a>';
-        };
+      // Generate a url for a given named route.
+      // laroute.route('routeName', [params = {}])
+      route: function(route, parameters) {
+        parameters = parameters || {};
 
-        return {
-            // Generate a url for a given controller action.
-            // laroute.action('HomeController@getIndex', [params = {}])
-            action : function (name, parameters) {
-                parameters = parameters || {};
+        return routes.route(route, parameters);
+      },
 
-                return routes.route(name, parameters, routes.getByAction(name));
-            },
+      // Generate a fully qualified URL to the given path.
+      // laroute.route('url', [params = {}])
+      url: function(route, parameters) {
+        parameters = parameters || {};
 
-            // Generate a url for a given named route.
-            // laroute.route('routeName', [params = {}])
-            route : function (route, parameters) {
-                parameters = parameters || {};
+        return routes.url(route, parameters);
+      },
 
-                return routes.route(route, parameters);
-            },
+      // Generate a html link to the given url.
+      // laroute.link_to('foo/bar', [title = url], [attributes = {}])
+      link_to: function(url, title, attributes) {
+        url = this.url(url);
 
-            // Generate a fully qualified URL to the given path.
-            // laroute.route('url', [params = {}])
-            url : function (route, parameters) {
-                parameters = parameters || {};
+        return getHtmlLink(url, title, attributes);
+      },
 
-                return routes.url(route, parameters);
-            },
+      // Generate a html link to the given route.
+      // laroute.link_to_route('route.name', [title=url], [parameters = {}], [attributes = {}])
+      link_to_route: function(route, title, parameters, attributes) {
+        var url = this.route(route, parameters);
 
-            // Generate a html link to the given url.
-            // laroute.link_to('foo/bar', [title = url], [attributes = {}])
-            link_to : function (url, title, attributes) {
-                url = this.url(url);
+        return getHtmlLink(url, title, attributes);
+      },
 
-                return getHtmlLink(url, title, attributes);
-            },
+      // Generate a html link to the given controller action.
+      // laroute.link_to_action('HomeController@getIndex', [title=url], [parameters = {}], [attributes = {}])
+      link_to_action: function(action, title, parameters, attributes) {
+        var url = this.action(action, parameters);
 
-            // Generate a html link to the given route.
-            // laroute.link_to_route('route.name', [title=url], [parameters = {}], [attributes = {}])
-            link_to_route : function (route, title, parameters, attributes) {
-                var url = this.route(route, parameters);
+        return getHtmlLink(url, title, attributes);
+      }
+    };
+  }.call(this);
 
-                return getHtmlLink(url, title, attributes);
-            },
-
-            // Generate a html link to the given controller action.
-            // laroute.link_to_action('HomeController@getIndex', [title=url], [parameters = {}], [attributes = {}])
-            link_to_action : function(action, title, parameters, attributes) {
-                var url = this.action(action, parameters);
-
-                return getHtmlLink(url, title, attributes);
-            }
-
-        };
-
-    }).call(this);
-
-    /**
+  /**
      * Expose the class either via AMD, CommonJS or the global object
      */
-    if (typeof define === 'function' && define.amd) {
-        define(function () {
-            return laroute;
-        });
-    }
-    else if (typeof module === 'object' && module.exports){
-        module.exports = laroute;
-    }
-    else {
-        window.laroute = laroute;
-    }
-
-}).call(this);
-
+  if (typeof define === "function" && define.amd) {
+    define(function() {
+      return laroute;
+    });
+  } else if (typeof module === "object" && module.exports) {
+    module.exports = laroute;
+  } else {
+    window.laroute = laroute;
+  }
+}.call(this));

@@ -1,25 +1,25 @@
-import { parseDate } from './time'
-import { scrollToTop } from './window'
-import { isAdmin, isAuthed } from './permissions'
-import { createForm, getDefaultColors } from './form'
-import { showError, showSuccess, handleApiError } from './notifications'
+import { parseDate } from "./time";
+import { scrollToTop } from "./window";
+import { isAdmin, isAuthed } from "./permissions";
+import { createForm, getDefaultColors } from "./form";
+import { showError, showSuccess, handleApiError } from "./notifications";
 
 Vue.mixin({
-    methods: {
-        parseDate,
+  methods: {
+    parseDate,
 
-        createForm,
-        getDefaultColors,
+    createForm,
+    getDefaultColors,
 
-        showError,
-        showSuccess,
-        handleApiError,
+    showError,
+    showSuccess,
+    handleApiError,
 
-        scrollToTop,
-    },
+    scrollToTop
+  },
 
-    computed: {
-        isAdmin,
-        isAuthed,
-    }
-})
+  computed: {
+    isAdmin,
+    isAuthed
+  }
+});

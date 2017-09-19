@@ -1,3 +1,3 @@
 export default {
-    authed_user : Laravel.user,
-}
+  authed_user: Laravel.user
+};

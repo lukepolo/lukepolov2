@@ -1,4 +1,4 @@
 export default {
-    comments : [],
-    pagination : null,
-}
+  comments: [],
+  pagination: null
+};
