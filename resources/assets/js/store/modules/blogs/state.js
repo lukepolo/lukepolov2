@@ -1,5 +1,5 @@
 export default {
-    blogs : [],
-    blog : null,
-    pagination : null,
-}
+  blogs: [],
+  blog: null,
+  pagination: null
+};

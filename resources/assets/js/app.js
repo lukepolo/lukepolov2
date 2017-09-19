@@ -1,19 +1,19 @@
-import store from './store'
-import router from './router'
+import store from "./store";
+import router from "./router";
 
-require('./bootstrap');
-require('./components')
-require('./mixins')
+require("./bootstrap");
+require("./components");
+require("./mixins");
 
-import { Material } from 'vue-color'
+import { Material } from "vue-color";
 
-window.store = store
+window.store = store;
 
 const app = new Vue({
-    store,
-    router,
-})
+  store,
+  router
+});
 
-window.app = app
+window.app = app;
 
-app.$mount('#app')
+app.$mount("#app");

@@ -1,4 +1,4 @@
 export default {
-    timelines : [],
-    timeline : null,
-}
+  timelines: [],
+  timeline: null
+};

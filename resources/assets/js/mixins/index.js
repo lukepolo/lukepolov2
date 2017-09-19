@@ -1,2 +1,2 @@
-require('./froala')
-require('./helpers')
+require("./froala");
+require("./helpers");

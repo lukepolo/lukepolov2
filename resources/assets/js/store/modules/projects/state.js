@@ -1,4 +1,4 @@
 export default {
-    projects : [],
-    project : null,
-}
+  projects: [],
+  project: null
+};
