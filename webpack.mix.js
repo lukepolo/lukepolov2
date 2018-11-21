@@ -51,6 +51,6 @@ mix
   .version();
 mix.browserSync({
   open: "external",
-  host: "lukepolo.dev",
-  proxy: "lukepolo.dev"
+  host: "lukepolo.test",
+  proxy: "lukepolo.test"
 });
