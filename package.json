@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.15.3",
-    "bootstrap-sass": "^3.3.7",
+    "bootstrap-sass": "^3.4.1",
     "browser-sync": "^2.18.13",
     "browser-sync-webpack-plugin": "^1.2.0",
     "chart.js": "^2.6.0",
