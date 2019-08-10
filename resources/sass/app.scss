@@ -1,17 +1,21 @@
-//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
-//@import "~font-awesome/scss/font-awesome";
-//
-//@import "plugins/froala";
-//@import "plugins/flatPickr";
-//@import "plugins/vueColor";
-//
-//@import "partials/base";
-//@import "partials/nav";
-//@import "partials/pagination";
-//@import "partials/notifications";
-//
-//@import "partials/homeheader";
-//@import "partials/projects";
-//@import "partials/blog";
-//@import "partials/comments";
-//@import "partials/admin";
+// TODO - we should just write our own styles
+$icon-font-path: '~/bootstrap-sass/assets/fonts/bootstrap/';
+@import "~bootstrap-sass/assets/stylesheets/bootstrap-sprockets";
+@import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+
+// TODO - upgrade to pro
+@import "~font-awesome/scss/font-awesome";
+
+@import "plugins/flatPickr";
+@import "plugins/vueColor";
+
+@import "partials/base";
+@import "partials/nav";
+@import "partials/pagination";
+@import "partials/notifications";
+
+@import "partials/homeheader";
+@import "partials/projects";
+@import "partials/blog";
+@import "partials/comments";
+@import "partials/admin";
