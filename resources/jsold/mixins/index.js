@@ -1,2 +1,0 @@
-require("./froala");
-require("./helpers");

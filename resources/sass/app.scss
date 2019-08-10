@@ -6,10 +6,11 @@ $icon-font-path: '~/bootstrap-sass/assets/fonts/bootstrap/';
 // TODO - upgrade to pro
 @import "~font-awesome/scss/font-awesome";
 
+@import "partials/base";
+
 @import "plugins/flatPickr";
 @import "plugins/vueColor";
 
-@import "partials/base";
 @import "partials/nav";
 @import "partials/pagination";
 @import "partials/notifications";
