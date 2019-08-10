@@ -17,27 +17,31 @@ return [
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
+        'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
     ],
 
-    'github' => [
-        'client_id' => env('GITHUB_CLIENT'),
-        'client_secret' => env('GITHUB_SECRET'),
-        'redirect' => env('APP_URL').'/oauth/callback/github'
+    'postmark' => [
+        'token' => env('POSTMARK_TOKEN'),
     ],
 
-    'twitter' => [
-        'client_id' => env('TWITTER_CLIENT'),
-        'client_secret' => env('TWITTER_SECRET'),
-        'redirect' => env('APP_URL').'/oauth/callback/twitter'
+    'ses' => [
+        'key' => env('AWS_ACCESS_KEY_ID'),
+        'secret' => env('AWS_SECRET_ACCESS_KEY'),
+        'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'google' => [
-        'client_id' => env('GOOGLE_CLIENT'),
-        'client_secret' => env('GOOGLE_SECRET'),
-        'redirect' => env('APP_URL').'/oauth/callback/google'
+    'sparkpost' => [
+        'secret' => env('SPARKPOST_SECRET'),
     ],
 
-    'sentry' => env('SENTRY_JS_DSN')
-
+    'stripe' => [
+        'model' => App\User::class,
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+        'webhook' => [
+            'secret' => env('STRIPE_WEBHOOK_SECRET'),
+            'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
+        ],
+    ],
 
 ];
