@@ -15,7 +15,7 @@ class RemoveTimeLinesTable extends Migration
     {
         Schema::drop('timelines');
         Schema::table('projects', function (Blueprint $table) {
-            $table->drop('timeline_id');
+            $table->dropColumn('timeline_id');
         });
     }
 

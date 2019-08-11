@@ -1,3 +1,6 @@
+// TODO - move somewhere else
+localStorage.FEK = "AODOd2HLEBFZOTGHW==";
+
 /*
 |--------------------------------------------------------------------------
 | App Entry

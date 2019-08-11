@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use App\Http\Requests\ProjectRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProjectRequest;
 
 class ProjectsController extends Controller
 {
@@ -80,7 +80,6 @@ class ProjectsController extends Controller
             'name' => $request->get('name'),
             'end_date' => $request->get('end_date'),
             'start_date' => $request->get('start_date'),
-            'timeline_id' => $request->get('timeline_id'),
         ]);
 
         if($request->hasFile('project_image')) {

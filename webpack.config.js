@@ -14,25 +14,38 @@ module.exports = function(env) {
       "@resources": "resources/js/resources",
       "@components": "resources/js/app/components",
     })
-      .dontClean([
-          "svg",
-          "vendor",
-          ".htaccess",
-          "favicon.ico",
-          "index.php",
-          "robots.txt",
-      ])
-      .chainWebpack((config, env) => {
-          config.when(!env.isHot, () => {
-              config.plugin("html").tap((opts) => {
-                  opts[0].filename = "../resources/views/layouts/app.blade.php";
-                  return opts;
-              });
-          });
-      })
-      .chainWebpack((config) => {
-          config.devServer.disableHostCheck(true);
-      })
-      .proxy("/api", ENV.APP_URL)
+    .dontClean([
+      "svg",
+      "vendor",
+      ".htaccess",
+      "favicon.ico",
+      "index.php",
+      "robots.txt",
+      "storage",
+    ])
+    .chainWebpack((config, env) => {
+      config.module
+        .rule("snapsvg")
+        .test(require.resolve("snapsvg"))
+        .use("import-loader")
+        .loader("imports-loader?this=>window,fix=>module.exports=0");
+
+      config.resolve.alias.set(
+        "vue-froala-wysiwyg$",
+        "vue-froala-wysiwyg/dist/vue-froala.js",
+      );
+
+      config.when(!env.isHot, () => {
+        config.plugin("html").tap((opts) => {
+          opts[0].filename = "../resources/views/layouts/app.blade.php";
+          return opts;
+        });
+      });
+    })
+    .chainWebpack((config) => {
+      config.devServer.disableHostCheck(true);
+    })
+    .proxy("/api", ENV.APP_URL)
+    .proxy("/storage", ENV.APP_URL)
     .build();
 };

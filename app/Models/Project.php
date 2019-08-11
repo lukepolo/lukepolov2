@@ -9,7 +9,6 @@ class Project extends Model
     protected $guarded = ['id'];
 
     protected $with = [
-        'timeline',
         'technologies'
     ];
 
@@ -19,11 +18,6 @@ class Project extends Model
     |--------------------------------------------------------------------------
     |
     */
-
-    public function timeline()
-    {
-        return $this->belongsTo(Timeline::class);
-    }
 
     public function technologies()
     {
