@@ -6,9 +6,9 @@
       </div>
       <div class="col-md-9">
         <project
+          :key="project.id"
           :project="project"
           v-for="project in projects"
-          :key="project.id"
         ></project>
       </div>
     </div>

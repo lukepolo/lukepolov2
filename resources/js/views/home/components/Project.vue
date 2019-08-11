@@ -1,11 +1,15 @@
 <template>
   <section>
-    <div class="project" @click="viewProject" v-show="!setProject">
+    <div class="project" @click="viewProject" v-show="!isViewingProject">
       <div class="col-md-6 img-holder" :data-project_id="project.id">
         <img class="img-responsive" :src="project.project_image" />
       </div>
     </div>
-    <div class="project-details" id="project->id" v-show="viewingProject">
+    <div
+      class="project-details"
+      id="project->id"
+      v-show="isViewingCurrentProject"
+    >
       <div class="show-projects">
         <span class="btn btn-info" @click.stop="closeProject()">
           <i class="fa fa-arrow-left"></i>
@@ -62,10 +66,10 @@ export default {
       window.open(url);
     },
     viewProject() {
-      this.$store.commit("projects/set", this.project);
+      this.$store.commit("projects/VIEW_PROJECT", this.project);
     },
     closeProject() {
-      this.$store.commit("projects/set", null);
+      this.$store.commit("projects/CLOSE_PROJECTS");
     },
   },
   computed: {
@@ -73,11 +77,13 @@ export default {
       // TODO - sort by name
       return this.project.technologies;
     },
-    setProject() {
-      return this.$store.state.projects.project;
+    isViewingProject() {
+      return this.$store.state.projects.viewingProject;
     },
-    viewingProject() {
-      return !!(this.setProject && this.setProject.id === this.project.id);
+    isViewingCurrentProject() {
+      return (
+        this.isViewingProject && this.isViewingProject.id === this.project.id
+      );
     },
   },
 };

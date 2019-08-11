@@ -1,6 +1,7 @@
 import ProjectStore from "@store/project/ProjectStore";
 import { StateServiceProvider as ServiceProvider } from "varie";
 import StateServiceInterface from "varie/lib/state/StateServiceInterface";
+import BlogStore from "@store/blog/BlogStore";
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,6 @@ export default class StateServiceProvider extends ServiceProvider {
   }
 
   public map() {
-    this.$store.registerStore(ProjectStore);
+    this.$store.registerStore(BlogStore).registerStore(ProjectStore);
   }
 }

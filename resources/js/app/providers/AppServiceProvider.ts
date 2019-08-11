@@ -2,6 +2,7 @@ import Vue from "vue";
 import { ServiceProvider } from "varie";
 import VueFroala from "vue-froala-wysiwyg";
 import ProjectService from "@app/services/ProjectService";
+import BlogService from "@app/services/BlogService";
 
 require("@app/helpers/routes");
 
@@ -21,6 +22,7 @@ export default class AppProviderServiceProvider extends ServiceProvider {
   public async register() {
     this.app.constant("RouteHelper", laroute);
 
+    this.app.bind<BlogService>("BlogService", BlogService);
     this.app.bind<ProjectService>("ProjectService", ProjectService);
   }
 }

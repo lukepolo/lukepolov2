@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "bootstrap-sass": "^3.4.1",
+    "dayjs": "^1.8.15",
     "flatpickr": "^4.6.2",
     "font-awesome": "^4.7.0",
     "froala-editor": "^2.6.5",

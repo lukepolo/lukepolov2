@@ -1,1 +1,3 @@
-export interface ProjectState {}
+export interface ProjectState {
+  viewingProject: object | null;
+}
